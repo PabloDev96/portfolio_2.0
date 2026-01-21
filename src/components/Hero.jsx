@@ -9,19 +9,29 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-900 to-slate-900 relative overflow-hidden"
     >
+      {/* “Tint” dinámico del tema (sin tocar tu gradient base) */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(900px circle at 50% 40%, var(--primary-soft), transparent 60%)",
+        }}
+      />
+
       {/* Animated background elements */}
       <div className="absolute inset-0">
         {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute bg-purple-500/10 rounded-full"
+            className="absolute rounded-full"
             style={{
               width: Math.random() * 300 + 50,
               height: Math.random() * 300 + 50,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              backgroundColor: "var(--primary-soft)",
             }}
             animate={{
               x: [0, Math.random() * 100 - 50],
@@ -52,8 +62,13 @@ const Hero = () => {
             >
               Hola, soy{" "}
               <motion.span
-                className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-transparent"
-                animate={{ backgroundPosition: ["0%", "100%", "0%"] }}
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(90deg, var(--primary), var(--accent))",
+                  backgroundSize: "200% 200%",
+                }}
+                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
                 transition={{ duration: 5, repeat: Infinity }}
               >
                 Pablo Díaz
@@ -79,7 +94,7 @@ const Hero = () => {
             <motion.button
               type="button"
               onClick={() => scrollToId("#projects")}
-              className="px-8 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition-colors"
+              className="px-8 py-3 bg-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-hover)] transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -89,30 +104,11 @@ const Hero = () => {
             <motion.button
               type="button"
               onClick={() => scrollToId("#contact")}
-              className="px-8 py-3 border-2 border-purple-600 text-white rounded-full font-semibold hover:bg-purple-600/10 transition-colors"
+              className="px-8 py-3 border-2 border-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-soft)] transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               Contactar
-            </motion.button>
-          </motion.div>
-
-          <motion.div
-            className="mt-16"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.8 }}
-          >
-            {/* Scroll hint -> baja a proyectos */}
-            <motion.button
-              type="button"
-              onClick={() => scrollToId("#projects")}
-              className="text-white text-4xl"
-              aria-label="Bajar a proyectos"
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            >
-              ↓
             </motion.button>
           </motion.div>
         </div>
@@ -121,4 +117,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default Hero

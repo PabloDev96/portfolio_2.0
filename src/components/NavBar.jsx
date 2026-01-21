@@ -1,13 +1,18 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useState, useEffect } from "react";
 import { HiArrowUp, HiOutlineDocumentText } from "react-icons/hi";
+import { HiCog } from "react-icons/hi";
+import { useTheme } from "../context/ThemeContext";
 
-const CV_URL = "/CV_PabloDíazGarcía.pdf"; // pon tu archivo en /public/cv.pdf
+
+const CV_URL = "/CV_PabloDíazGarcía.pdf";
 
 const NavBar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const { scrollY } = useScroll();
+    const { theme, setTheme } = useTheme();
+    const [openTheme, setOpenTheme] = useState(false);
 
     const backgroundColor = useTransform(
         scrollY,
@@ -17,7 +22,8 @@ const NavBar = () => {
 
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
-        window.addEventListener("scroll", handleScroll);
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        handleScroll(); // por si recargas en mitad de la página
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -49,9 +55,8 @@ const NavBar = () => {
         closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     };
 
-    // Scroll suave al top/hero
     const goHome = (e) => {
-        e.preventDefault();
+        e?.preventDefault?.();
         setIsOpen(false);
         const el = document.querySelector("#home");
         if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -59,147 +64,183 @@ const NavBar = () => {
     };
 
     return (
-        <motion.nav
-            style={{ backgroundColor }}
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "backdrop-blur-md shadow-lg" : ""
-                }`}
-        >
-            <div className="container mx-auto px-6 py-4">
-                <div className="flex items-center justify-between">
-                    {/* Botón "volver arriba" (reemplaza logo) */}
-                    <motion.a
-                        href="#home"
-                        onClick={goHome}
-                        aria-label="Volver arriba"
-                        className="w-11 h-11 rounded-full border border-white/15 bg-white/5 text-white flex items-center justify-center backdrop-blur-md"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.5 }}
-                        whileHover={{ scale: 1.06, y: -1 }}
-                        whileTap={{ scale: 0.98 }}
-                        title="Volver arriba"
-                    >
-                        <HiArrowUp className="text-xl" />
-                    </motion.a>
-
-                    {/* Desktop Menu */}
-                    <motion.ul
-                        className="hidden md:flex items-center gap-8"
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                    >
-                        {navItems.map((item, index) => (
-                            <motion.li
-                                key={item.name}
-                                initial={{ opacity: 0, y: -20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.5, delay: 0.1 * index }}
+        <>
+            <motion.nav
+                style={{ backgroundColor }}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "backdrop-blur-md shadow-lg" : ""
+                    }`}
+            >
+                <div className="container mx-auto px-6 py-4">
+                    <div className="flex items-center justify-between">
+                        <div className="relative">
+                            <button
+                                onClick={() => setOpenTheme(!openTheme)}
+                                className="w-10 h-10 rounded-full border border-white/20 bg-white/5 text-white flex items-center justify-center hover:bg-white/10"
+                                aria-label="Configurar tema"
                             >
-                                <motion.a
-                                    href={item.href}
-                                    className="text-gray-300 hover:text-white transition-colors font-medium relative group"
-                                    whileHover={{ scale: 1.05 }}
+                                <HiCog className="text-xl" />
+                            </button>
+
+                            {openTheme && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0 }}
+                                    className="absolute top-12 left-0 w-44 rounded-xl bg-slate-900 border border-white/10 shadow-xl p-3 space-y-2"
                                 >
-                                    {item.name}
-                                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-purple-500 group-hover:w-full transition-all duration-300" />
-                                </motion.a>
-                            </motion.li>
-                        ))}
+                                    <button
+                                        onClick={() => { setTheme("purple"); setOpenTheme(false); }}
+                                        className={`w-full px-3 py-2 rounded-lg text-left flex items-center gap-2 ${theme === "purple"
+                                            ? "bg-[var(--primary-soft)] text-white"
+                                            : "hover:bg-white/5 text-gray-300"
+                                            }`}
+                                    >
+                                        🎨 Morado
+                                    </button>
 
-                        <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                            <a
-                                href={CV_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-2 px-6 py-2 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition-colors"
-                            >
-                                <HiOutlineDocumentText className="text-lg" />
-                                <span>Ver CV</span>
-                            </a>
-                        </motion.li>
-                    </motion.ul>
-
-                    {/* Mobile Menu Button */}
-                    <motion.button
-                        className="md:hidden z-50 relative w-10 h-10 flex items-center justify-center"
-                        onClick={() => setIsOpen(!isOpen)}
-                        whileTap={{ scale: 0.9 }}
-                        aria-label="Abrir menú"
-                    >
-                        <div className="flex flex-col gap-1.5">
-                            <motion.span
-                                className="w-6 h-0.5 bg-white"
-                                animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                            />
-                            <motion.span
-                                className="w-6 h-0.5 bg-white"
-                                animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-                            />
-                            <motion.span
-                                className="w-6 h-0.5 bg-white"
-                                animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                            />
+                                    <button
+                                        onClick={() => { setTheme("green"); setOpenTheme(false); }}
+                                        className={`w-full px-3 py-2 rounded-lg text-left flex items-center gap-2 ${theme === "green"
+                                            ? "bg-[var(--primary-soft)] text-white"
+                                            : "hover:bg-white/5 text-gray-300"
+                                            }`}
+                                    >
+                                        🌿 Verde
+                                    </button>
+                                </motion.div>
+                            )}
                         </div>
-                    </motion.button>
 
-                    {/* Mobile Menu */}
-                    <motion.div
-                        className="fixed inset-0 bg-slate-900 md:hidden"
-                        initial={false}
-                        animate={isOpen ? "open" : "closed"}
-                        variants={menuVariants}
-                    >
+                        {/* Desktop Menu */}
                         <motion.ul
-                            className="flex flex-col items-center justify-center h-full gap-8"
-                            variants={listVariants}
+                            className="hidden md:flex items-center gap-8"
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
                         >
-                            {/* Flecha arriba también en el menú móvil */}
-                            <motion.li variants={itemVariants}>
-                                <motion.a
-                                    href="#home"
-                                    onClick={goHome}
-                                    className="w-14 h-14 rounded-full border border-white/15 bg-white/5 text-white flex items-center justify-center"
-                                    whileHover={{ scale: 1.06 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    aria-label="Volver arriba"
-                                >
-                                    <span className="text-2xl">↑</span>
-                                </motion.a>
-                            </motion.li>
-
-                            {navItems.map((item) => (
+                            {navItems.map((item, index) => (
                                 <motion.li
                                     key={item.name}
-                                    variants={itemVariants}
-                                    whileHover={{ scale: 1.1 }}
-                                    whileTap={{ scale: 0.95 }}
+                                    initial={{ opacity: 0, y: -20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: 0.1 * index }}
                                 >
-                                    <a
+                                    <motion.a
                                         href={item.href}
-                                        className="text-3xl text-white font-bold hover:text-purple-400 transition-colors"
-                                        onClick={() => setIsOpen(false)}
+                                        className="text-gray-300 hover:text-white transition-colors font-medium relative group"
+                                        whileHover={{ scale: 1.05 }}
                                     >
                                         {item.name}
-                                    </a>
+                                        <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--primary)] group-hover:w-full transition-all duration-300" />
+                                    </motion.a>
                                 </motion.li>
                             ))}
 
-                            <motion.li variants={itemVariants}>
+                            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
                                 <a
                                     href={CV_URL}
-                                    download
-                                    onClick={() => setIsOpen(false)}
-                                    className="inline-flex items-center px-8 py-3 bg-purple-600 text-white rounded-full font-semibold text-xl"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-2 px-6 py-2 bg-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-hover)] transition-colors"
                                 >
-                                    Descargar CV
+                                    <HiOutlineDocumentText className="text-lg" />
+                                    <span>Ver CV</span>
                                 </a>
                             </motion.li>
                         </motion.ul>
-                    </motion.div>
+
+                        {/* Mobile Menu Button */}
+                        <motion.button
+                            className="md:hidden z-50 relative w-10 h-10 flex items-center justify-center"
+                            onClick={() => setIsOpen(!isOpen)}
+                            whileTap={{ scale: 0.9 }}
+                            aria-label="Abrir menú"
+                        >
+                            <div className="flex flex-col gap-1.5">
+                                <motion.span
+                                    className="w-6 h-0.5 bg-white"
+                                    animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                                />
+                                <motion.span
+                                    className="w-6 h-0.5 bg-white"
+                                    animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                                />
+                                <motion.span
+                                    className="w-6 h-0.5 bg-white"
+                                    animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                                />
+                            </div>
+                        </motion.button>
+
+                        {/* Mobile Menu */}
+                        <motion.div
+                            className="fixed inset-0 bg-slate-900 md:hidden"
+                            initial={false}
+                            animate={isOpen ? "open" : "closed"}
+                            variants={menuVariants}
+                        >
+                            <motion.ul
+                                className="flex flex-col items-center justify-center h-full gap-8"
+                                variants={listVariants}
+                            >
+                                {navItems.map((item) => (
+                                    <motion.li
+                                        key={item.name}
+                                        variants={itemVariants}
+                                        whileHover={{ scale: 1.1 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        <a
+                                            href={item.href}
+                                            className="text-3xl text-white font-bold hover:text-[var(--primary)] transition-colors"
+                                            onClick={() => setIsOpen(false)}
+                                        >
+                                            {item.name}
+                                        </a>
+                                    </motion.li>
+                                ))}
+
+                                <motion.li variants={itemVariants}>
+                                    <a
+                                        href={CV_URL}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        onClick={() => setIsOpen(false)}
+                                        className="inline-flex items-center gap-3 px-8 py-3 bg-purple-600 text-white rounded-full font-semibold text-xl"
+                                    >
+                                        <HiOutlineDocumentText className="text-2xl" />
+                                        <span>Ver CV</span>
+                                    </a>
+                                </motion.li>
+                            </motion.ul>
+                        </motion.div>
+                    </div>
                 </div>
-            </div>
-        </motion.nav>
+            </motion.nav>
+
+            {/* Botón flotante (fuera del navbar) */}
+            <motion.button
+                type="button"
+                onClick={goHome}
+                aria-label="Subir arriba"
+                className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[var(--primary)] text-white shadow-lg flex items-center justify-center hover:bg-[var(--primary-hover)]"
+                style={{
+                    pointerEvents: scrolled ? "auto" : "none",
+                    boxShadow: scrolled ? `0 14px 40px var(--primary-glow)` : undefined,
+                }}
+                initial={{ opacity: 0, y: 12, scale: 0.95 }}
+                animate={
+                    scrolled
+                        ? { opacity: 1, y: 0, scale: 1 }
+                        : { opacity: 0, y: 12, scale: 0.95 }
+                }
+                transition={{ duration: 0.2 }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.95 }}
+            >
+                <HiArrowUp className="text-2xl" />
+            </motion.button>
+        </>
     );
 };
 

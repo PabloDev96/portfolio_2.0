@@ -17,8 +17,8 @@ export default function Contact() {
             Contacto
           </h2>
           <p className="text-gray-400 text-lg">
-            ¿Tienes un proyecto en mente o quieres trabajar conmigo?
-            Escríbeme y hablamos.
+            ¿Tienes un proyecto en mente o quieres trabajar conmigo? Escríbeme y
+            hablamos.
           </p>
         </motion.div>
 
@@ -29,14 +29,14 @@ export default function Contact() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          onSubmit={(e) => e.preventDefault()} // por ahora solo UI
+          onSubmit={(e) => e.preventDefault()}
         >
           <div className="flex flex-col gap-2">
             <label className="text-sm text-gray-300">Nombre</label>
             <input
               type="text"
               placeholder="Tu nombre"
-              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-[var(--primary)] transition-colors"
             />
           </div>
 
@@ -45,7 +45,7 @@ export default function Contact() {
             <input
               type="email"
               placeholder="tucorreo@email.com"
-              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-purple-500 transition-colors"
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-[var(--primary)] transition-colors"
             />
           </div>
 
@@ -54,13 +54,14 @@ export default function Contact() {
             <textarea
               rows="5"
               placeholder="Cuéntame sobre tu proyecto..."
-              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-purple-500 transition-colors resize-none"
+              className="px-4 py-3 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-[var(--primary)] transition-colors resize-none"
             />
           </div>
 
           <motion.button
             type="submit"
-            className="mt-4 self-center px-8 py-3 bg-purple-600 text-white rounded-full font-semibold text-lg hover:bg-purple-700 transition-colors shadow-lg"
+            className="mt-4 self-center px-8 py-3 bg-[var(--primary)] text-white rounded-full font-semibold text-lg hover:bg-[var(--primary-hover)] transition-colors shadow-lg"
+            style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
