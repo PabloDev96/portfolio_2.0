@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import NavBar from './components/NavBar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -9,19 +8,25 @@ import Footer from './components/Footer';
 
 function App() {
   return (
-    <div className="bg-slate-900">
+    <div className="w-full overflow-x-hidden">
       <NavBar />
-      <div id="home">
-        <Hero />
-      </div>
-      <div id="about">
-        <About />
-      </div>
-      <Section />
-      <div id="projects">
-        <Projects />
-      </div>
-      <Home />
+      <main>
+        <div id="home">
+          <Hero />
+        </div>
+        <div id="about">
+          <About />
+        </div>
+        <div id="services">
+          <Section />
+        </div>
+        <div id="projects">
+          <Projects />
+        </div>
+        <div id="contact">
+          <Home />
+        </div>
+      </main>
       <Footer />
     </div>
   );
