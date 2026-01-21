@@ -35,7 +35,7 @@ const About = () => {
   };
 
   return (
-    <section ref={ref} className="min-h-screen bg-slate-900 py-20 px-6">
+    <section ref={ref} id="about" className="min-h-screen bg-slate-900 py-20 px-6">
       <div className="container mx-auto max-w-6xl">
         <motion.h2
           className="text-5xl font-bold text-white text-center mb-16"

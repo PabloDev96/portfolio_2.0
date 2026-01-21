@@ -53,3 +53,5 @@ a {
   outline: 1px solid rgba(255, 0, 0, 0.2);
 }
 */
+html { scroll-behavior: smooth; }
+section { scroll-margin-top: 75px; } /* ajusta 80-110 según tu navbar */
