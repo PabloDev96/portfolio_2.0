@@ -2,8 +2,49 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import Section from "./Section";
 import { setParticlesAttractor } from "../utils/particlesAttractor";
+import { HiOutlineLink } from "react-icons/hi";
+import {
+    FaReact,
+    FaPhp,
+    FaJs,
+    FaGithub,
+} from "react-icons/fa";
+import {
+    SiFirebase,
+    SiSpring,
+    SiPostgresql,
+    SiTailwindcss,
+    SiMysql,
+    SiWordpress,
+} from "react-icons/si";
+
 
 const Projects = () => {
+
+    const techIcons = {
+        React: FaReact,
+        Firebase: SiFirebase,
+        Spring: SiSpring,
+        PostgreSQL: SiPostgresql,
+        php: FaPhp,
+        JavaScript: FaJs,
+        Tailwind: SiTailwindcss,
+        MySQL: SiMysql,
+        WordPress: SiWordpress,
+    };
+
+    const techColors = {
+        React: "#61DAFB",
+        Firebase: "#FFCA28",
+        Spring: "#6DB33F",
+        PostgreSQL: "#336791",
+        php: "#777BB4",
+        JavaScript: "#F7DF1E",
+        Tailwind: "#38BDF8",
+        MySQL: "#00758F",
+        WordPress: "#21759B",
+    };
+
     const ref = useRef(null);
     const isInView = useInView(ref, { once: false, margin: "-100px" });
     const [hoveredIndex, setHoveredIndex] = useState(null);
@@ -37,7 +78,7 @@ const Projects = () => {
             title: "ButtonPressGaming",
             description:
                 "Página Web de noticias gaming creada mediante Wordpress usando Elementor y optimizada con Yoast SEO.",
-            technologies: ["php", "JavaScript", "Tailwind", "MySQL"],
+            technologies: ["WordPress"],
             color: "from-purple-500 to-pink-500",
             link: "https://buttonpressgaming.es/",
         },
@@ -144,39 +185,68 @@ const Projects = () => {
                                         {project.description}
                                     </p>
 
-                                    <div className="flex flex-wrap gap-2 mb-4">
-                                        {project.technologies.map((tech, i) => (
-                                            <motion.span
-                                                key={i}
-                                                className="px-3 py-1 bg-slate-800/70 border border-slate-600 text-[var(--primary)] text-sm rounded-full"
-                                                whileHover={{ scale: 1.05 }}
-                                            >
-                                                {tech}
-                                            </motion.span>
-                                        ))}
-                                    </div>
+                                    <div className="flex flex-wrap gap-3 mb-4">
+                                        {project.technologies.map((tech, i) => {
+                                            const Icon = techIcons[tech] || FaGithub;
+                                            const color = techColors[tech] || "var(--primary)";
 
-                                    {/* Botón: VER MÁS (con attractor) */}
-                                    <motion.button
-                                        type="button"
-                                        onClick={() => openProject(project.link)}
-                                        className="text-[var(--primary)] font-semibold flex items-center gap-2"
-                                        whileHover={{ x: 5 }}
-                                        aria-label={`Ver más sobre ${project.title}`}
-                                        onMouseEnter={(e) => attractToTarget(e, 1.25)}
-                                        onMouseLeave={stopAttractor}
-                                        onFocus={(e) => attractToTarget(e, 1.25)}
-                                        onBlur={stopAttractor}
-                                    >
-                                        Ver más
-                                        <motion.span
-                                            animate={{ x: hoveredIndex === index ? 5 : 0 }}
-                                            transition={{ duration: 0.3 }}
-                                        >
-                                            →
-                                        </motion.span>
-                                    </motion.button>
+                                            return (
+                                                <motion.div
+                                                    key={`${tech}-${i}`}
+                                                    className="
+          w-10 h-10
+          rounded-full
+          bg-slate-800/70
+          border border-slate-600
+          flex items-center justify-center
+          backdrop-blur-md
+        "
+                                                    title={tech}
+                                                    aria-label={tech}
+                                                    whileHover={{ scale: 1.15, y: -2 }}
+                                                    onMouseEnter={(e) => attractToTarget(e, 1.1)}
+                                                    onMouseLeave={stopAttractor}
+                                                    onFocus={(e) => attractToTarget(e, 1.1)}
+                                                    onBlur={stopAttractor}
+                                                >
+                                                    <Icon
+                                                        className="text-xl"
+                                                        style={{
+                                                            color,
+                                                            filter: "drop-shadow(0 6px 14px rgba(0,0,0,0.35))",
+                                                        }}
+                                                    />
+                                                </motion.div>
+                                            );
+                                        })}
+                                    </div>
                                 </div>
+                                {/* Botón link al proyecto */}
+                                <motion.button
+                                    type="button"
+                                    onClick={() => openProject(project.link)}
+                                    aria-label={`Abrir ${project.title}`}
+                                    title="Abrir proyecto"
+                                    className="absolute bottom-4 right-4
+                                                    w-10 h-10
+                                                    rounded-full
+                                                    border border-[var(--primary)]
+                                                    text-[var(--primary)]
+                                                    flex items-center justify-center
+                                                    backdrop-blur-md
+                                                    bg-transparent
+                                                    hover:bg-[var(--primary-soft)]
+                                                    transition-colors
+                                                "
+                                    whileHover={{ scale: 1.15, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    onMouseEnter={(e) => attractToTarget(e, 1.25)}
+                                    onMouseLeave={stopAttractor}
+                                    onFocus={(e) => attractToTarget(e, 1.25)}
+                                    onBlur={stopAttractor}
+                                >
+                                    <HiOutlineLink className="text-xl" />
+                                </motion.button>
                             </motion.div>
                         </motion.div>
                     ))}
@@ -193,14 +263,14 @@ const Projects = () => {
                         type="button"
                         onClick={openAllProjects}
                         className="
-                                    inline-flex items-center gap-2
-                                    px-6 py-2
-                                    rounded-full
-                                    border-2 border-[var(--primary)]
-                                    text-white font-semibold
-                                    hover:bg-[var(--primary-soft)]
-                                    transition-colors
-                                "
+                                        inline-flex items-center gap-2
+                                        px-6 py-2
+                                        rounded-full
+                                        border-2 border-[var(--primary)]
+                                        text-white font-semibold
+                                        hover:bg-[var(--primary-soft)]
+                                        transition-colors
+                                    "
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}

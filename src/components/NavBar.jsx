@@ -164,6 +164,34 @@ const NavBar = () => {
                                             transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
                                         />
                                     </button>
+
+                                    {/* BLUE */}
+                                    <button
+                                        onClick={() => {
+                                            setTheme("blue");
+                                            setOpenTheme(false);
+                                        }}
+                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${theme === "blue" ? "bg-white/5" : ""
+                                            }`}
+                                        onMouseEnter={(e) => attractToTarget(e, 1.15)}
+                                        onMouseLeave={stopAttractor}
+                                        onFocus={(e) => attractToTarget(e, 1.15)}
+                                        onBlur={stopAttractor}
+                                        aria-label="Paleta azul"
+                                    >
+                                        <motion.span
+                                            className="w-5 h-5 rounded-full border border-white/15"
+                                            style={{
+                                                backgroundImage:
+                                                    "linear-gradient(90deg, #3b82f6, #38bdf8)",
+                                                backgroundSize: "200% 200%",
+                                            }}
+                                            animate={{
+                                                backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                                            }}
+                                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                        />
+                                    </button>
                                 </motion.div>
                             )}
                         </div>

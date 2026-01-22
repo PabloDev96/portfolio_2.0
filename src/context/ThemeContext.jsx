@@ -8,11 +8,7 @@ export const ThemeProvider = ({ children }) => {
   );
 
   useEffect(() => {
-    if (theme === "green") {
-      document.documentElement.setAttribute("data-theme", "green");
-    } else {
-      document.documentElement.removeAttribute("data-theme");
-    }
+    document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
