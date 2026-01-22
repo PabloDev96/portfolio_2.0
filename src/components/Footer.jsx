@@ -187,21 +187,19 @@ const Footer = () => {
                 <div className="flex items-center justify-center gap-4 flex-wrap">
                     <ActionButton label="GitHub" icon={<FaGithub />} href={GITHUB_URL} />
                     <ActionButton label="LinkedIn" icon={<FaLinkedin />} href={LINKEDIN_URL} />
-                    <ActionButton label="WhatsApp" icon={<FaWhatsapp />} href={WHATSAPP_URL} />
-
                     <PopoverButton
                         label="Teléfono"
                         icon={<HiOutlinePhone />}
                         primaryHref={`tel:${PHONE_TEL}`}
                         copyValue={PHONE_NUMBER}
                     />
-
                     <PopoverButton
                         label="Email"
                         icon={<HiOutlineMail />}
                         primaryHref={`mailto:${EMAIL}`}
                         copyValue={EMAIL}
                     />
+                    <ActionButton label="WhatsApp" icon={<FaWhatsapp />} href={WHATSAPP_URL} />
                 </div>
 
                 <p className="text-center text-xs text-gray-500 mt-6">
