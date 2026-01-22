@@ -4,6 +4,8 @@ import { HiArrowUp, HiOutlineDocumentText } from "react-icons/hi";
 import { HiCog } from "react-icons/hi";
 import { useTheme } from "../context/ThemeContext";
 import { setParticlesAttractor } from "../utils/particlesAttractor";
+import { GiPalette } from "react-icons/gi";
+import { FaPalette } from "react-icons/fa";
 
 const CV_URL = "/CV_PabloDíazGarcía.pdf";
 
@@ -93,14 +95,14 @@ const NavBar = () => {
                         <div className="relative">
                             <button
                                 onClick={() => setOpenTheme(!openTheme)}
-                                className="w-10 h-10 rounded-full border border-white/20 bg-white/5 text-white flex items-center justify-center hover:bg-white/10"
-                                aria-label="Configurar tema"
+                                className="w-10 h-10 rounded-full border-2 border-[var(--primary)] bg-transparent text-white flex items-center justify-center hover:bg-[var(--primary-soft)] transition-colors backdrop-blur-md"
+                                aria-label="Cambiar paleta"
                                 onMouseEnter={(e) => attractToTarget(e, 1.2)}
                                 onMouseLeave={stopAttractor}
                                 onFocus={(e) => attractToTarget(e, 1.2)}
                                 onBlur={stopAttractor}
                             >
-                                <HiCog className="text-xl" />
+                                <GiPalette className="text-lg" />
                             </button>
 
                             {openTheme && (
@@ -108,40 +110,59 @@ const NavBar = () => {
                                     initial={{ opacity: 0, y: -8 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0 }}
-                                    className="absolute top-12 left-0 w-44 rounded-xl bg-slate-900 border border-white/10 shadow-xl p-3 space-y-2"
+                                    className="absolute top-12 left-0 rounded-xl bg-slate-900 border border-white/10 shadow-xl p-3"
                                 >
+
+                                    {/* PURPLE */}
                                     <button
                                         onClick={() => {
                                             setTheme("purple");
                                             setOpenTheme(false);
                                         }}
-                                        className={`w-full px-3 py-2 rounded-lg text-left flex items-center gap-2 ${theme === "purple"
-                                                ? "bg-[var(--primary-soft)] text-white"
-                                                : "hover:bg-white/5 text-gray-300"
+                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${theme === "purple" ? "bg-white/5" : ""
                                             }`}
                                         onMouseEnter={(e) => attractToTarget(e, 1.15)}
                                         onMouseLeave={stopAttractor}
                                         onFocus={(e) => attractToTarget(e, 1.15)}
                                         onBlur={stopAttractor}
+                                        aria-label="Paleta morada"
                                     >
-                                        🎨 Morado
+                                        <motion.span
+                                            className="w-5 h-5 rounded-full border border-white/15 bg-clip-padding"
+                                            style={{
+                                                backgroundImage:
+                                                    "linear-gradient(90deg, #7c3aed, #ec4899)",
+                                                backgroundSize: "200% 200%",
+                                            }}
+                                            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                        />
                                     </button>
 
+                                    {/* GREEN */}
                                     <button
                                         onClick={() => {
                                             setTheme("green");
                                             setOpenTheme(false);
                                         }}
-                                        className={`w-full px-3 py-2 rounded-lg text-left flex items-center gap-2 ${theme === "green"
-                                                ? "bg-[var(--primary-soft)] text-white"
-                                                : "hover:bg-white/5 text-gray-300"
+                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${theme === "green" ? "bg-white/5" : ""
                                             }`}
                                         onMouseEnter={(e) => attractToTarget(e, 1.15)}
                                         onMouseLeave={stopAttractor}
                                         onFocus={(e) => attractToTarget(e, 1.15)}
                                         onBlur={stopAttractor}
+                                        aria-label="Paleta verde"
                                     >
-                                        🌿 Verde
+                                        <motion.span
+                                            className="w-5 h-5 rounded-full border border-white/15 bg-clip-padding"
+                                            style={{
+                                                backgroundImage:
+                                                    "linear-gradient(90deg, #16a34a, #18dbce)",
+                                                backgroundSize: "200% 200%",
+                                            }}
+                                            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                                            transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                                        />
                                     </button>
                                 </motion.div>
                             )}
@@ -181,7 +202,15 @@ const NavBar = () => {
                                     href={CV_URL}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-6 py-2 bg-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-hover)] transition-colors"
+                                    className="
+                                    inline-flex items-center gap-2
+                                    px-6 py-2
+                                    rounded-full
+                                    border-2 border-[var(--primary)]
+                                    text-white font-semibold
+                                    hover:bg-[var(--primary-soft)]
+                                    transition-colors
+                                "
                                     onMouseEnter={(e) => attractToTarget(e, 1.35)}
                                     onMouseLeave={stopAttractor}
                                     onFocus={(e) => attractToTarget(e, 1.35)}
