@@ -76,7 +76,7 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
     };
 
     const openLabel = label === "Teléfono" ? "Llamar" : "Enviar";
-    const OpenIcon = label === "Teléfono" ? HiOutlinePhoneOutgoing : HiOutlineMailOpen;
+    const OpenIcon = label === "Teléfono" ? HiOutlinePhoneOutgoing : TbSend;
 
     return (
         <div
@@ -108,7 +108,7 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                         transition={{ type: "spring", stiffness: 260, damping: 20 }}
                         className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs text-white bg-slate-950/90 border border-white/10 shadow-lg"
                     >
-                        Copiado ✓
+                        Copiado
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -151,12 +151,6 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                             {copyValue}
                         </div>
 
-                        {/* Hint móvil */}
-                        {isTouch && (
-                            <div className="mt-2 text-[11px] text-gray-500 px-2">
-                                Toca fuera para cerrar
-                            </div>
-                        )}
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -188,13 +182,11 @@ const Footer = () => {
                     <ActionButton label="GitHub" icon={<FaGithub />} href={GITHUB_URL} />
                     <ActionButton label="LinkedIn" icon={<FaLinkedin />} href={LINKEDIN_URL} />
                     <PopoverButton
-                        label="Teléfono"
                         icon={<HiOutlinePhone />}
                         primaryHref={`tel:${PHONE_TEL}`}
                         copyValue={PHONE_NUMBER}
                     />
                     <PopoverButton
-                        label="Email"
                         icon={<HiOutlineMail />}
                         primaryHref={`mailto:${EMAIL}`}
                         copyValue={EMAIL}
