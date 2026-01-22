@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 const Hero = () => {
   const scrollToId = (id) => {
@@ -6,47 +7,21 @@ const Hero = () => {
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
+  // ==== Partículas: helpers hover ====
+  const attractToTarget = (e, strength = 1.35) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    setParticlesAttractor({
+      x: r.left + r.width / 2,
+      y: r.top + r.height / 2,
+      active: true,
+      strength,
+    });
+  };
+
+  const stopAttractor = () => setParticlesAttractor({ active: false });
+
   return (
-    <section
-      id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-900 to-slate-900 relative overflow-hidden"
-    >
-      {/* “Tint” dinámico del tema (sin tocar tu gradient base) */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(900px circle at 50% 40%, var(--primary-soft), transparent 60%)",
-        }}
-      />
-
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute rounded-full"
-            style={{
-              width: Math.random() * 300 + 50,
-              height: Math.random() * 300 + 50,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              backgroundColor: "var(--primary-soft)",
-            }}
-            animate={{
-              x: [0, Math.random() * 100 - 50],
-              y: [0, Math.random() * 100 - 50],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: Math.random() * 10 + 10,
-              repeat: Infinity,
-              repeatType: "reverse",
-            }}
-          />
-        ))}
-      </div>
-
+    <section id="home" className="min-h-screen flex items-center justify-center relative">
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
@@ -69,7 +44,7 @@ const Hero = () => {
                   backgroundSize: "200% 200%",
                 }}
                 animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                transition={{ duration: 5, repeat: Infinity }}
+                transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
               >
                 Pablo Díaz
               </motion.span>
@@ -97,6 +72,10 @@ const Hero = () => {
               className="px-8 py-3 bg-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-hover)] transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onMouseEnter={(e) => attractToTarget(e, 1.45)}
+              onMouseLeave={stopAttractor}
+              onFocus={(e) => attractToTarget(e, 1.45)}
+              onBlur={stopAttractor}
             >
               Ver Proyectos
             </motion.button>
@@ -107,6 +86,10 @@ const Hero = () => {
               className="px-8 py-3 border-2 border-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-soft)] transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onMouseEnter={(e) => attractToTarget(e, 1.35)}
+              onMouseLeave={stopAttractor}
+              onFocus={(e) => attractToTarget(e, 1.35)}
+              onBlur={stopAttractor}
             >
               Contactar
             </motion.button>
@@ -117,4 +100,4 @@ const Hero = () => {
   );
 };
 
-export default Hero
+export default Hero;

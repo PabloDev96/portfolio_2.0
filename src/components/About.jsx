@@ -26,7 +26,7 @@ const About = () => {
     };
 
     return (
-        <Section id="about" className="min-h-screen bg-slate-900">
+        <Section id="about" className="min-h-screen">
             <div ref={ref} className="container mx-auto max-w-6xl">
                 <motion.h2
                     className="text-5xl font-bold text-white text-center mb-16"

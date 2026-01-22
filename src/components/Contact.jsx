@@ -3,7 +3,7 @@ import Section from "./Section";
 
 export default function Contact() {
     return (
-        <Section id="contact" className="bg-slate-900">
+        <Section id="contact">
             <div className="container mx-auto max-w-3xl">
                 {/* Header */}
                 <motion.div
@@ -32,7 +32,7 @@ export default function Contact() {
                             Contacto
                         </motion.span>
                     </motion.h2>
-                            
+
                     <p className="text-gray-400 text-lg">
                         ¿Tienes un proyecto en mente o quieres trabajar conmigo? Escríbeme y
                         hablamos.

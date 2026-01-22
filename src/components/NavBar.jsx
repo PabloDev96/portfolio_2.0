@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { HiArrowUp, HiOutlineDocumentText } from "react-icons/hi";
 import { HiCog } from "react-icons/hi";
 import { useTheme } from "../context/ThemeContext";
-
+import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 const CV_URL = "/CV_PabloDíazGarcía.pdf";
 
@@ -23,7 +23,7 @@ const NavBar = () => {
     useEffect(() => {
         const handleScroll = () => setScrolled(window.scrollY > 50);
         window.addEventListener("scroll", handleScroll, { passive: true });
-        handleScroll(); // por si recargas en mitad de la página
+        handleScroll();
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
@@ -46,7 +46,11 @@ const NavBar = () => {
     };
 
     const itemVariants = {
-        open: { y: 0, opacity: 1, transition: { y: { stiffness: 1000, velocity: -100 } } },
+        open: {
+            y: 0,
+            opacity: 1,
+            transition: { y: { stiffness: 1000, velocity: -100 } },
+        },
         closed: { y: 50, opacity: 0, transition: { y: { stiffness: 1000 } } },
     };
 
@@ -63,6 +67,19 @@ const NavBar = () => {
         else window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
+    // ==== Partículas: helpers hover ====
+    const attractToTarget = (e, strength = 1.25) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        setParticlesAttractor({
+            x: r.left + r.width / 2,
+            y: r.top + r.height / 2,
+            active: true,
+            strength,
+        });
+    };
+
+    const stopAttractor = () => setParticlesAttractor({ active: false });
+
     return (
         <>
             <motion.nav
@@ -72,11 +89,16 @@ const NavBar = () => {
             >
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
+                        {/* Botón tema */}
                         <div className="relative">
                             <button
                                 onClick={() => setOpenTheme(!openTheme)}
                                 className="w-10 h-10 rounded-full border border-white/20 bg-white/5 text-white flex items-center justify-center hover:bg-white/10"
                                 aria-label="Configurar tema"
+                                onMouseEnter={(e) => attractToTarget(e, 1.2)}
+                                onMouseLeave={stopAttractor}
+                                onFocus={(e) => attractToTarget(e, 1.2)}
+                                onBlur={stopAttractor}
                             >
                                 <HiCog className="text-xl" />
                             </button>
@@ -89,21 +111,35 @@ const NavBar = () => {
                                     className="absolute top-12 left-0 w-44 rounded-xl bg-slate-900 border border-white/10 shadow-xl p-3 space-y-2"
                                 >
                                     <button
-                                        onClick={() => { setTheme("purple"); setOpenTheme(false); }}
+                                        onClick={() => {
+                                            setTheme("purple");
+                                            setOpenTheme(false);
+                                        }}
                                         className={`w-full px-3 py-2 rounded-lg text-left flex items-center gap-2 ${theme === "purple"
-                                            ? "bg-[var(--primary-soft)] text-white"
-                                            : "hover:bg-white/5 text-gray-300"
+                                                ? "bg-[var(--primary-soft)] text-white"
+                                                : "hover:bg-white/5 text-gray-300"
                                             }`}
+                                        onMouseEnter={(e) => attractToTarget(e, 1.15)}
+                                        onMouseLeave={stopAttractor}
+                                        onFocus={(e) => attractToTarget(e, 1.15)}
+                                        onBlur={stopAttractor}
                                     >
                                         🎨 Morado
                                     </button>
 
                                     <button
-                                        onClick={() => { setTheme("green"); setOpenTheme(false); }}
+                                        onClick={() => {
+                                            setTheme("green");
+                                            setOpenTheme(false);
+                                        }}
                                         className={`w-full px-3 py-2 rounded-lg text-left flex items-center gap-2 ${theme === "green"
-                                            ? "bg-[var(--primary-soft)] text-white"
-                                            : "hover:bg-white/5 text-gray-300"
+                                                ? "bg-[var(--primary-soft)] text-white"
+                                                : "hover:bg-white/5 text-gray-300"
                                             }`}
+                                        onMouseEnter={(e) => attractToTarget(e, 1.15)}
+                                        onMouseLeave={stopAttractor}
+                                        onFocus={(e) => attractToTarget(e, 1.15)}
+                                        onBlur={stopAttractor}
                                     >
                                         🌿 Verde
                                     </button>
@@ -129,6 +165,10 @@ const NavBar = () => {
                                         href={item.href}
                                         className="text-gray-300 hover:text-white transition-colors font-medium relative group"
                                         whileHover={{ scale: 1.05 }}
+                                        onMouseEnter={(e) => attractToTarget(e, 1.1)}
+                                        onMouseLeave={stopAttractor}
+                                        onFocus={(e) => attractToTarget(e, 1.1)}
+                                        onBlur={stopAttractor}
                                     >
                                         {item.name}
                                         <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[var(--primary)] group-hover:w-full transition-all duration-300" />
@@ -142,6 +182,10 @@ const NavBar = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-flex items-center gap-2 px-6 py-2 bg-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-hover)] transition-colors"
+                                    onMouseEnter={(e) => attractToTarget(e, 1.35)}
+                                    onMouseLeave={stopAttractor}
+                                    onFocus={(e) => attractToTarget(e, 1.35)}
+                                    onBlur={stopAttractor}
                                 >
                                     <HiOutlineDocumentText className="text-lg" />
                                     <span>Ver CV</span>
@@ -155,6 +199,10 @@ const NavBar = () => {
                             onClick={() => setIsOpen(!isOpen)}
                             whileTap={{ scale: 0.9 }}
                             aria-label="Abrir menú"
+                            onMouseEnter={(e) => attractToTarget(e, 1.2)}
+                            onMouseLeave={stopAttractor}
+                            onFocus={(e) => attractToTarget(e, 1.2)}
+                            onBlur={stopAttractor}
                         >
                             <div className="flex flex-col gap-1.5">
                                 <motion.span
@@ -194,6 +242,10 @@ const NavBar = () => {
                                             href={item.href}
                                             className="text-3xl text-white font-bold hover:text-[var(--primary)] transition-colors"
                                             onClick={() => setIsOpen(false)}
+                                            onMouseEnter={(e) => attractToTarget(e, 1.15)}
+                                            onMouseLeave={stopAttractor}
+                                            onFocus={(e) => attractToTarget(e, 1.15)}
+                                            onBlur={stopAttractor}
                                         >
                                             {item.name}
                                         </a>
@@ -206,7 +258,11 @@ const NavBar = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         onClick={() => setIsOpen(false)}
-                                        className="inline-flex items-center gap-3 px-8 py-3 bg-purple-600 text-white rounded-full font-semibold text-xl"
+                                        className="inline-flex items-center gap-3 px-8 py-3 bg-[var(--primary)] text-white rounded-full font-semibold text-xl hover:bg-[var(--primary-hover)] transition-colors"
+                                        onMouseEnter={(e) => attractToTarget(e, 1.4)}
+                                        onMouseLeave={stopAttractor}
+                                        onFocus={(e) => attractToTarget(e, 1.4)}
+                                        onBlur={stopAttractor}
                                     >
                                         <HiOutlineDocumentText className="text-2xl" />
                                         <span>Ver CV</span>
@@ -237,6 +293,10 @@ const NavBar = () => {
                 transition={{ duration: 0.2 }}
                 whileHover={{ scale: 1.06 }}
                 whileTap={{ scale: 0.95 }}
+                onMouseEnter={(e) => attractToTarget(e, 1.5)}
+                onMouseLeave={stopAttractor}
+                onFocus={(e) => attractToTarget(e, 1.5)}
+                onBlur={stopAttractor}
             >
                 <HiArrowUp className="text-2xl" />
             </motion.button>
