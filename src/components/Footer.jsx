@@ -1,137 +1,297 @@
-import { motion } from "framer-motion";
-import { FaGithub, FaLinkedinIn, FaXTwitter } from "react-icons/fa6";
-import { HiMail } from "react-icons/hi";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
+import { HiOutlineMail, HiOutlinePhone, HiOutlineDuplicate, HiOutlinePhoneOutgoing, HiOutlineMailOpen } from "react-icons/hi";
+import { TbSend } from "react-icons/tb";
+
+const GITHUB_URL = "https://github.com/PabloDev96";
+const LINKEDIN_URL = "https://www.linkedin.com/in/pablo-d%C3%ADaz-garc%C3%ADa-344048350";
+const PHONE_NUMBER = "+34 659 103 719";
+const PHONE_TEL = "+34659103719";
+const EMAIL = "pablo.diazgar@gmail.com";
+
+const WHATSAPP_URL = `https://wa.me/${PHONE_TEL.replace("+", "")}`;
+
+function useOutsideClose(isOpen, onClose) {
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const onDown = (e) => {
+            if (!ref.current) return;
+            if (!ref.current.contains(e.target)) onClose();
+        };
+
+        window.addEventListener("mousedown", onDown);
+        window.addEventListener("touchstart", onDown, { passive: true });
+
+        return () => {
+            window.removeEventListener("mousedown", onDown);
+            window.removeEventListener("touchstart", onDown);
+        };
+    }, [isOpen, onClose]);
+
+    return ref;
+}
+
+const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
+    const [open, setOpen] = useState(false);
+    const [isTouch, setIsTouch] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const popRef = useOutsideClose(open, () => setOpen(false));
+
+    useEffect(() => {
+        // Detecta móviles/tablets sin hover real
+        const mq = window.matchMedia("(hover: none) and (pointer: coarse)");
+        const update = () => setIsTouch(mq.matches);
+        update();
+        mq.addEventListener?.("change", update);
+        return () => mq.removeEventListener?.("change", update);
+    }, []);
+
+    useEffect(() => {
+        if (!copied) return;
+        const t = setTimeout(() => setCopied(false), 1200);
+        return () => clearTimeout(t);
+    }, [copied]);
+
+    const copy = async () => {
+        try {
+            await navigator.clipboard.writeText(copyValue);
+            setCopied(true);
+            setOpen(false);
+        } catch {
+            // fallback
+            const ta = document.createElement("textarea");
+            ta.value = copyValue;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            setCopied(true);
+            setOpen(false);
+        }
+    };
+
+    const openLabel = label === "Teléfono" ? "Llamar" : "Enviar";
+    const OpenIcon = label === "Teléfono" ? HiOutlinePhoneOutgoing : HiOutlineMailOpen;
+
+    return (
+        <div
+            className="relative"
+            ref={popRef}
+            onMouseEnter={!isTouch ? () => setOpen(true) : undefined}
+            onMouseLeave={!isTouch ? () => setOpen(false) : undefined}
+        >
+            {/* Botón principal */}
+            <motion.button
+                type="button"
+                onClick={isTouch ? () => setOpen((v) => !v) : undefined} // en móvil abre/cierra con tap
+                className="w-12 h-12 rounded-full bg-slate-800/70 border border-white/10 text-white flex items-center justify-center text-xl backdrop-blur-md hover:bg-[var(--primary)] transition-colors"
+                whileHover={{ scale: 1.08, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                aria-label={label}
+                title={label}
+            >
+                {icon}
+            </motion.button>
+
+            {/* Toast copiado */}
+            <AnimatePresence>
+                {copied && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                        className="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-xs text-white bg-slate-950/90 border border-white/10 shadow-lg"
+                    >
+                        Copiado ✓
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            {/* Popover */}
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                        transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                        className="absolute bottom-14 left-1/2 -translate-x-1/2 w-52 rounded-xl bg-slate-900 border border-white/10 p-2 z-50"
+                        style={{ boxShadow: "0 14px 40px rgba(0,0,0,0.45)" }}
+                    >
+                        <div className="text-xs text-gray-400 px-2 pb-2">{label}</div>
+
+                        {/* Llamar / Enviar */}
+                        <a
+                            href={primaryHref}
+                            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5"
+                            onClick={() => setOpen(false)}
+                        >
+                            <span>{openLabel}</span>
+                            <OpenIcon className="text-lg" />
+                        </a>
+
+                        {/* Copiar */}
+                        <button
+                            type="button"
+                            onClick={copy}
+                            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5"
+                        >
+                            <span>Copiar</span>
+                            <HiOutlineDuplicate className="text-lg" />
+                        </button>
+
+                        {/* Valor */}
+                        <div className="mt-2 px-3 py-2 rounded-lg bg-white/5 text-xs text-gray-300 break-all">
+                            {copyValue}
+                        </div>
+
+                        {/* Hint móvil */}
+                        {isTouch && (
+                            <div className="mt-2 text-[11px] text-gray-500 px-2">
+                                Toca fuera para cerrar
+                            </div>
+                        )}
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
+
+const ActionButton = ({ label, icon, href, onClick }) => (
+    <motion.a
+        href={href}
+        onClick={onClick}
+        target={href?.startsWith("http") ? "_blank" : undefined}
+        rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
+        className="w-12 h-12 rounded-full bg-slate-800/70 border border-white/10 text-white flex items-center justify-center text-xl backdrop-blur-md hover:bg-[var(--primary)] transition-colors"
+        whileHover={{ scale: 1.08, y: -2 }}
+        whileTap={{ scale: 0.96 }}
+        aria-label={label}
+        title={label}
+    >
+        {icon}
+    </motion.a>
+);
+
+const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
+    const [open, setOpen] = useState(false);
+    const popRef = useOutsideClose(open, () => setOpen(false));
+
+    const copy = async () => {
+        try {
+            await navigator.clipboard.writeText(copyValue);
+            setOpen(false);
+        } catch {
+            // fallback simple
+            const ta = document.createElement("textarea");
+            ta.value = copyValue;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            setOpen(false);
+        }
+    };
+
+    return (
+        <div
+            className="relative"
+            onMouseEnter={() => setOpen(true)}
+            onMouseLeave={() => setOpen(false)}
+            ref={popRef}
+        >
+            <motion.button
+                type="button"
+                className="w-12 h-12 rounded-full bg-slate-800/70 border border-white/10 text-white flex items-center justify-center text-xl backdrop-blur-md hover:bg-[var(--primary)] transition-colors"
+                whileHover={{ scale: 1.08, y: -2 }}
+                whileTap={{ scale: 0.96 }}
+                aria-label={label}
+                title={label}
+            >
+                {icon}
+            </motion.button>
+
+            <AnimatePresence>
+                {open && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 8, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 8, scale: 0.98 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute bottom-14 left-1/2 -translate-x-1/2 w-48 rounded-xl bg-slate-900 border border-white/10 shadow-xl p-2 z-50"
+                        style={{ boxShadow: "0 14px 40px rgba(0,0,0,0.45)" }}
+                    >
+                        <div className="text-xs text-gray-400 px-2 pb-2">{label}</div>
+
+                        <a
+                            href={primaryHref}
+                            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5"
+                        >
+                            <span>{label === "Teléfono" ? "Llamar" : "Enviar"}</span>
+
+                            {label === "Teléfono" ? (
+                                <HiOutlinePhoneOutgoing className="text-lg" />
+                            ) : (
+                                <TbSend className="text-lg" />
+                            )}
+                        </a>
+
+                        <button
+                            type="button"
+                            onClick={copy}
+                            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5"
+                        >
+                            <span>Copiar</span>
+                            <HiOutlineDuplicate className="text-lg" />
+                        </button>
+
+                        <div className="mt-2 px-3 py-2 rounded-lg bg-white/5 text-xs text-gray-300">
+                            {copyValue}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </div>
+    );
+};
 
 const Footer = () => {
-  const socialLinks = [
-    { name: "GitHub", icon: <FaGithub />, url: "https://github.com/TU_USUARIO" },
-    { name: "LinkedIn", icon: <FaLinkedinIn />, url: "https://www.linkedin.com/in/TU_USUARIO/" },
-    { name: "X", icon: <FaXTwitter />, url: "https://x.com/TU_USUARIO" },
-    { name: "Email", icon: <HiMail />, url: "mailto:tu@email.com" },
-  ];
+    return (
+        <footer className="bg-slate-900 py-10">
+            <div className="container mx-auto px-6">
+                <div className="flex items-center justify-center gap-4 flex-wrap">
+                    <ActionButton label="GitHub" icon={<FaGithub />} href={GITHUB_URL} />
+                    <ActionButton label="LinkedIn" icon={<FaLinkedin />} href={LINKEDIN_URL} />
+                    <ActionButton label="WhatsApp" icon={<FaWhatsapp />} href={WHATSAPP_URL} />
 
-  const quickLinks = [
-    { name: "Inicio", href: "#home" },
-    { name: "Sobre Mí", href: "#about" },
-    { name: "Proyectos", href: "#projects" },
-    { name: "Contacto", href: "#contact" },
-  ];
+                    <PopoverButton
+                        label="Teléfono"
+                        icon={<HiOutlinePhone />}
+                        primaryHref={`tel:${PHONE_TEL}`}
+                        copyValue={PHONE_NUMBER}
+                    />
 
-  const goTop = () => {
-    const el = document.querySelector("#home");
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-    else window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+                    <PopoverButton
+                        label="Email"
+                        icon={<HiOutlineMail />}
+                        primaryHref={`mailto:${EMAIL}`}
+                        copyValue={EMAIL}
+                    />
+                </div>
 
-  return (
-    <footer className="bg-slate-950 text-white pt-16 pb-8 relative overflow-hidden">
-      {/* Animated background gradient (tematizado) */}
-      <motion.div
-        className="absolute inset-0 opacity-20"
-        animate={{
-          background: [
-            "radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 55%)",
-            "radial-gradient(circle at 100% 100%, var(--accent) 0%, transparent 55%)",
-            "radial-gradient(circle at 0% 100%, rgba(59,130,246,1) 0%, transparent 55%)",
-            "radial-gradient(circle at 100% 0%, var(--primary) 0%, transparent 55%)",
-            "radial-gradient(circle at 0% 0%, var(--primary) 0%, transparent 55%)",
-          ],
-        }}
-        transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-      />
-
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid md:grid-cols-3 gap-12 mb-12">
-          {/* Social Links */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            viewport={{ once: true }}
-          >
-            <h3 className="text-xl font-bold mb-4">Sígueme</h3>
-
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.name}
-                  href={social.url}
-                  target={social.url.startsWith("mailto:") ? undefined : "_blank"}
-                  rel={social.url.startsWith("mailto:") ? undefined : "noopener noreferrer"}
-                  className="w-12 h-12 bg-slate-800 rounded-full flex items-center justify-center text-xl transition-colors"
-                  style={{ boxShadow: "0 10px 30px rgba(0,0,0,0.25)" }}
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  title={social.name}
-                  aria-label={social.name}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = "var(--primary)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.backgroundColor = "";
-                  }}
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
+                <p className="text-center text-xs text-gray-500 mt-6">
+                    © {new Date().getFullYear()} Pablo Díaz García
+                </p>
             </div>
-
-            <motion.div
-              className="mt-6"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              viewport={{ once: true }}
-            >
-              <p className="text-gray-400 text-sm mb-2">¿Trabajemos juntos?</p>
-              <motion.a
-                href="mailto:tu@email.com"
-                className="text-[var(--primary)] hover:text-[var(--primary-hover)] font-semibold"
-                whileHover={{ scale: 1.05 }}
-              >
-                tu@email.com
-              </motion.a>
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Divider */}
-        <motion.div
-          className="border-t border-slate-800 mb-8"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        />
-
-        {/* Bottom */}
-        <motion.div
-          className="flex flex-col md:flex-row justify-between items-center gap-4"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          viewport={{ once: true }}
-        >
-          <p className="text-gray-400 text-sm text-center md:text-left">
-            © {new Date().getFullYear()} Pablo Díaz García | Desarrollador Web.
-          </p>
-
-          
-        </motion.div>
-
-        {/* Decorative */}
-        <div className="absolute bottom-0 right-0 opacity-10">
-          <motion.div
-            className="text-9xl"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            ✨
-          </motion.div>
-        </div>
-      </div>
-    </footer>
-  );
+        </footer>
+    );
 };
 
 export default Footer;

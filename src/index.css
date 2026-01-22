@@ -69,6 +69,6 @@ section {
   --primary-soft: rgba(22, 163, 74, 0.15);
   --primary-glow: rgba(22, 163, 74, 0.35);
 
-  --accent: #22c55e;          /* green-500 para un doble verde bonito */
-  --accent-soft: rgba(34, 197, 94, 0.18);
+  --accent: #18dbce;
+  --accent-soft: rgba(236, 72, 153, 0.18);
 }

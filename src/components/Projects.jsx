@@ -70,9 +70,19 @@ const Projects = () => {
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
                 >
-                    Mis <span className="text-[var(--primary)]">Proyectos</span>
+                    Mis{" "}
+                    <motion.span
+                        className="bg-clip-text text-transparent"
+                        style={{
+                            backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
+                            backgroundSize: "200% 200%",
+                        }}
+                        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                    >
+                        Proyectos
+                    </motion.span>
                 </motion.h2>
-
                 <motion.div
                     className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
                     variants={containerVariants}
