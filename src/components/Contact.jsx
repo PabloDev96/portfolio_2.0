@@ -77,18 +77,10 @@ export default function Contact() {
 
                     <motion.button
                         type="submit"
-                        className="
-                                    inline-flex items-center gap-2
-                                    px-6 py-2
-                                    rounded-full
-                                    border-2 border-[var(--primary)]
-                                    text-white font-semibold
-                                    hover:bg-[var(--primary-soft)]
-                                    transition-colors
-                                "
+                        className="mt-4 self-center px-8 py-3 bg-[var(--primary)] text-white rounded-full font-semibold text-lg hover:bg-[var(--primary-hover)] transition-colors shadow-lg"
+                        style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                     >
                         Enviar mensaje
                     </motion.button>

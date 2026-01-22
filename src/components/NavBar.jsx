@@ -308,10 +308,22 @@ const NavBar = () => {
                 type="button"
                 onClick={goHome}
                 aria-label="Subir arriba"
-                className="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-[var(--primary)] text-white shadow-lg flex items-center justify-center hover:bg-[var(--primary-hover)]"
+                className="
+    fixed bottom-6 right-6 z-50
+    w-12 h-12 rounded-full
+    bg-transparent
+    border border-[var(--primary)]
+    text-white
+    flex items-center justify-center
+    backdrop-blur-md
+    transition-all duration-300
+    hover:bg-[var(--primary-soft)]
+  "
                 style={{
                     pointerEvents: scrolled ? "auto" : "none",
-                    boxShadow: scrolled ? `0 14px 40px var(--primary-glow)` : undefined,
+                    boxShadow: scrolled
+                        ? "0 0 0 0 transparent"
+                        : undefined,
                 }}
                 initial={{ opacity: 0, y: 12, scale: 0.95 }}
                 animate={
@@ -319,15 +331,19 @@ const NavBar = () => {
                         ? { opacity: 1, y: 0, scale: 1 }
                         : { opacity: 0, y: 12, scale: 0.95 }
                 }
-                transition={{ duration: 0.2 }}
-                whileHover={{ scale: 1.06 }}
-                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                whileHover={{
+                    scale: 1.08,
+                    y: -2,
+                    boxShadow: "0 14px 40px var(--primary-glow)",
+                }}
+                whileTap={{ scale: 0.96 }}
                 onMouseEnter={(e) => attractToTarget(e, 1.5)}
                 onMouseLeave={stopAttractor}
                 onFocus={(e) => attractToTarget(e, 1.5)}
                 onBlur={stopAttractor}
             >
-                <HiArrowUp className="text-2xl" />
+                <HiArrowUp className="text-xl" />
             </motion.button>
         </>
     );
