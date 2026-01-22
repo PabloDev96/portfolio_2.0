@@ -68,6 +68,29 @@ const Hero = () => {
                     >
                         <motion.button
                             type="button"
+                            onClick={() => scrollToId("#about")}
+                            className="
+                                    inline-flex items-center gap-2
+                                    px-6 py-2
+                                    rounded-full
+                                    border-2 border-[var(--primary)]
+                                    text-white font-semibold
+                                    hover:bg-[var(--primary-soft)]
+                                    transition-colors
+                                "
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
+                            onMouseEnter={(e) => attractToTarget(e, 1.45)}
+                            onMouseLeave={stopAttractor}
+                            onFocus={(e) => attractToTarget(e, 1.45)}
+                            onBlur={stopAttractor}
+                        >
+                            Sobre Mí
+                        </motion.button>
+                        
+                        <motion.button
+                            type="button"
                             onClick={() => scrollToId("#projects")}
                             className="
                                     inline-flex items-center gap-2
