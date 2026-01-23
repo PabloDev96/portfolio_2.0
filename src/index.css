@@ -59,7 +59,7 @@ section {
   --primary-soft: rgba(124, 58, 237, 0.15);
   --primary-glow: rgba(124, 58, 237, 0.35);
 
-  --accent: #ec4899;          /* pink-500 */
+  --accent: #ec4899;
   --accent-soft: rgba(236, 72, 153, 0.18);
 }
 
