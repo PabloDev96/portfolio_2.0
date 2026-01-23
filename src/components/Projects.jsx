@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup, useInView } from "framer-motion";
 import Section from "./Section";
-import { HiLink, HiInformationCircle } from "react-icons/hi";
+import { HiLink, HiInformationCircle, HiX } from "react-icons/hi";
 import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 // Icons tech
@@ -393,13 +393,23 @@ export default function Projects() {
                                                 <HiLink className="text-xl" />
                                             </motion.button>
 
-                                            <button
+                                            <motion.button
                                                 type="button"
                                                 onClick={() => setSelected(null)}
-                                                className="absolute top-4 right-4 px-3 py-1.5 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10"
+                                                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+                                                initial={{ rotate: 0, scale: 0 }}
+                                                animate={{ rotate: 90, scale: 1 }}
+                                                transition={{ duration: 0.6, ease: "easeOut" }}
+                                                whileHover={{ 
+                                                    scale: 1.1,
+                                                    backgroundColor: "rgba(255, 255, 255, 0.15)"
+                                                }}
+                                                whileTap={{ scale: 0.9 }}
+                                                aria-label="Cerrar modal"
+                                                title="Cerrar"
                                             >
-                                                Cerrar
-                                            </button>
+                                                <HiX className="text-xl" />
+                                            </motion.button>
                                         </div>
                                     </motion.div>
                                 </motion.div>
