@@ -239,7 +239,7 @@ const AppleWatchDock = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
-                        className="mt-8 max-w-2xl mx-auto"
+                        className="mt-8 px-4 max-w-2xl mx-auto"
                     >
                         <div
                             className="p-6 rounded-2xl border-2 relative"
