@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import yo from "../assets/yo.png";
 import Section from "./Section";
 
 const About = () => {
@@ -63,8 +64,12 @@ const About = () => {
                                         "linear-gradient(90deg, var(--primary), var(--accent))",
                                 }}
                             />
-                            <div className="relative w-full h-full bg-slate-800 rounded-2xl flex items-center justify-center text-white text-6xl">
-                                👨‍💻
+                            <div className="relative w-full h-full bg-slate-800 rounded-2xl overflow-hidden">
+                                <img
+                                    src={yo}
+                                    alt="Foto de perfil de Pablo Díaz"
+                                    className="w-full h-full object-cover"
+                                />
                             </div>
                         </motion.div>
                     </motion.div>
@@ -88,7 +93,7 @@ const About = () => {
                             Con experiencia en desarrollo full-stack, me encanta resolver problemas
                             complejos y convertir ideas en realidad digital.
                         </motion.p>
-                                
+
                     </div>
                 </div>
             </div>

@@ -109,19 +109,23 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                 type="button"
                 onClick={isTouch ? () => setOpen((v) => !v) : undefined}
                 className="
-      w-12 h-12
-      rounded-full
-      border-2 border-[var(--primary)]
-      bg-transparent
-      text-white
-      flex items-center justify-center
-      text-xl
-      backdrop-blur-md
-      hover:bg-[var(--primary-soft)]
-      transition-colors
-    "
-                whileHover={{ scale: 1.08, y: -2 }}
+    w-12 h-12
+    border-2 border-[var(--primary)]
+    bg-transparent
+    text-white
+    flex items-center justify-center
+    text-xl
+    backdrop-blur-md
+    hover:bg-[var(--primary-soft)]
+    transition-colors
+  "
+                initial={{ borderRadius: "9999px" }}
+                whileHover={{ scale: 1.08, y: -2, borderRadius: "16px" }}
                 whileTap={{ scale: 0.96 }}
+                transition={{
+                    duration: 0.15,
+                    ease: "easeInOut",
+                }}
                 aria-label={label}
                 title={label}
                 onMouseEnter={(e) => attractToTarget(e, 1.25)}
@@ -195,7 +199,6 @@ const ActionButton = ({ label, icon, href }) => (
         rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
         className="
       w-12 h-12
-      rounded-full
       border-2 border-[var(--primary)]
       bg-transparent
       text-white
@@ -205,8 +208,13 @@ const ActionButton = ({ label, icon, href }) => (
       hover:bg-[var(--primary-soft)]
       transition-colors
     "
-        whileHover={{ scale: 1.08, y: -2 }}
+        initial={{ borderRadius: "9999px" }}
+        whileHover={{ scale: 1.08, y: -2, borderRadius: "16px" }}
         whileTap={{ scale: 0.96 }}
+        transition={{
+            duration: 0.15,
+            ease: "easeInOut",
+        }}
         aria-label={label}
         title={label}
         onMouseEnter={(e) => attractToTarget(e, 1.25)}
