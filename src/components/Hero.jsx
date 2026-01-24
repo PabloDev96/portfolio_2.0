@@ -115,7 +115,7 @@ const Hero = () => {
                         <motion.button
                             type="button"
                             onClick={() => scrollToId("#contact")}
-                            className="px-8 py-3 border-2 border-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-soft)] transition-colors"
+                            className="px-8 py-2 border-2 border-[var(--primary)] text-white rounded-full font-semibold hover:bg-[var(--primary-soft)] transition-colors"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
