@@ -14,7 +14,7 @@ export default function Contact() {
                     viewport={{ once: true }}
                 >
                     <motion.h2
-                        className="text-4xl md:text-5xl font-bold text-white mb-4"
+                        className="text-4xl md:text-5xl font-bold mb-8 text-center"
                         initial={{ opacity: 0, y: 10 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.5 }}

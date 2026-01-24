@@ -5,7 +5,7 @@ import { HiLink, HiInformationCircle, HiX } from "react-icons/hi";
 import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 // Icons tech
-import { FaReact, FaPhp, FaJs } from "react-icons/fa";
+import { FaReact, FaPhp, FaJs, FaCss3Alt } from "react-icons/fa";
 import {
     SiFirebase,
     SiSpring,
@@ -25,6 +25,7 @@ const techIcons = {
     Tailwind: SiTailwindcss,
     MySQL: SiMysql,
     WordPress: SiWordpress,
+    CSS: FaCss3Alt,
 };
 
 const techColors = {
@@ -37,6 +38,7 @@ const techColors = {
     Tailwind: "#38BDF8",
     MySQL: "#00758F",
     WordPress: "#21759B",
+    CSS: "#264de4",
 };
 
 export default function Projects() {
@@ -86,6 +88,26 @@ export default function Projects() {
                 technologies: ["WordPress"],
                 color: "from-purple-500 to-pink-500",
                 link: "https://buttonpressgaming.es/",
+            },
+            {
+                id: "portfolio-v1",
+                title: "Portfolio (v1)",
+                summary: "Mi primer portfolio personal para mostrar proyectos y habilidades.",
+                details:
+                    "Mi primer portfolio hecho con React, JavaScript y CSS. Permite escoger entre 3 versiones, habiendo una estandar y dos interactivas con mini juegos (space invaders y mario bros).",
+                technologies: ["React", "JavaScript", "CSS"],
+                color: "from-blue-500 to-cyan-500",
+                link: "https://portfolio-oscx.vercel.app/",
+            },
+            {
+                id: "huerto-app",
+                title: "Huerto Manager",
+                summary: "App para gestionar un huerto: cultivos, riegos y tareas.",
+                details:
+                    "Aplicación para la gestión de un huerto. Permite organizar parcelas, registrar cultivos, programar riegos, llevar un calendario de tareas y anotar observaciones/producción para mejorar el seguimiento del huerto.",
+                technologies: ["React", "JavaScript", "Tailwind"],
+                color: "from-green-500 to-emerald-500",
+                link: "https://example.com",
             },
         ],
         []
@@ -202,7 +224,7 @@ export default function Projects() {
 
                                             <motion.p
                                                 layoutId={`desc-${p.id}`}
-                                                className="relative z-10 text-gray-300/80 mb-4 leading-relaxed"
+                                                className="relative z-10 text-gray-300/80 mb-4 leading-relaxed text-justify"
                                             >
                                                 {p.summary}
                                             </motion.p>
@@ -348,7 +370,7 @@ export default function Projects() {
                                             </motion.h3>
 
                                             <motion.p
-                                                className="text-gray-200/90 leading-relaxed mb-6"
+                                                className="text-gray-200/90 leading-relaxed mb-6 text-justify"
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 transition={{ duration: 0.25, delay: 0.05 }}
@@ -400,7 +422,7 @@ export default function Projects() {
                                                 initial={{ rotate: 0, scale: 0 }}
                                                 animate={{ rotate: 90, scale: 1 }}
                                                 transition={{ duration: 0.6, ease: "easeOut" }}
-                                                whileHover={{ 
+                                                whileHover={{
                                                     scale: 1.1,
                                                     backgroundColor: "rgba(255, 255, 255, 0.15)"
                                                 }}

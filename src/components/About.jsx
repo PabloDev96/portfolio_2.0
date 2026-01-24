@@ -71,7 +71,7 @@ const About = () => {
 
                     <div>
                         <motion.p
-                            className="text-gray-300 text-lg mb-6 leading-relaxed"
+                            className="text-gray-300 text-lg mb-6 leading-relaxed text-justify"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.2 }}
@@ -80,7 +80,7 @@ const About = () => {
                         </motion.p>
 
                         <motion.p
-                            className="text-gray-300 text-lg mb-8 leading-relaxed"
+                            className="text-gray-300 text-lg mb-8 leading-relaxed text-justify"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.3 }}
