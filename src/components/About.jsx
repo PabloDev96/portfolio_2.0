@@ -88,36 +88,7 @@ const About = () => {
                             Con experiencia en desarrollo full-stack, me encanta resolver problemas
                             complejos y convertir ideas en realidad digital.
                         </motion.p>
-
-                        <motion.div
-                            variants={containerVariants}
-                            initial="hidden"
-                            animate={isInView ? "visible" : "hidden"}
-                        >
-                            <h3 className="text-2xl font-bold text-white mb-6">Habilidades</h3>
-
-                            {skills.map((skill, index) => (
-                                <motion.div key={skill.name} variants={itemVariants} className="mb-4">
-                                    <div className="flex justify-between mb-2">
-                                        <span className="text-gray-300 font-semibold">{skill.name}</span>
-                                        <span className="text-[var(--primary)]">{skill.level}%</span>
-                                    </div>
-
-                                    <div className="w-full bg-slate-700 rounded-full h-3 overflow-hidden">
-                                        <motion.div
-                                            className="h-full"
-                                            style={{
-                                                backgroundImage:
-                                                    "linear-gradient(90deg, var(--primary), var(--accent))",
-                                            }}
-                                            initial={{ width: 0 }}
-                                            animate={isInView ? { width: `${skill.level}%` } : { width: 0 }}
-                                            transition={{ duration: 1, delay: index * 0.1 + 0.5 }}
-                                        />
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
+                                
                     </div>
                 </div>
             </div>
