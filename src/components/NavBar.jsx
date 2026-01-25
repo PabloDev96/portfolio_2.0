@@ -42,6 +42,7 @@ const NavBar = () => {
     const navItems = [
         { name: "Inicio", href: "#home" },
         { name: "Sobre Mí", href: "#about" },
+        { name: "Tecnologías", href: "#technologies" },
         { name: "Proyectos", href: "#projects" },
         { name: "Contacto", href: "#contact" },
     ];
@@ -71,12 +72,40 @@ const NavBar = () => {
         closed: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
     };
 
+    // Función para manejar la navegación
+    const handleNavClick = (e, href) => {
+        e.preventDefault();
+        
+        const targetId = href.replace('#', '');
+        const targetElement = document.getElementById(targetId);
+        
+        // Primero cerramos el menú y restauramos el scroll
+        setIsOpen(false);
+        
+        // Esperamos un poco para que se restaure el scroll del body
+        setTimeout(() => {
+            if (targetElement) {
+                const navHeight = 80; // Altura aproximada del navbar
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+        }, 100);
+    };
+
     const goHome = (e) => {
         e?.preventDefault?.();
         setIsOpen(false);
-        const el = document.querySelector("#home");
-        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-        else window.scrollTo({ top: 0, behavior: "smooth" });
+        
+        setTimeout(() => {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 100);
     };
 
     const attractToTarget = (e, strength = 1.25) => {
@@ -95,8 +124,9 @@ const NavBar = () => {
         <>
             <motion.nav
                 style={{ backgroundColor }}
-                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${scrolled ? "backdrop-blur-md shadow-lg" : ""
-                    }`}
+                className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
+                    scrolled ? "backdrop-blur-md shadow-lg" : ""
+                }`}
             >
                 <div className="container mx-auto px-6 py-4">
                     <div className="flex items-center justify-between">
@@ -126,8 +156,9 @@ const NavBar = () => {
                                             setTheme("purple");
                                             setOpenTheme(false);
                                         }}
-                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${theme === "purple" ? "bg-white/5" : ""
-                                            }`}
+                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${
+                                            theme === "purple" ? "bg-white/5" : ""
+                                        }`}
                                         onMouseEnter={(e) => attractToTarget(e, 1.15)}
                                         onMouseLeave={stopAttractor}
                                         aria-label="Paleta morada"
@@ -148,8 +179,9 @@ const NavBar = () => {
                                             setTheme("green");
                                             setOpenTheme(false);
                                         }}
-                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${theme === "green" ? "bg-white/5" : ""
-                                            }`}
+                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${
+                                            theme === "green" ? "bg-white/5" : ""
+                                        }`}
                                         onMouseEnter={(e) => attractToTarget(e, 1.15)}
                                         onMouseLeave={stopAttractor}
                                         aria-label="Paleta verde"
@@ -165,14 +197,14 @@ const NavBar = () => {
                                         />
                                     </button>
 
-                                    {/* BLUE */}
                                     <button
                                         onClick={() => {
                                             setTheme("blue");
                                             setOpenTheme(false);
                                         }}
-                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${theme === "blue" ? "bg-white/5" : ""
-                                            }`}
+                                        className={`w-full px-3 py-2 rounded-lg flex items-center gap-3 hover:bg-white/5 transition-colors ${
+                                            theme === "blue" ? "bg-white/5" : ""
+                                        }`}
                                         onMouseEnter={(e) => attractToTarget(e, 1.15)}
                                         onMouseLeave={stopAttractor}
                                         onFocus={(e) => attractToTarget(e, 1.15)}
@@ -182,8 +214,7 @@ const NavBar = () => {
                                         <motion.span
                                             className="w-5 h-5 rounded-full border border-white/15"
                                             style={{
-                                                backgroundImage:
-                                                    "linear-gradient(90deg, #3b82f6, #38bdf8)",
+                                                backgroundImage: "linear-gradient(90deg, #3b82f6, #38bdf8)",
                                                 backgroundSize: "200% 200%",
                                             }}
                                             animate={{
@@ -212,7 +243,8 @@ const NavBar = () => {
                                 >
                                     <motion.a
                                         href={item.href}
-                                        className="text-gray-300 hover:text-white transition-colors font-medium relative group"
+                                        onClick={(e) => handleNavClick(e, item.href)}
+                                        className="text-gray-300 hover:text-white transition-colors font-medium relative group cursor-pointer"
                                         whileHover={{ scale: 1.05 }}
                                         onMouseEnter={(e) => attractToTarget(e, 1.1)}
                                         onMouseLeave={stopAttractor}
@@ -222,20 +254,6 @@ const NavBar = () => {
                                     </motion.a>
                                 </motion.li>
                             ))}
-
-                            <motion.li whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                                <a
-                                    href={CV_URL}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="inline-flex items-center gap-2 px-6 py-2 rounded-full border-2 border-[var(--primary)] text-white font-semibold hover:bg-[var(--primary-soft)] transition-colors"
-                                    onMouseEnter={(e) => attractToTarget(e, 1.35)}
-                                    onMouseLeave={stopAttractor}
-                                >
-                                    <HiOutlineDocumentText className="text-lg" />
-                                    <span>Ver CV</span>
-                                </a>
-                            </motion.li>
                         </motion.ul>
 
                         {/* Mobile Menu Button */}
@@ -266,7 +284,7 @@ const NavBar = () => {
                 </div>
             </motion.nav>
 
-            {/* Mobile Menu - FUERA del navbar */}
+            {/* Mobile Menu */}
             <motion.div
                 className="fixed inset-0 bg-slate-900 md:hidden z-[110]"
                 initial={false}
@@ -287,8 +305,8 @@ const NavBar = () => {
                         >
                             <a
                                 href={item.href}
-                                className="text-3xl text-white font-bold hover:text-[var(--primary)] transition-colors"
-                                onClick={() => setIsOpen(false)}
+                                onClick={(e) => handleNavClick(e, item.href)}
+                                className="text-3xl text-white font-bold hover:text-[var(--primary)] transition-colors cursor-pointer"
                                 onMouseEnter={(e) => attractToTarget(e, 1.15)}
                                 onMouseLeave={stopAttractor}
                             >

@@ -1,5 +1,6 @@
-import { motion, useMotionValue, transform } from "framer-motion";
+import { motion, useMotionValue, transform, useInView } from "framer-motion";
 import { useMemo, useRef, useState } from "react";
+import Section from "./Section";
 import {
     FaReact, FaNodeJs, FaPhp, FaJava, FaHtml5, FaCss3Alt,
     FaGitAlt, FaGithub, FaNpm, FaWordpress, FaLaravel, FaDocker
@@ -31,7 +32,7 @@ const technologies = [
     { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", experience: "Librería principal para desarrollo frontend con hooks y context." },
     { name: "Redux", icon: SiRedux, color: "#fff", bg: "#764ABC", experience: "Gestión de estado global en aplicaciones complejas." },
     { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", experience: "Framework PHP para desarrollo backend robusto y elegante." },
-    { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", experience: "Build tool moderno para desarrollo web ultrarrápido." },
+    { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", experience: "Build tool moderno para desarrollo web ultrarápido." },
     { name: "npm", icon: FaNpm, color: "#fff", bg: "#CB3837", experience: "Gestión de dependencias y scripts en proyectos JavaScript." },
     { name: "Docker", icon: FaDocker, color: "#fff", bg: "#2496ED", experience: "Containerización de aplicaciones para desarrollo y producción." },
     { name: "Postman", icon: SiPostman, color: "#fff", bg: "#FF6C37", experience: "Testing y documentación de APIs RESTful." },
@@ -45,18 +46,11 @@ const technologies = [
     { name: "Material UI", icon: SiMui, color: "#fff", bg: "#007FFF", experience: "Componentes React con diseño Material Design." },
 ];
 
-// Configuración (reducido proporcionalmente)
-const icon = {
-    margin: 12,
-    size: 60
-};
+// Configuración
+const icon = { margin: 12, size: 60 };
+const device = { width: 220, height: 268 };
 
-const device = {
-    width: 220,
-    height: 268
-};
-
-// Hook para transformar los iconos (adaptado del ejemplo)
+// Hook para transformar los iconos
 function useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset }) {
     const xScale = useRef(1);
     const yScale = useRef(1);
@@ -86,9 +80,7 @@ function useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset }) {
             x.set(mapScreenToXOffset(screenOffset));
         };
 
-        // Aplicar transformación inicial
         transformFn(planeX.get());
-
         return planeX.on("change", transformFn);
     }, [planeX, scale, x, xOffset]);
 
@@ -101,14 +93,11 @@ function useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset }) {
             y.set(mapScreenToYOffset(screenOffset));
         };
 
-        // Aplicar transformación inicial
         transformFn(planeY.get());
-
         return planeY.on("change", transformFn);
     }, [planeY, scale, y, yOffset]);
 }
 
-// Componente Item (icono individual)
 function Item({ row, col, planeX, planeY, tech, onTechClick }) {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -150,90 +139,112 @@ function Item({ row, col, planeX, planeY, tech, onTechClick }) {
     );
 }
 
-// Componente principal
-const AppleWatchDock = () => {
+export default function Technologies() {
     const [selectedTech, setSelectedTech] = useState(null);
 
-    // Crear grid de 80 iconos repitiendo las tecnologías
-    const grid = [];
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: false, margin: "-100px" });
 
+    const grid = [];
     for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 8; col++) {
             const index = (row * 8 + col) % technologies.length;
-            grid.push({
-                row,
-                col,
-                tech: technologies[index]
-            });
+            grid.push({ row, col, tech: technologies[index] });
         }
     }
 
     const x = useMotionValue(-135);
     const y = useMotionValue(-135);
 
-    const handleTechClick = (tech) => {
-        setSelectedTech(tech);
-    };
-
-    const closeModal = () => {
-        setSelectedTech(null);
-    };
+    const closeModal = () => setSelectedTech(null);
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
-            <div className="container mx-auto max-w-6xl text-center">
-                <h2 className="text-5xl font-bold text-white text-center mb-12">
-                    <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                        Tecnologías
-                    </span>
-                    {" "}&{" "}
-                    <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                        Herramientas
-                    </span>
-                </h2>
-
-                <p className="text-gray-400 mb-8">Arrastra y selecciona para saber más</p>
-
-                <div
-                    style={{
-                        width: device.width,
-                        height: device.height,
-                        margin: "0 auto",
-                        overflow: "hidden",
-                        background: "black",
-                        borderRadius: "50px",
-                        position: "relative",
-                        border: "2px solid #333",
-                    }}
+        <Section id="technologies">
+            <div ref={ref} className="container mx-auto max-w-6xl">
+                <motion.h2
+                    className="text-5xl font-bold text-white text-center mb-12"
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.6 }}
                 >
-                    <motion.div
-                        drag
-                        dragConstraints={{ left: -390, right: 30, top: -360, bottom: 30 }}
+                    <motion.span
+                        className="bg-clip-text text-transparent"
                         style={{
-                            width: 600,
-                            height: 600,
-                            x,
-                            y,
-                            background: "transparent",
-                            cursor: "grab"
+                            backgroundImage:
+                                "linear-gradient(90deg, var(--primary), var(--accent))",
+                            backgroundSize: "200% 200%",
                         }}
-                        whileTap={{ cursor: "grabbing" }}
+                        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                     >
-                        {grid.map((item, index) => (
-                            <Item
-                                key={index}
-                                row={item.row}
-                                col={item.col}
-                                planeX={x}
-                                planeY={y}
-                                tech={item.tech}
-                                onTechClick={handleTechClick}
-                            />
-                        ))}
-                    </motion.div>
+                        Tecnologías
+                    </motion.span>{" "}
+                    &{" "}
+                    <motion.span
+                        className="bg-clip-text text-transparent"
+                        style={{
+                            backgroundImage:
+                                "linear-gradient(90deg, var(--primary), var(--accent))",
+                            backgroundSize: "200% 200%",
+                        }}
+                        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+                    >
+                        Herramientas
+                    </motion.span>
+                </motion.h2>
+
+                <motion.p
+                    className="text-gray-400 mb-8 text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                    Arrastra y selecciona para saber más
+                </motion.p>
+
+                {/* Dock */}
+                <div className="flex justify-center">
+                    <div
+                        style={{
+                            width: device.width,
+                            height: device.height,
+                            overflow: "hidden",
+                            background: "black",
+                            borderRadius: "50px",
+                            position: "relative",
+                            border: "2px solid #333",
+                        }}
+                    >
+                        <motion.div
+                            drag
+                            dragConstraints={{ left: -390, right: 30, top: -360, bottom: 30 }}
+                            style={{
+                                width: 600,
+                                height: 600,
+                                x,
+                                y,
+                                background: "transparent",
+                                cursor: "grab",
+                            }}
+                            whileTap={{ cursor: "grabbing" }}
+                        >
+                            {grid.map((item, index) => (
+                                <Item
+                                    key={index}
+                                    row={item.row}
+                                    col={item.col}
+                                    planeX={x}
+                                    planeY={y}
+                                    tech={item.tech}
+                                    onTechClick={setSelectedTech}
+                                />
+                            ))}
+                        </motion.div>
+                    </div>
                 </div>
 
-                {/* Modal de experiencia */}
+                {/* Modal */}
                 {selectedTech && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -260,7 +271,9 @@ const AppleWatchDock = () => {
                                     className="w-16 h-16 rounded-full flex items-center justify-center"
                                     style={{ background: selectedTech.bg }}
                                 >
-                                    <selectedTech.icon style={{ fontSize: "32px", color: selectedTech.color }} />
+                                    <selectedTech.icon
+                                        style={{ fontSize: "32px", color: selectedTech.color }}
+                                    />
                                 </div>
                                 <h3 className="text-3xl font-bold text-white">{selectedTech.name}</h3>
                             </div>
@@ -272,8 +285,6 @@ const AppleWatchDock = () => {
                     </motion.div>
                 )}
             </div>
-        </div>
+        </Section>
     );
-};
-
-export default AppleWatchDock;
+}

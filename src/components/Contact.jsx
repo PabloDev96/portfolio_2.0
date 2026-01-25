@@ -1,51 +1,49 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import Section from "./Section";
 
 export default function Contact() {
+    const ref = useRef(null);
+    const isInView = useInView(ref, { once: false, margin: "-100px" });
+
     return (
         <Section id="contact">
-            <div className="container mx-auto max-w-3xl">
+            <div ref={ref} className="container mx-auto max-w-3xl">
                 {/* Header */}
-                <motion.div
-                    className="text-center mb-12"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                <motion.h2
+                    className="text-5xl font-bold text-white text-center mb-8"
+                    initial={{ opacity: 0, y: -50 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
                 >
-                    <motion.h2
-                        className="text-4xl md:text-5xl font-bold mb-8 text-center"
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
-                        viewport={{ once: false }}
+                    <motion.span
+                        className="bg-clip-text text-transparent"
+                        style={{
+                            backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
+                            backgroundSize: "200% 200%",
+                        }}
+                        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                     >
-                        <motion.span
-                            className="bg-clip-text text-transparent"
-                            style={{
-                                backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
-                                backgroundSize: "200% 200%",
-                            }}
-                            animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                            transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                        >
-                            Contacto
-                        </motion.span>
-                    </motion.h2>
+                        Contacto
+                    </motion.span>
+                </motion.h2>
 
-                    <p className="text-gray-400 text-lg">
-                        ¿Tienes un proyecto en mente o quieres trabajar conmigo? Escríbeme y
-                        hablamos.
-                    </p>
-                </motion.div>
+                <motion.p
+                    className="text-gray-400 text-lg text-center mb-12"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                    ¿Tienes un proyecto en mente o quieres trabajar conmigo? Escríbeme y hablamos.
+                </motion.p>
 
                 {/* Form */}
                 <motion.form
                     className="bg-slate-800/60 backdrop-blur-md rounded-2xl p-8 border border-slate-700 shadow-lg flex flex-col gap-6"
                     initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7 }}
-                    viewport={{ once: true }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.7, delay: 0.3 }}
                     onSubmit={(e) => e.preventDefault()}
                 >
                     <div className="flex flex-col gap-2">
@@ -88,4 +86,4 @@ export default function Contact() {
             </div>
         </Section>
     );
-}
+}   
