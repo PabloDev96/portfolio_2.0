@@ -180,7 +180,7 @@ export default function AboutMe() {
                                             <img
                                                 src={yo}
                                                 alt="Foto de Pablo Díaz"
-                                                className="w-16 h-16 rounded-full object-cover mb-3 border-2"
+                                                className="w-20 h-20 rounded-full object-cover mb-3 border-2"
                                                 style={{ borderColor: "var(--primary)" }}
                                             />
 
