@@ -1,6 +1,7 @@
-import { motion, useMotionValue, transform, useInView } from "framer-motion";
+import { motion, useMotionValue, transform, useInView, AnimatePresence, LayoutGroup } from "framer-motion";
 import { useEffect, useMemo, useRef, useState } from "react";
 import Section from "./Section";
+import { HiX } from "react-icons/hi";
 import {
     FaReact,
     FaPhp,
@@ -167,21 +168,22 @@ function Item({ row, col, planeX, planeY, tech, onTechClick }) {
 
 export default function Technologies() {
     const [selectedTech, setSelectedTech] = useState(null);
-
-    const [viewMode, setViewMode] = useState("watch"); // "watch" | "cards"
-    const [activeTab, setActiveTab] = useState("language"); // "language" | "tool"
+    const [viewMode, setViewMode] = useState("watch");
+    const [activeTab, setActiveTab] = useState("language");
 
     const ref = useRef(null);
     const isInView = useInView(ref, { once: false, margin: "-100px" });
 
-    // AppleWatch grid (usa TODAS las techs)
-    const grid = [];
-    for (let row = 0; row < 10; row++) {
-        for (let col = 0; col < 8; col++) {
-            const index = (row * 8 + col) % technologies.length;
-            grid.push({ row, col, tech: technologies[index] });
+    const grid = useMemo(() => {
+        const items = [];
+        for (let row = 0; row < 10; row++) {
+            for (let col = 0; col < 8; col++) {
+                const index = (row * 8 + col) % technologies.length;
+                items.push({ row, col, tech: technologies[index] });
+            }
         }
-    }
+        return items;
+    }, []);
 
     const x = useMotionValue(-135);
     const y = useMotionValue(-135);
@@ -192,230 +194,117 @@ export default function Technologies() {
     const tools = useMemo(() => technologies.filter((t) => t.type === "tool"), []);
     const tabItems = activeTab === "language" ? languages : tools;
 
-    // Opcional: cerrar modal al cambiar vista/tab
     useEffect(() => {
         setSelectedTech(null);
     }, [viewMode, activeTab]);
 
     return (
         <Section id="technologies">
-            <div ref={ref} className="container mx-auto max-w-6xl">
-                <motion.h2
-                    className="text-5xl font-bold text-white text-center mb-12"
-                    initial={{ opacity: 0, y: -50 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
-                >
-                    <motion.span
-                        className="bg-clip-text text-transparent"
-                        style={{
-                            backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
-                            backgroundSize: "200% 200%",
-                        }}
-                        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                    >
-                        Tecnologías
-                    </motion.span>{" "}
-                    &{" "}
-                    <motion.span
-                        className="bg-clip-text text-transparent"
-                        style={{
-                            backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
-                            backgroundSize: "200% 200%",
-                        }}
-                        animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-                    >
-                        Herramientas
-                    </motion.span>
+            <div ref={ref} className="container mx-auto max-w-6xl relative">
+                {/* Título y Switches (se mantienen igual) */}
+                <motion.h2 className="text-5xl font-bold text-white text-center mb-12">
+                   <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))" }}>Tecnologías</span> & <span className="bg-clip-text text-transparent" style={{ backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))" }}>Herramientas</span>
                 </motion.h2>
 
-
-                {/* Switch view + tabs */}
                 <div className="flex flex-col items-center gap-4 mb-8">
-                    {/* Switch view */}
                     <div className="inline-flex rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-sm">
-                        <button
-                            onClick={() => setViewMode("watch")}
-                            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${viewMode === "watch"
-                                ? "text-white shadow-lg"
-                                : "text-gray-400 hover:text-white"
-                                }`}
-                            style={viewMode === "watch"
-                                ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
-                                : {}
-                            }
-                        >
-                            AppleWatch
-                        </button>
-                        <button
-                            onClick={() => setViewMode("cards")}
-                            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${viewMode === "cards"
-                                ? "text-white shadow-lg"
-                                : "text-gray-400 hover:text-white"
-                                }`}
-                            style={viewMode === "cards"
-                                ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
-                                : {}
-                            }
-                        >
-                            Cards
-                        </button>
+                        <button onClick={() => setViewMode("watch")} className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${viewMode === "watch" ? "text-white bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]" : "text-gray-400"}`}>AppleWatch</button>
+                        <button onClick={() => setViewMode("cards")} className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${viewMode === "cards" ? "text-white bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]" : "text-gray-400"}`}>Cards</button>
                     </div>
 
-                    <motion.p
-                        className="text-gray-400 mb-6 text-center"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                    >
-                        {viewMode === "watch" ? "Arrastra y selecciona para saber más" : "Selecciona una card para saber más"}
-                    </motion.p>
-
-                    {/* Tabs solo en modo cards */}
                     {viewMode === "cards" && (
                         <div className="inline-flex rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur-sm">
-                            <button
-                                onClick={() => setActiveTab("language")}
-                                className={`px-6 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 ${activeTab === "language"
-                                    ? "text-white shadow-lg"
-                                    : "text-gray-400 hover:text-white"
-                                    }`}
-                                style={activeTab === "language"
-                                    ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
-                                    : {}
-                                }
-                            >
-                                Lenguajes & Frameworks
-                            </button>
-                            <button
-                                onClick={() => setActiveTab("tool")}
-                                className={`px-6 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 ${activeTab === "tool"
-                                    ? "text-white shadow-lg"
-                                    : "text-gray-400 hover:text-white"
-                                    }`}
-                                style={activeTab === "tool"
-                                    ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
-                                    : {}
-                                }
-                            >
-                                Herramientas
-                            </button>
+                            <button onClick={() => setActiveTab("language")} className={`px-6 py-2.5 rounded-2xl text-sm font-medium transition-all ${activeTab === "language" ? "text-white bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]" : "text-gray-400"}`}>Lenguajes & Frameworks</button>
+                            <button onClick={() => setActiveTab("tool")} className={`px-6 py-2.5 rounded-2xl text-sm font-medium transition-all ${activeTab === "tool" ? "text-white bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]" : "text-gray-400"}`}>Herramientas</button>
                         </div>
                     )}
                 </div>
 
-                {/* Content */}
-                {viewMode === "watch" ? (
-                    // ✅ Vista AppleWatch
-                    <div className="flex justify-center">
-                        <div
-                            style={{
-                                width: device.width,
-                                height: device.height,
-                                overflow: "hidden",
-                                background: "black",
-                                borderRadius: "50px",
-                                position: "relative",
-                                border: "2px solid #333",
-                            }}
-                        >
-                            <motion.div
-                                drag
-                                dragConstraints={{ left: -390, right: 30, top: -360, bottom: 30 }}
-                                style={{
-                                    width: 600,
-                                    height: 600,
-                                    x,
-                                    y,
-                                    background: "transparent",
-                                    cursor: "grab",
-                                }}
-                                whileTap={{ cursor: "grabbing" }}
-                            >
-                                {grid.map((item, index) => (
-                                    <Item
-                                        key={index}
-                                        row={item.row}
-                                        col={item.col}
-                                        planeX={x}
-                                        planeY={y}
-                                        tech={item.tech}
-                                        onTechClick={setSelectedTech}
-                                    />
-                                ))}
-                            </motion.div>
+                <LayoutGroup>
+                    {viewMode === "watch" ? (
+                        <div className="flex justify-center">
+                            <div style={{ width: device.width, height: device.height, overflow: "hidden", background: "black", borderRadius: "50px", position: "relative", border: "2px solid #333" }}>
+                                <motion.div drag dragConstraints={{ left: -390, right: 30, top: -360, bottom: 30 }} style={{ width: 600, height: 600, x, y, background: "transparent", cursor: "grab" }} whileTap={{ cursor: "grabbing" }}>
+                                    {grid.map((item, index) => (
+                                        <Item key={index} row={item.row} col={item.col} planeX={x} planeY={y} tech={item.tech} onTechClick={setSelectedTech} />
+                                    ))}
+                                </motion.div>
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    // ✅ Vista Cards pequeñas (logo + nombre) + modal al click
-                    <div className="max-w-5xl mx-auto px-4">
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                            {tabItems.map((tech) => {
-                                const Icon = tech.icon;
-                                return (
+                    ) : (
+                        <div className="max-w-5xl mx-auto px-4">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                {tabItems.map((tech) => (
                                     <motion.button
+                                        layoutId={`card-bg-${tech.name}`}
                                         key={tech.name}
                                         onClick={() => setSelectedTech(tech)}
                                         whileHover={{ scale: 1.03 }}
                                         whileTap={{ scale: 0.98 }}
-                                        className="rounded-2xl border border-white/10 bg-white/5 p-3 flex flex-col items-center gap-2 hover:bg-white/10 transition"
-                                        title={tech.name}
+                                        className="rounded-2xl border border-white/10 bg-white/5 p-3 flex flex-col items-center gap-2 hover:bg-white/10 transition overflow-hidden"
                                     >
-                                        <div
-                                            className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                                        <motion.div 
+                                            layoutId={`icon-bg-${tech.name}`}
+                                            className="w-12 h-12 rounded-2xl flex items-center justify-center" 
                                             style={{ background: tech.bg }}
                                         >
-                                            <Icon style={{ fontSize: "26px", color: tech.color }} />
-                                        </div>
-                                        <span className="text-xs text-white/90 font-medium text-center leading-tight">
+                                            <tech.icon style={{ fontSize: "26px", color: tech.color }} />
+                                        </motion.div>
+                                        <motion.span layoutId={`title-${tech.name}`} className="text-xs text-white/90 font-medium text-center">
                                             {tech.name}
-                                        </span>
+                                        </motion.span>
                                     </motion.button>
-                                );
-                            })}
-                        </div>
-                    </div>
-                )}
-
-                {/* Modal (igual para ambas vistas) */}
-                {selectedTech && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        className="mt-8 px-4 max-w-2xl mx-auto"
-                    >
-                        <div
-                            className="p-6 rounded-2xl border-2 relative"
-                            style={{
-                                background: `linear-gradient(135deg, ${selectedTech.bg}20, ${selectedTech.bg}05)`,
-                                borderColor: selectedTech.bg,
-                            }}
-                        >
-                            <button
-                                onClick={closeModal}
-                                className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-                                aria-label="Cerrar"
-                            >
-                                ✕
-                            </button>
-
-                            <div className="flex items-center gap-4 mb-4">
-                                <div
-                                    className="w-16 h-16 rounded-full flex items-center justify-center"
-                                    style={{ background: selectedTech.bg }}
-                                >
-                                    <selectedTech.icon style={{ fontSize: "32px", color: selectedTech.color }} />
-                                </div>
-                                <h3 className="text-3xl font-bold text-white">{selectedTech.name}</h3>
+                                ))}
                             </div>
-
-                            <p className="text-gray-300 text-lg leading-relaxed">{selectedTech.experience}</p>
                         </div>
-                    </motion.div>
-                )}
+                    )}
+
+                    {/* MODAL CON ANIMACIÓN DE EXPANSIÓN */}
+                    <AnimatePresence>
+                        {selectedTech && (
+                            <>
+                                <motion.div 
+                                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                                    onClick={closeModal}
+                                    className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100]"
+                                />
+                                <div className="fixed inset-0 flex items-center justify-center z-[101] p-4 pointer-events-none">
+                                    <motion.div
+                                        layoutId={`card-bg-${selectedTech.name}`}
+                                        className="w-full max-w-lg bg-slate-900 border-2 rounded-3xl overflow-hidden pointer-events-auto relative p-8 shadow-2xl"
+                                        style={{ borderColor: selectedTech.bg }}
+                                    >
+                                        <button onClick={closeModal} className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors">
+                                            <HiX size={24} />
+                                        </button>
+
+                                        <div className="flex items-center gap-6 mb-6">
+                                            <motion.div
+                                                layoutId={`icon-bg-${selectedTech.name}`}
+                                                className="w-20 h-20 rounded-2xl flex items-center justify-center shadow-lg"
+                                                style={{ background: selectedTech.bg }}
+                                            >
+                                                <selectedTech.icon style={{ fontSize: "40px", color: selectedTech.color }} />
+                                            </motion.div>
+                                            <motion.h3 layoutId={`title-${selectedTech.name}`} className="text-4xl font-bold text-white">
+                                                {selectedTech.name}
+                                            </motion.h3>
+                                        </div>
+
+                                        <motion.p 
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            transition={{ delay: 0.2 }}
+                                            className="text-gray-300 text-lg leading-relaxed"
+                                        >
+                                            {selectedTech.experience}
+                                        </motion.p>
+                                    </motion.div>
+                                </div>
+                            </>
+                        )}
+                    </AnimatePresence>
+                </LayoutGroup>
             </div>
         </Section>
     );
