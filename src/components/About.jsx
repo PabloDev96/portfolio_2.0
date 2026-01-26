@@ -38,11 +38,7 @@ export default function AboutMe() {
   return (
     <div className="about">
       <p className="role">
-        Desarrollador Full Stack Junior
-      </p>
-
-      <p className="stack">
-        React · Firebase · Spring Boot
+        Desarrollador Web Full Stack
       </p>
 
       <p className="goal">
@@ -187,10 +183,8 @@ export default function AboutMe() {
                                             <p className="text-white text-xs leading-tight">
                                                 Desarrollador Web{" "}
                                                 <span style={{ color: "var(--primary)" }}>
-                                                    Full Stack Junior
+                                                    Full Stack
                                                 </span>
-                                                <br />
-                                                React · Firebase · Spring Boot
                                             </p>
 
                                             <p className="text-slate-300 text-[10px] mt-2">
@@ -210,7 +204,7 @@ export default function AboutMe() {
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
-                            Soy desarrollador web Full Stack Junior, con muchas ganas y motivación de seguir aprendiendo y creciendo profesionalmente. Me gusta crear aplicaciones web modernas centradas en resolver problemas reales y ofrecer una buena experiencia al usuario.
+                            Soy desarrollador web Full Stack, con muchas ganas y motivación de seguir aprendiendo y creciendo profesionalmente. Me gusta crear aplicaciones web modernas centradas en resolver problemas reales y ofrecer una buena experiencia al usuario.
                         </motion.p>
 
                         <motion.p
