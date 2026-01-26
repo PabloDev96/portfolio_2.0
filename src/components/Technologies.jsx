@@ -355,233 +355,245 @@ export default function Technologies() {
                             {/* Wrapper responsive: en móvil escala el conjunto */}
                             <div className="w-fit mx-auto">
                                 <div
-                                    className="relative origin-top scale-[0.65] sm:scale-100"
-                                    style={{ width: watchDisplaySize, height: watchDisplaySize }}
+                                    className="relative origin-top sm:transform-none"
+                                    style={{
+                                        width: watchDisplaySize,
+                                        height: watchDisplaySize * 0.65,
+                                    }}
                                 >
-                                    <img
-                                        src={appleWatchImg}
-                                        alt="Apple Watch"
-                                        className="w-full h-full object-contain select-none pointer-events-none translate-x-[8px]"
-                                        draggable={false}
-                                    />
-
-                                    {/* Pantalla: tu menú (sin tocar device) */}
                                     <div
-                                        className="absolute"
+                                        className="sm:scale-100"
                                         style={{
-                                            left: screenLeft,
-                                            top: screenTop,
-                                            width: device.width,
-                                            height: device.height,
+                                            width: watchDisplaySize,
+                                            height: watchDisplaySize,
+                                            transform: "scale(0.65)",
+                                            transformOrigin: "top center",
                                         }}
                                     >
+                                        <img
+                                            src={appleWatchImg}
+                                            alt="Apple Watch"
+                                            className="w-full h-full object-contain select-none pointer-events-none translate-x-[8px]"
+                                            draggable={false}
+                                        />
+
+                                        {/* Pantalla: tu menú (sin tocar device) */}
                                         <div
+                                            className="absolute"
                                             style={{
+                                                left: screenLeft,
+                                                top: screenTop,
                                                 width: device.width,
                                                 height: device.height,
-                                                overflow: "hidden",
-                                                background: "black",
-                                                borderRadius: "50px",
-                                                position: "relative",
                                             }}
                                         >
-                                            <motion.div
-                                                drag
-                                                dragConstraints={{
-                                                    left: -390,
-                                                    right: 30,
-                                                    top: -360,
-                                                    bottom: 30,
-                                                }}
+                                            <div
                                                 style={{
-                                                    width: 600,
-                                                    height: 600,
-                                                    x,
-                                                    y,
-                                                    background: "transparent",
-                                                    cursor: "grab",
+                                                    width: device.width,
+                                                    height: device.height,
+                                                    overflow: "hidden",
+                                                    background: "black",
+                                                    borderRadius: "50px",
+                                                    position: "relative",
                                                 }}
-                                                whileTap={{ cursor: "grabbing" }}
                                             >
-                                                {grid.map((item, index) => (
-                                                    <Item
-                                                        key={index}
-                                                        row={item.row}
-                                                        col={item.col}
-                                                        planeX={x}
-                                                        planeY={y}
-                                                        tech={item.tech}
-                                                        onTechClick={setSelectedTech}
-                                                    />
-                                                ))}
-                                            </motion.div>
+                                                <motion.div
+                                                    drag
+                                                    dragConstraints={{
+                                                        left: -390,
+                                                        right: 30,
+                                                        top: -360,
+                                                        bottom: 30,
+                                                    }}
+                                                    style={{
+                                                        width: 600,
+                                                        height: 600,
+                                                        x,
+                                                        y,
+                                                        background: "transparent",
+                                                        cursor: "grab",
+                                                    }}
+                                                    whileTap={{ cursor: "grabbing" }}
+                                                >
+                                                    {grid.map((item, index) => (
+                                                        <Item
+                                                            key={index}
+                                                            row={item.row}
+                                                            col={item.col}
+                                                            planeX={x}
+                                                            planeY={y}
+                                                            tech={item.tech}
+                                                            onTechClick={setSelectedTech}
+                                                        />
+                                                    ))}
+                                                </motion.div>
+                                            </div>
                                         </div>
+                                    </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ) : (
-                        // ✅ Vista Cards pequeñas (logo + nombre) + modal al click con animación tipo Projects
-                        <motion.div
-                            key={`tech-grid-${activeTab}`}   // 👈 IMPORTANTE
-                            className="max-w-5xl mx-auto px-4"
-                            initial="hidden"
-                            animate={isInView ? "visible" : "hidden"}
-                            variants={{
-                                hidden: { opacity: 0 },
-                                visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
-                            }}
-                        >
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                                {tabItems.map((tech) => {
-                                    const Icon = tech.icon;
+                            ) : (
+                            // Vista Cards pequeñas (logo + nombre) + modal al click con animación
+                            <motion.div
+                                key={`tech-grid-${activeTab}`}
+                                className="max-w-5xl mx-auto px-4"
+                                initial="hidden"
+                                animate={isInView ? "visible" : "hidden"}
+                                variants={{
+                                    hidden: { opacity: 0 },
+                                    visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
+                                }}
+                            >
+                                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                                    {tabItems.map((tech) => {
+                                        const Icon = tech.icon;
 
-                                    return (
-                                        <motion.div
-                                            key={tech.name}
-                                            className="relative"
-                                            variants={{
-                                                hidden: { opacity: 0, y: 18 },
-                                                visible: {
-                                                    opacity: 1,
-                                                    y: 0,
-                                                    transition: { duration: 0.35 },
-                                                },
-                                            }}
-                                        >
-                                            <motion.button
-                                                type="button"
-                                                onClick={() => setSelectedTech(tech)}
-                                                className="text-left w-full"
-                                                whileHover={{ y: -4 }}
-                                                transition={{ duration: 0.18 }}
+                                        return (
+                                            <motion.div
+                                                key={tech.name}
+                                                className="relative"
+                                                variants={{
+                                                    hidden: { opacity: 0, y: 18 },
+                                                    visible: {
+                                                        opacity: 1,
+                                                        y: 0,
+                                                        transition: { duration: 0.35 },
+                                                    },
+                                                }}
                                             >
-                                                <motion.div
-                                                    layoutId={`tech-card-${tech.name}`}
-                                                    className="rounded-2xl border border-white/10 bg-white/5 p-3 overflow-hidden relative"
+                                                <motion.button
+                                                    type="button"
+                                                    onClick={() => setSelectedTech(tech)}
+                                                    className="text-left w-full"
+                                                    whileHover={{ y: -4 }}
+                                                    transition={{ duration: 0.18 }}
                                                 >
-                                                    {/* glow suave con tu color */}
-                                                    <div
-                                                        className="absolute inset-0 opacity-0 hover:opacity-20 transition-opacity"
-                                                        style={{
-                                                            background: `radial-gradient(circle at 30% 20%, ${tech.bg}55, transparent 60%)`,
-                                                        }}
-                                                    />
-
                                                     <motion.div
-                                                        layoutId={`tech-icon-${tech.name}`}
-                                                        className="relative z-10 w-12 h-12 rounded-2xl flex items-center justify-center mb-2"
-                                                        style={{ background: tech.bg }}
+                                                        layoutId={`tech-card-${tech.name}`}
+                                                        className="rounded-2xl border border-white/10 bg-white/5 p-3 overflow-hidden relative"
                                                     >
-                                                        <Icon style={{ fontSize: "26px", color: tech.color }} />
-                                                    </motion.div>
+                                                        <div
+                                                            className="absolute inset-0 opacity-0 hover:opacity-20 transition-opacity"
+                                                            style={{
+                                                                background: `radial-gradient(circle at 30% 20%, ${tech.bg}55, transparent 60%)`,
+                                                            }}
+                                                        />
 
-                                                    <motion.span
-                                                        layoutId={`tech-title-${tech.name}`}
-                                                        className="relative z-10 block text-xs text-white/90 font-medium text-center leading-tight"
-                                                    >
-                                                        {tech.name}
-                                                    </motion.span>
-                                                </motion.div>
-                                            </motion.button>
-                                        </motion.div>
-                                    );
-                                })}
-                            </div>
-                        </motion.div>
+                                                        <motion.div
+                                                            layoutId={`tech-icon-${tech.name}`}
+                                                            className="relative z-10 w-12 h-12 rounded-2xl flex items-center justify-center mb-2"
+                                                            style={{ background: tech.bg }}
+                                                        >
+                                                            <Icon style={{ fontSize: "26px", color: tech.color }} />
+                                                        </motion.div>
+
+                                                        <motion.span
+                                                            layoutId={`tech-title-${tech.name}`}
+                                                            className="relative z-10 block text-xs text-white/90 font-medium text-center leading-tight"
+                                                        >
+                                                            {tech.name}
+                                                        </motion.span>
+                                                    </motion.div>
+                                                </motion.button>
+                                            </motion.div>
+                                        );
+                                    })}
+                                </div>
+                            </motion.div>
                     )}
 
-                    {/* Modal animado tipo Projects (para watch + cards) */}
-                    <AnimatePresence>
-                        {selectedTech && (
-                            <>
-                                {/* Backdrop */}
-                                <motion.div
-                                    className="fixed inset-0 z-[9998] bg-black/55"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                />
-
-                                <motion.div
-                                    className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    onClick={closeModal}
-                                >
-                                    <motion.div
-                                        layoutId={`tech-card-${selectedTech.name}`}
-                                        className="w-full max-w-2xl rounded-2xl overflow-hidden relative backdrop-blur-md border"
-                                        style={{
-                                            borderColor: `${selectedTech.bg}55`,
-                                            boxShadow: "0 18px 70px rgba(0,0,0,0.6)",
-                                            background: "rgba(2, 6, 23, 0.88)", // slate-950/90 vibe
-                                        }}
-                                        onClick={(e) => e.stopPropagation()}
-                                    >
-                                        {/* Fondo con tu color (manteniendo colores actuales) */}
-                                        <div
-                                            className="absolute inset-0"
-                                            style={{
-                                                background: `linear-gradient(135deg, ${selectedTech.bg}22, ${selectedTech.bg}08)`,
-                                            }}
+                            {/* Modal animado tipo Projects (para watch + cards) */}
+                            <AnimatePresence>
+                                {selectedTech && (
+                                    <>
+                                        {/* Backdrop */}
+                                        <motion.div
+                                            className="fixed inset-0 z-[9998] bg-black/55"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
                                         />
 
-                                        <div className="relative z-10 p-6 md:p-8">
-                                            <div className="flex items-center gap-4 mb-4">
-                                                <motion.div
-                                                    layoutId={`tech-icon-${selectedTech.name}`}
-                                                    className="w-16 h-16 rounded-full flex items-center justify-center"
-                                                    style={{ background: selectedTech.bg }}
-                                                >
-                                                    <selectedTech.icon
-                                                        style={{
-                                                            fontSize: "32px",
-                                                            color: selectedTech.color,
-                                                        }}
-                                                    />
-                                                </motion.div>
-
-                                                <motion.h3
-                                                    layoutId={`tech-title-${selectedTech.name}`}
-                                                    className="text-3xl md:text-4xl font-bold text-white"
-                                                >
-                                                    {selectedTech.name}
-                                                </motion.h3>
-                                            </div>
-
-                                            <motion.p
-                                                className="text-gray-200/90 leading-relaxed text-justify"
-                                                initial={{ opacity: 0 }}
-                                                animate={{ opacity: 1 }}
-                                                transition={{ duration: 0.25, delay: 0.05 }}
+                                        <motion.div
+                                            className="fixed inset-0 z-[9999] flex items-center justify-center p-4"
+                                            initial={{ opacity: 0 }}
+                                            animate={{ opacity: 1 }}
+                                            exit={{ opacity: 0 }}
+                                            onClick={closeModal}
+                                        >
+                                            <motion.div
+                                                layoutId={`tech-card-${selectedTech.name}`}
+                                                className="w-full max-w-2xl rounded-2xl overflow-hidden relative backdrop-blur-md border"
+                                                style={{
+                                                    borderColor: `${selectedTech.bg}55`,
+                                                    boxShadow: "0 18px 70px rgba(0,0,0,0.6)",
+                                                    background: "rgba(2, 6, 23, 0.88)", // slate-950/90 vibe
+                                                }}
+                                                onClick={(e) => e.stopPropagation()}
                                             >
-                                                {selectedTech.experience}
-                                            </motion.p>
+                                                {/* Fondo */}
+                                                <div
+                                                    className="absolute inset-0"
+                                                    style={{
+                                                        background: `linear-gradient(135deg, ${selectedTech.bg}22, ${selectedTech.bg}08)`,
+                                                    }}
+                                                />
 
-                                            <motion.button
-                                                type="button"
-                                                onClick={closeModal}
-                                                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
-                                                initial={{ rotate: 0, scale: 0 }}
-                                                animate={{ rotate: 90, scale: 1 }}
-                                                exit={{ scale: 0, opacity: 0 }}
-                                                transition={{ duration: 0.6, ease: "easeOut" }}
-                                                whileHover={{ scale: 1.1 }}
-                                                whileTap={{ scale: 0.92 }}
-                                                aria-label="Cerrar modal"
-                                                title="Cerrar"
-                                            >
-                                                ✕
-                                            </motion.button>
-                                        </div>
-                                    </motion.div>
-                                </motion.div>
-                            </>
-                        )}
-                    </AnimatePresence>
-                </LayoutGroup>
+                                                <div className="relative z-10 p-6 md:p-8">
+                                                    <div className="flex items-center gap-4 mb-4">
+                                                        <motion.div
+                                                            layoutId={`tech-icon-${selectedTech.name}`}
+                                                            className="w-16 h-16 rounded-full flex items-center justify-center"
+                                                            style={{ background: selectedTech.bg }}
+                                                        >
+                                                            <selectedTech.icon
+                                                                style={{
+                                                                    fontSize: "32px",
+                                                                    color: selectedTech.color,
+                                                                }}
+                                                            />
+                                                        </motion.div>
+
+                                                        <motion.h3
+                                                            layoutId={`tech-title-${selectedTech.name}`}
+                                                            className="text-3xl md:text-4xl font-bold text-white"
+                                                        >
+                                                            {selectedTech.name}
+                                                        </motion.h3>
+                                                    </div>
+
+                                                    <motion.p
+                                                        className="text-gray-200/90 leading-relaxed text-justify"
+                                                        initial={{ opacity: 0 }}
+                                                        animate={{ opacity: 1 }}
+                                                        transition={{ duration: 0.25, delay: 0.05 }}
+                                                    >
+                                                        {selectedTech.experience}
+                                                    </motion.p>
+
+                                                    <motion.button
+                                                        type="button"
+                                                        onClick={closeModal}
+                                                        className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+                                                        initial={{ rotate: 0, scale: 0 }}
+                                                        animate={{ rotate: 90, scale: 1 }}
+                                                        exit={{ scale: 0, opacity: 0 }}
+                                                        transition={{ duration: 0.6, ease: "easeOut" }}
+                                                        whileHover={{ scale: 1.1 }}
+                                                        whileTap={{ scale: 0.92 }}
+                                                        aria-label="Cerrar modal"
+                                                        title="Cerrar"
+                                                    >
+                                                        ✕
+                                                    </motion.button>
+                                                </div>
+                                            </motion.div>
+                                        </motion.div>
+                                    </>
+                                )}
+                            </AnimatePresence>
+                        </LayoutGroup>
             </div>
         </Section>
     );
