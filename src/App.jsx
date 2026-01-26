@@ -10,7 +10,7 @@ function App() {
   useDynamicFavicon(theme);
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white w-full overflow-x-hidden relative">
+    <div className="min-h-screen bg-gray-800 text-white w-full overflow-x-hidden relative">
       {/* Fondo de partículas */}
       <ParticlesBackground density={30} maxParticles={1000} linkLines={false} />
 

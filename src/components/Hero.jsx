@@ -117,6 +117,7 @@ const Hero = () => {
                             className="inline-flex items-center gap-2 px-8 py-3 border-2 border-[var(--primary)] text-white rounded-full font-semibold text-lg hover:bg-[var(--primary-soft)] transition-colors"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
+                            style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                             onMouseEnter={(e) => attractToTarget(e, 1.35)}
                             onMouseLeave={stopAttractor}
                             onFocus={(e) => attractToTarget(e, 1.35)}
@@ -132,6 +133,7 @@ const Hero = () => {
                             className="inline-flex items-center gap-2 px-8 py-3 border-2 border-[var(--primary)] text-white rounded-full font-semibold text-lg hover:bg-[var(--primary-soft)] transition-colors"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
+                            style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                             onMouseEnter={(e) => attractToTarget(e, 1.35)}
                             onMouseLeave={stopAttractor}
                             onFocus={(e) => attractToTarget(e, 1.35)}
@@ -166,6 +168,7 @@ const Hero = () => {
                                         borderRadius: "16px"
                                     }}
                                     whileTap={{ scale: 0.96 }}
+                                    style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                                     transition={{ 
                                         opacity: { duration: 0.5, delay: 0.7 + index * 0.1 },
                                         y: { duration: 0.5, delay: 0.7 + index * 0.1 },

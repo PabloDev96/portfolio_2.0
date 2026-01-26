@@ -314,21 +314,6 @@ const NavBar = () => {
                             </a>
                         </motion.li>
                     ))}
-
-                    <motion.li variants={itemVariants}>
-                        <a
-                            href={CV_URL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={() => setIsOpen(false)}
-                            className="inline-flex items-center gap-2 px-6 py-2 rounded-full border-2 border-[var(--primary)] text-white font-semibold hover:bg-[var(--primary-soft)] transition-colors"
-                            onMouseEnter={(e) => attractToTarget(e, 1.35)}
-                            onMouseLeave={stopAttractor}
-                        >
-                            <HiOutlineDocumentText className="text-2xl" />
-                            <span>Ver CV</span>
-                        </a>
-                    </motion.li>
                 </motion.ul>
             </motion.div>
 
@@ -354,6 +339,7 @@ const NavBar = () => {
                     boxShadow: "0 14px 40px var(--primary-glow)",
                 }}
                 whileTap={{ scale: 0.96 }}
+                style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                 onMouseEnter={(e) => attractToTarget(e, 1.5)}
                 onMouseLeave={stopAttractor}
             >

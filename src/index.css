@@ -82,3 +82,13 @@ section {
   --accent: #38bdf8;
   --accent-soft: rgba(56, 189, 248, 0.18);
 }
+
+/* Ocultar scrollbar pero permitir scroll */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE y Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}

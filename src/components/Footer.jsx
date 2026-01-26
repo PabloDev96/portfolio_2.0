@@ -122,6 +122,7 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                 initial={{ borderRadius: "9999px" }}
                 whileHover={{ scale: 1.08, y: -2, borderRadius: "16px" }}
                 whileTap={{ scale: 0.96 }}
+                style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                 transition={{
                     duration: 0.15,
                     ease: "easeInOut",
@@ -211,6 +212,7 @@ const ActionButton = ({ label, icon, href }) => (
         initial={{ borderRadius: "9999px" }}
         whileHover={{ scale: 1.08, y: -2, borderRadius: "16px" }}
         whileTap={{ scale: 0.96 }}
+            style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
         transition={{
             duration: 0.15,
             ease: "easeInOut",
