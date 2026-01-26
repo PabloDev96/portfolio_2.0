@@ -108,7 +108,10 @@ export default function AboutMe() {
                         animate={isInView ? { opacity: 1, x: 0 } : {}}
                         transition={{ duration: 0.8 }}
                     >
-                        <motion.div className="relative mx-auto max-w-md" whileHover={{ scale: 1.03 }}>
+                        <motion.div
+                            className="relative mx-auto max-w-md scale-100 lg:scale-135"
+                            whileHover={{ scale: 1.03 }}
+                        >
                             {/* Halo */}
                             <div
                                 className="absolute inset-0 blur-2xl opacity-40 -z-10"
