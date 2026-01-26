@@ -48,24 +48,24 @@ import { BiLogoVisualStudio } from "react-icons/bi";
 const technologies = [
     { name: "HTML5", icon: FaHtml5, color: "#fff", bg: "#E34F26", type: "language", experience: "Más de 5 años creando estructuras web semánticas y accesibles." },
     { name: "CSS3", icon: FaCss3Alt, color: "#fff", bg: "#1572B6", type: "language", experience: "Experto en diseño responsive, animaciones y Grid/Flexbox." },
-    { name: "Tailwind", icon: SiTailwindcss, color: "#fff", bg: "#06B6D4", type: "tool", experience: "Framework CSS favorito para desarrollo rápido y consistente." },
+    { name: "Tailwind", icon: SiTailwindcss, color: "#fff", bg: "#06B6D4", type: "language", experience: "Framework CSS favorito para desarrollo rápido y consistente." },
     { name: "JavaScript", icon: SiJavascript, color: "#000", bg: "#F7DF1E", type: "language", experience: "Lenguaje principal con dominio de ES6+, async/await y APIs modernas." },
     { name: "TypeScript", icon: SiTypescript, color: "#fff", bg: "#3178C6", type: "language", experience: "Experiencia en proyectos escalables con tipado estático." },
     { name: "Java", icon: FaJava, color: "#fff", bg: "#007396", type: "language", experience: "Desarrollo backend con Spring Boot y arquitecturas empresariales." },
     { name: "PHP", icon: FaPhp, color: "#fff", bg: "#777BB4", type: "language", experience: "Desarrollo web dinámico y APIs RESTful." },
 
-    { name: "MySQL", icon: SiMysql, color: "#fff", bg: "#4479A1", type: "tool", experience: "Diseño de bases de datos relacionales y optimización de queries." },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#fff", bg: "#4169E1", type: "tool", experience: "Base de datos avanzada con experiencia en funciones y triggers." },
+    { name: "MySQL", icon: SiMysql, color: "#fff", bg: "#4479A1", type: "language", experience: "Diseño de bases de datos relacionales y optimización de queries." },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "#fff", bg: "#4169E1", type: "language", experience: "Base de datos avanzada con experiencia en funciones y triggers." },
 
     { name: "Git", icon: FaGitAlt, color: "#fff", bg: "#F05032", type: "tool", experience: "Control de versiones con flujos de trabajo colaborativos." },
     { name: "GitHub", icon: FaGithub, color: "#000", bg: "#ffffff", type: "tool", experience: "Gestión de repositorios, CI/CD y colaboración en equipo." },
     { name: "Apache", icon: SiApache, color: "#fff", bg: "#D22128", type: "tool", experience: "Configuración de servidores web y virtual hosts." },
 
-    { name: "Spring", icon: SiSpring, color: "#fff", bg: "#6DB33F", type: "tool", experience: "Framework Java para desarrollo de aplicaciones empresariales." },
-    { name: "WordPress", icon: FaWordpress, color: "#fff", bg: "#21759B", type: "tool", experience: "Desarrollo de temas personalizados y plugins." },
-    { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", type: "tool", experience: "Librería principal para desarrollo frontend con hooks y context." },
+    { name: "Spring", icon: SiSpring, color: "#fff", bg: "#6DB33F", type: "language", experience: "Framework Java para desarrollo de aplicaciones empresariales." },
+    { name: "WordPress", icon: FaWordpress, color: "#fff", bg: "#21759B", type: "language", experience: "Desarrollo de temas personalizados y plugins." },
+    { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", type: "language", experience: "Librería principal para desarrollo frontend con hooks y context." },
     { name: "Redux", icon: SiRedux, color: "#fff", bg: "#764ABC", type: "tool", experience: "Gestión de estado global en aplicaciones complejas." },
-    { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", type: "tool", experience: "Framework PHP para desarrollo backend robusto y elegante." },
+    { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", type: "language", experience: "Framework PHP para desarrollo backend robusto y elegante." },
     { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", type: "tool", experience: "Build tool moderno para desarrollo web ultrarápido." },
     { name: "npm", icon: FaNpm, color: "#fff", bg: "#CB3837", type: "tool", experience: "Gestión de dependencias y scripts en proyectos JavaScript." },
     { name: "Docker", icon: FaDocker, color: "#fff", bg: "#2496ED", type: "tool", experience: "Containerización de aplicaciones para desarrollo y producción." },
@@ -330,7 +330,7 @@ export default function Technologies() {
                                             : "text-gray-300 hover:text-white"
                                         }`}
                                 >
-                                    Lenguajes
+                                    Lenguajes & Frameworks
                                 </button>
 
                                 <button
