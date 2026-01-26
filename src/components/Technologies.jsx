@@ -1,49 +1,77 @@
 import { motion, useMotionValue, transform, useInView } from "framer-motion";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Section from "./Section";
 import {
-    FaReact, FaNodeJs, FaPhp, FaJava, FaHtml5, FaCss3Alt,
-    FaGitAlt, FaGithub, FaNpm, FaWordpress, FaLaravel, FaDocker
+    FaReact,
+    FaPhp,
+    FaJava,
+    FaHtml5,
+    FaCss3Alt,
+    FaGitAlt,
+    FaGithub,
+    FaNpm,
+    FaWordpress,
+    FaLaravel,
+    FaDocker,
 } from "react-icons/fa";
 import {
-    SiJavascript, SiTailwindcss, SiSpring, SiMysql,
-    SiPostman, SiIntellijidea, SiApache, SiPostgresql, SiFirebase,
-    SiRedux, SiTypescript, SiVite, SiFramer, SiOpenai, SiMui, SiGooglegemini,
-    SiClaude
+    SiJavascript,
+    SiTailwindcss,
+    SiSpring,
+    SiMysql,
+    SiPostman,
+    SiIntellijidea,
+    SiApache,
+    SiPostgresql,
+    SiFirebase,
+    SiRedux,
+    SiTypescript,
+    SiVite,
+    SiFramer,
+    SiOpenai,
+    SiMui,
+    SiGooglegemini,
+    SiClaude,
 } from "react-icons/si";
 import { BiLogoVisualStudio } from "react-icons/bi";
 
-// Tecnologías con sus iconos, colores y experiencia
+// Tecnologías con iconos, colores y experiencia (+ type para tabs)
 const technologies = [
-    { name: "HTML5", icon: FaHtml5, color: "#fff", bg: "#E34F26", experience: "Más de 5 años creando estructuras web semánticas y accesibles." },
-    { name: "CSS3", icon: FaCss3Alt, color: "#fff", bg: "#1572B6", experience: "Experto en diseño responsive, animaciones y Grid/Flexbox." },
-    { name: "Tailwind", icon: SiTailwindcss, color: "#fff", bg: "#06B6D4", experience: "Framework CSS favorito para desarrollo rápido y consistente." },
-    { name: "JavaScript", icon: SiJavascript, color: "#000", bg: "#F7DF1E", experience: "Lenguaje principal con dominio de ES6+, async/await y APIs modernas." },
-    { name: "TypeScript", icon: SiTypescript, color: "#fff", bg: "#3178C6", experience: "Experiencia en proyectos escalables con tipado estático." },
-    { name: "Java", icon: FaJava, color: "#fff", bg: "#007396", experience: "Desarrollo backend con Spring Boot y arquitecturas empresariales." },
-    { name: "PHP", icon: FaPhp, color: "#fff", bg: "#777BB4", experience: "Desarrollo web dinámico y APIs RESTful." },
-    { name: "MySQL", icon: SiMysql, color: "#fff", bg: "#4479A1", experience: "Diseño de bases de datos relacionales y optimización de queries." },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#fff", bg: "#4169E1", experience: "Base de datos avanzada con experiencia en funciones y triggers." },
-    { name: "Git", icon: FaGitAlt, color: "#fff", bg: "#F05032", experience: "Control de versiones con flujos de trabajo colaborativos." },
-    { name: "GitHub", icon: FaGithub, color: "#000", bg: "#ffffff", experience: "Gestión de repositorios, CI/CD y colaboración en equipo." },
-    { name: "Apache", icon: SiApache, color: "#fff", bg: "#D22128", experience: "Configuración de servidores web y virtual hosts." },
-    { name: "Spring", icon: SiSpring, color: "#fff", bg: "#6DB33F", experience: "Framework Java para desarrollo de aplicaciones empresariales." },
-    { name: "WordPress", icon: FaWordpress, color: "#fff", bg: "#21759B", experience: "Desarrollo de temas personalizados y plugins." },
-    { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", experience: "Librería principal para desarrollo frontend con hooks y context." },
-    { name: "Redux", icon: SiRedux, color: "#fff", bg: "#764ABC", experience: "Gestión de estado global en aplicaciones complejas." },
-    { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", experience: "Framework PHP para desarrollo backend robusto y elegante." },
-    { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", experience: "Build tool moderno para desarrollo web ultrarápido." },
-    { name: "npm", icon: FaNpm, color: "#fff", bg: "#CB3837", experience: "Gestión de dependencias y scripts en proyectos JavaScript." },
-    { name: "Docker", icon: FaDocker, color: "#fff", bg: "#2496ED", experience: "Containerización de aplicaciones para desarrollo y producción." },
-    { name: "Postman", icon: SiPostman, color: "#fff", bg: "#FF6C37", experience: "Testing y documentación de APIs RESTful." },
-    { name: "VS Code", icon: BiLogoVisualStudio, color: "#fff", bg: "#007ACC", experience: "Editor principal con extensiones personalizadas." },
-    { name: "IntelliJ", icon: SiIntellijidea, color: "#fff", bg: "#0071C5", experience: "IDE para desarrollo Java y Spring Boot." },
-    { name: "Framer Motion", icon: SiFramer, color: "#000", bg: "#FF0055", experience: "Animaciones fluidas y interacciones en React." },
-    { name: "Firebase", icon: SiFirebase, color: "#000", bg: "#FFCA28", experience: "Backend as a Service para autenticación y base de datos en tiempo real." },
-    { name: "Claude", icon: SiClaude, color: "#cf7336", bg: "#c6b0a2", experience: "Asistente IA para desarrollo, debugging y aprendizaje." },
-    { name: "ChatGPT", icon: SiOpenai, color: "#fff", bg: "#10A37F", experience: "IA conversacional para resolver problemas técnicos." },
-    { name: "Gemini", icon: SiGooglegemini, color: "#fff", bg: "#8E75B2", experience: "IA de Google para análisis y generación de código." },
-    { name: "Material UI", icon: SiMui, color: "#fff", bg: "#007FFF", experience: "Componentes React con diseño Material Design." },
+    { name: "HTML5", icon: FaHtml5, color: "#fff", bg: "#E34F26", type: "language", experience: "Más de 5 años creando estructuras web semánticas y accesibles." },
+    { name: "CSS3", icon: FaCss3Alt, color: "#fff", bg: "#1572B6", type: "language", experience: "Experto en diseño responsive, animaciones y Grid/Flexbox." },
+    { name: "Tailwind", icon: SiTailwindcss, color: "#fff", bg: "#06B6D4", type: "tool", experience: "Framework CSS favorito para desarrollo rápido y consistente." },
+    { name: "JavaScript", icon: SiJavascript, color: "#000", bg: "#F7DF1E", type: "language", experience: "Lenguaje principal con dominio de ES6+, async/await y APIs modernas." },
+    { name: "TypeScript", icon: SiTypescript, color: "#fff", bg: "#3178C6", type: "language", experience: "Experiencia en proyectos escalables con tipado estático." },
+    { name: "Java", icon: FaJava, color: "#fff", bg: "#007396", type: "language", experience: "Desarrollo backend con Spring Boot y arquitecturas empresariales." },
+    { name: "PHP", icon: FaPhp, color: "#fff", bg: "#777BB4", type: "language", experience: "Desarrollo web dinámico y APIs RESTful." },
+
+    { name: "MySQL", icon: SiMysql, color: "#fff", bg: "#4479A1", type: "tool", experience: "Diseño de bases de datos relacionales y optimización de queries." },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "#fff", bg: "#4169E1", type: "tool", experience: "Base de datos avanzada con experiencia en funciones y triggers." },
+
+    { name: "Git", icon: FaGitAlt, color: "#fff", bg: "#F05032", type: "tool", experience: "Control de versiones con flujos de trabajo colaborativos." },
+    { name: "GitHub", icon: FaGithub, color: "#000", bg: "#ffffff", type: "tool", experience: "Gestión de repositorios, CI/CD y colaboración en equipo." },
+    { name: "Apache", icon: SiApache, color: "#fff", bg: "#D22128", type: "tool", experience: "Configuración de servidores web y virtual hosts." },
+
+    { name: "Spring", icon: SiSpring, color: "#fff", bg: "#6DB33F", type: "tool", experience: "Framework Java para desarrollo de aplicaciones empresariales." },
+    { name: "WordPress", icon: FaWordpress, color: "#fff", bg: "#21759B", type: "tool", experience: "Desarrollo de temas personalizados y plugins." },
+    { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", type: "tool", experience: "Librería principal para desarrollo frontend con hooks y context." },
+    { name: "Redux", icon: SiRedux, color: "#fff", bg: "#764ABC", type: "tool", experience: "Gestión de estado global en aplicaciones complejas." },
+    { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", type: "tool", experience: "Framework PHP para desarrollo backend robusto y elegante." },
+    { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", type: "tool", experience: "Build tool moderno para desarrollo web ultrarápido." },
+    { name: "npm", icon: FaNpm, color: "#fff", bg: "#CB3837", type: "tool", experience: "Gestión de dependencias y scripts en proyectos JavaScript." },
+    { name: "Docker", icon: FaDocker, color: "#fff", bg: "#2496ED", type: "tool", experience: "Containerización de aplicaciones para desarrollo y producción." },
+    { name: "Postman", icon: SiPostman, color: "#fff", bg: "#FF6C37", type: "tool", experience: "Testing y documentación de APIs RESTful." },
+
+    { name: "VS Code", icon: BiLogoVisualStudio, color: "#fff", bg: "#007ACC", type: "tool", experience: "Editor principal con extensiones personalizadas." },
+    { name: "IntelliJ", icon: SiIntellijidea, color: "#fff", bg: "#0071C5", type: "tool", experience: "IDE para desarrollo Java y Spring Boot." },
+    { name: "Framer Motion", icon: SiFramer, color: "#000", bg: "#FF0055", type: "tool", experience: "Animaciones fluidas y interacciones en React." },
+    { name: "Firebase", icon: SiFirebase, color: "#000", bg: "#FFCA28", type: "tool", experience: "Backend as a Service para autenticación y base de datos en tiempo real." },
+
+    { name: "Claude", icon: SiClaude, color: "#cf7336", bg: "#c6b0a2", type: "tool", experience: "Asistente IA para desarrollo, debugging y aprendizaje." },
+    { name: "ChatGPT", icon: SiOpenai, color: "#fff", bg: "#10A37F", type: "tool", experience: "IA conversacional para resolver problemas técnicos." },
+    { name: "Gemini", icon: SiGooglegemini, color: "#fff", bg: "#8E75B2", type: "tool", experience: "IA de Google para análisis y generación de código." },
+
+    { name: "Material UI", icon: SiMui, color: "#fff", bg: "#007FFF", type: "tool", experience: "Componentes React con diseño Material Design." },
 ];
 
 // Configuración
@@ -59,7 +87,7 @@ function useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset }) {
         -60,
         80,
         device[axis] - (icon.size + icon.margin) / 2 - 80,
-        device[axis] - (icon.size + icon.margin) / 2 + 60
+        device[axis] - (icon.size + icon.margin) / 2 + 60,
     ];
 
     const scaleRange = [0, 1, 1, 0];
@@ -82,7 +110,7 @@ function useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset }) {
 
         transformFn(planeX.get());
         return planeX.on("change", transformFn);
-    }, [planeX, scale, x, xOffset]);
+    }, [planeX, scale, x, xOffset, mapScreenXToScale, mapScreenToXOffset]);
 
     useMemo(() => {
         const transformFn = (v) => {
@@ -95,7 +123,7 @@ function useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset }) {
 
         transformFn(planeY.get());
         return planeY.on("change", transformFn);
-    }, [planeY, scale, y, yOffset]);
+    }, [planeY, scale, y, yOffset, mapScreenYToScale, mapScreenToYOffset]);
 }
 
 function Item({ row, col, planeX, planeY, tech, onTechClick }) {
@@ -103,9 +131,7 @@ function Item({ row, col, planeX, planeY, tech, onTechClick }) {
     const y = useMotionValue(0);
     const scale = useMotionValue(1);
 
-    const xOffset =
-        col * (icon.size + icon.margin) +
-        (row % 2) * ((icon.size + icon.margin) / 2);
+    const xOffset = col * (icon.size + icon.margin) + (row % 2) * ((icon.size + icon.margin) / 2);
     const yOffset = row * icon.size;
 
     useIconTransform({ x, y, scale, planeX, planeY, xOffset, yOffset });
@@ -142,9 +168,13 @@ function Item({ row, col, planeX, planeY, tech, onTechClick }) {
 export default function Technologies() {
     const [selectedTech, setSelectedTech] = useState(null);
 
+    const [viewMode, setViewMode] = useState("watch"); // "watch" | "cards"
+    const [activeTab, setActiveTab] = useState("language"); // "language" | "tool"
+
     const ref = useRef(null);
     const isInView = useInView(ref, { once: false, margin: "-100px" });
 
+    // AppleWatch grid (usa TODAS las techs)
     const grid = [];
     for (let row = 0; row < 10; row++) {
         for (let col = 0; col < 8; col++) {
@@ -158,6 +188,15 @@ export default function Technologies() {
 
     const closeModal = () => setSelectedTech(null);
 
+    const languages = useMemo(() => technologies.filter((t) => t.type === "language"), []);
+    const tools = useMemo(() => technologies.filter((t) => t.type === "tool"), []);
+    const tabItems = activeTab === "language" ? languages : tools;
+
+    // Opcional: cerrar modal al cambiar vista/tab
+    useEffect(() => {
+        setSelectedTech(null);
+    }, [viewMode, activeTab]);
+
     return (
         <Section id="technologies">
             <div ref={ref} className="container mx-auto max-w-6xl">
@@ -170,8 +209,7 @@ export default function Technologies() {
                     <motion.span
                         className="bg-clip-text text-transparent"
                         style={{
-                            backgroundImage:
-                                "linear-gradient(90deg, var(--primary), var(--accent))",
+                            backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
                             backgroundSize: "200% 200%",
                         }}
                         animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -183,8 +221,7 @@ export default function Technologies() {
                     <motion.span
                         className="bg-clip-text text-transparent"
                         style={{
-                            backgroundImage:
-                                "linear-gradient(90deg, var(--primary), var(--accent))",
+                            backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
                             backgroundSize: "200% 200%",
                         }}
                         animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
@@ -194,57 +231,155 @@ export default function Technologies() {
                     </motion.span>
                 </motion.h2>
 
-                <motion.p
-                    className="text-gray-400 mb-8 text-center"
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                    Arrastra y selecciona para saber más
-                </motion.p>
 
-                {/* Dock */}
-                <div className="flex justify-center">
-                    <div
-                        style={{
-                            width: device.width,
-                            height: device.height,
-                            overflow: "hidden",
-                            background: "black",
-                            borderRadius: "50px",
-                            position: "relative",
-                            border: "2px solid #333",
-                        }}
-                    >
-                        <motion.div
-                            drag
-                            dragConstraints={{ left: -390, right: 30, top: -360, bottom: 30 }}
-                            style={{
-                                width: 600,
-                                height: 600,
-                                x,
-                                y,
-                                background: "transparent",
-                                cursor: "grab",
-                            }}
-                            whileTap={{ cursor: "grabbing" }}
+                {/* Switch view + tabs */}
+                <div className="flex flex-col items-center gap-4 mb-8">
+                    {/* Switch view */}
+                    <div className="inline-flex rounded-full border border-white/10 bg-white/5 p-1 backdrop-blur-sm">
+                        <button
+                            onClick={() => setViewMode("watch")}
+                            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${viewMode === "watch"
+                                ? "text-white shadow-lg"
+                                : "text-gray-400 hover:text-white"
+                                }`}
+                            style={viewMode === "watch"
+                                ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
+                                : {}
+                            }
                         >
-                            {grid.map((item, index) => (
-                                <Item
-                                    key={index}
-                                    row={item.row}
-                                    col={item.col}
-                                    planeX={x}
-                                    planeY={y}
-                                    tech={item.tech}
-                                    onTechClick={setSelectedTech}
-                                />
-                            ))}
-                        </motion.div>
+                            AppleWatch
+                        </button>
+                        <button
+                            onClick={() => setViewMode("cards")}
+                            className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${viewMode === "cards"
+                                ? "text-white shadow-lg"
+                                : "text-gray-400 hover:text-white"
+                                }`}
+                            style={viewMode === "cards"
+                                ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
+                                : {}
+                            }
+                        >
+                            Cards
+                        </button>
                     </div>
+
+                    <motion.p
+                        className="text-gray-400 mb-6 text-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={isInView ? { opacity: 1, y: 0 } : {}}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        {viewMode === "watch" ? "Arrastra y selecciona para saber más" : "Selecciona una card para saber más"}
+                    </motion.p>
+
+                    {/* Tabs solo en modo cards */}
+                    {viewMode === "cards" && (
+                        <div className="inline-flex rounded-2xl border border-white/10 bg-white/5 p-1 backdrop-blur-sm">
+                            <button
+                                onClick={() => setActiveTab("language")}
+                                className={`px-6 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 ${activeTab === "language"
+                                    ? "text-white shadow-lg"
+                                    : "text-gray-400 hover:text-white"
+                                    }`}
+                                style={activeTab === "language"
+                                    ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
+                                    : {}
+                                }
+                            >
+                                Lenguajes & Frameworks
+                            </button>
+                            <button
+                                onClick={() => setActiveTab("tool")}
+                                className={`px-6 py-2.5 rounded-2xl text-sm font-medium transition-all duration-300 ${activeTab === "tool"
+                                    ? "text-white shadow-lg"
+                                    : "text-gray-400 hover:text-white"
+                                    }`}
+                                style={activeTab === "tool"
+                                    ? { background: "linear-gradient(135deg, var(--primary), var(--accent))" }
+                                    : {}
+                                }
+                            >
+                                Herramientas
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-                {/* Modal */}
+                {/* Content */}
+                {viewMode === "watch" ? (
+                    // ✅ Vista AppleWatch
+                    <div className="flex justify-center">
+                        <div
+                            style={{
+                                width: device.width,
+                                height: device.height,
+                                overflow: "hidden",
+                                background: "black",
+                                borderRadius: "50px",
+                                position: "relative",
+                                border: "2px solid #333",
+                            }}
+                        >
+                            <motion.div
+                                drag
+                                dragConstraints={{ left: -390, right: 30, top: -360, bottom: 30 }}
+                                style={{
+                                    width: 600,
+                                    height: 600,
+                                    x,
+                                    y,
+                                    background: "transparent",
+                                    cursor: "grab",
+                                }}
+                                whileTap={{ cursor: "grabbing" }}
+                            >
+                                {grid.map((item, index) => (
+                                    <Item
+                                        key={index}
+                                        row={item.row}
+                                        col={item.col}
+                                        planeX={x}
+                                        planeY={y}
+                                        tech={item.tech}
+                                        onTechClick={setSelectedTech}
+                                    />
+                                ))}
+                            </motion.div>
+                        </div>
+                    </div>
+                ) : (
+                    // ✅ Vista Cards pequeñas (logo + nombre) + modal al click
+                    <div className="max-w-5xl mx-auto px-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            {tabItems.map((tech) => {
+                                const Icon = tech.icon;
+                                return (
+                                    <motion.button
+                                        key={tech.name}
+                                        onClick={() => setSelectedTech(tech)}
+                                        whileHover={{ scale: 1.03 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        className="rounded-2xl border border-white/10 bg-white/5 p-3 flex flex-col items-center gap-2 hover:bg-white/10 transition"
+                                        title={tech.name}
+                                    >
+                                        <div
+                                            className="w-12 h-12 rounded-2xl flex items-center justify-center"
+                                            style={{ background: tech.bg }}
+                                        >
+                                            <Icon style={{ fontSize: "26px", color: tech.color }} />
+                                        </div>
+                                        <span className="text-xs text-white/90 font-medium text-center leading-tight">
+                                            {tech.name}
+                                        </span>
+                                    </motion.button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                )}
+
+                {/* Modal (igual para ambas vistas) */}
                 {selectedTech && (
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -262,6 +397,7 @@ export default function Technologies() {
                             <button
                                 onClick={closeModal}
                                 className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+                                aria-label="Cerrar"
                             >
                                 ✕
                             </button>
@@ -271,16 +407,12 @@ export default function Technologies() {
                                     className="w-16 h-16 rounded-full flex items-center justify-center"
                                     style={{ background: selectedTech.bg }}
                                 >
-                                    <selectedTech.icon
-                                        style={{ fontSize: "32px", color: selectedTech.color }}
-                                    />
+                                    <selectedTech.icon style={{ fontSize: "32px", color: selectedTech.color }} />
                                 </div>
                                 <h3 className="text-3xl font-bold text-white">{selectedTech.name}</h3>
                             </div>
 
-                            <p className="text-gray-300 text-lg leading-relaxed">
-                                {selectedTech.experience}
-                            </p>
+                            <p className="text-gray-300 text-lg leading-relaxed">{selectedTech.experience}</p>
                         </div>
                     </motion.div>
                 )}
