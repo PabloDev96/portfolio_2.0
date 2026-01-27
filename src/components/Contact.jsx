@@ -59,26 +59,23 @@ export default function Contact() {
 
                 {/* iPhone + Form overlay */}
                 <motion.div
-                    className="flex justify-center w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]"
+                    className="flex justify-center mt-2 overflow-visible"
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
                     transition={{ duration: 0.7, delay: 0.3 }}
                 >
                     <div
-  className="
-    relative
-    w-full
-    max-w-[92vw]
-    xs:max-w-[420px]
-    sm:max-w-[420px]
-    md:max-w-[520px]
-    lg:max-w-[620px]
-    xl:max-w-[700px]
-    mx-auto
-  "
->
-
-
+                        className="
+                            relative
+                            w-[90vw]
+                            max-w-[450px]
+                            sm:max-w-[520px]
+                            md:max-w-[600px]
+                            lg:max-w-[680px]
+                            xl:max-w-[750px]
+                        "
+                        style={{ minWidth: '400px' }}
+                    >
                         {/* Halo suave */}
                         <div
                             className="absolute inset-0 blur-2xl opacity-30 -z-10"
@@ -111,9 +108,11 @@ export default function Contact() {
                                 className="
                                     relative
                                     w-full h-full
-                                    rounded-[34px]
-                                    px-4 py-5 sm:px-5
-                                    flex flex-col gap-4
+                                    rounded-[22px] sm:rounded-[32px] md:rounded-[34px]
+                                    px-2 py-3
+                                    sm:px-5 sm:py-6
+                                    md:px-6
+                                    flex flex-col gap-2.5 sm:gap-4
                                     overflow-y-auto no-scrollbar
 
                                     /* Glass */
@@ -136,72 +135,86 @@ export default function Contact() {
                                 />
 
                                 {/* Header */}
-                                <div className="relative text-center mb-2">
-                                    <p className="text-white font-semibold text-[15px] tracking-tight">
+                                <div className="relative text-center mb-0 sm:mb-1">
+                                    <p className="text-white font-semibold text-[11px] sm:text-[15px] tracking-tight">
                                         Envíame un mensaje
                                     </p>
                                 </div>
 
-                                {/* Campo */}
-                                <div className="flex flex-col gap-1">
-                                    <label className="text-[11px] text-white/85">Nombre</label>
+                                {/* Campo Nombre */}
+                                <div className="flex flex-col gap-0.5">
+                                    <label className="text-[10px] sm:text-[11px] text-white/85 font-medium">
+                                        Nombre
+                                    </label>
                                     <input
                                         type="text"
                                         placeholder="Tu nombre"
                                         className="
-                                        px-4 py-3 rounded-2xl
-                                        bg-white/[0.18]
-                                        backdrop-blur-xl
-                                        border border-white/30
-                                        text-white text-sm
-                                        placeholder:text-white/65
-                                        shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                                        focus:outline-none
-                                        focus:ring-2 focus:ring-white/40
-                                        transition
-                                    "
+                                            px-2 py-1
+                                            sm:px-4 sm:py-3
+                                            rounded-xl sm:rounded-2xl
+                                            bg-white/[0.18]
+                                            backdrop-blur-xl
+                                            border border-white/30
+                                            text-white text-[10px] sm:text-sm
+                                            placeholder:text-white/65
+                                            shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
+                                            focus:outline-none
+                                            focus:ring-2 focus:ring-white/40
+                                            transition
+                                        "
                                     />
                                 </div>
 
-                                <div className="flex flex-col gap-1">
-                                    <label className="text-[11px] text-white/85">Email</label>
+                                {/* Campo Email */}
+                                <div className="flex flex-col gap-0.5">
+                                    <label className="text-[10px] sm:text-[11px] text-white/85 font-medium">
+                                        Email
+                                    </label>
                                     <input
                                         type="email"
                                         placeholder="tucorreo@email.com"
                                         className="
-                                        px-4 py-3 rounded-2xl
-                                        bg-white/[0.18]
-                                        backdrop-blur-xl
-                                        border border-white/30
-                                        text-white text-sm
-                                        placeholder:text-white/65
-                                        shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                                        focus:outline-none
-                                        focus:ring-2 focus:ring-white/40
-                                        transition
-                                    "
+                                            px-2 py-1
+                                            sm:px-4 sm:py-3
+                                            rounded-xl sm:rounded-2xl
+                                            bg-white/[0.18]
+                                            backdrop-blur-xl
+                                            border border-white/30
+                                            text-white text-[10px] sm:text-sm
+                                            placeholder:text-white/65
+                                            shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
+                                            focus:outline-none
+                                            focus:ring-2 focus:ring-white/40
+                                            transition
+                                        "
                                     />
                                 </div>
 
-                                <div className="flex flex-col gap-1 flex-1">
-                                    <label className="text-[11px] text-white/85">Mensaje</label>
+                                {/* Campo Mensaje */}
+                                <div className="flex flex-col gap-0.5 flex-1">
+                                    <label className="text-[10px] sm:text-[11px] text-white/85 font-medium">
+                                        Mensaje
+                                    </label>
                                     <textarea
-                                        rows="5"
+                                        rows="3"
                                         placeholder="Cuéntame sobre tu proyecto..."
                                         className="
-                                        flex-1
-                                        px-4 py-3 rounded-2xl
-                                        bg-white/[0.18]
-                                        backdrop-blur-xl
-                                        border border-white/30
-                                        text-white text-sm
-                                        placeholder:text-white/65
-                                        shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
-                                        focus:outline-none
-                                        focus:ring-2 focus:ring-white/40
-                                        transition
-                                        resize-none
-                                    "
+                                            flex-1
+                                            px-2 py-1
+                                            sm:px-4 sm:py-3
+                                            rounded-xl sm:rounded-2xl
+                                            bg-white/[0.18]
+                                            backdrop-blur-xl
+                                            border border-white/30
+                                            text-white text-[10px] sm:text-sm
+                                            placeholder:text-white/65
+                                            shadow-[inset_0_1px_0_rgba(255,255,255,0.35)]
+                                            focus:outline-none
+                                            focus:ring-2 focus:ring-white/40
+                                            transition
+                                            resize-none
+                                        "
                                     />
                                 </div>
 
@@ -209,8 +222,12 @@ export default function Contact() {
                                 <motion.button
                                     type="submit"
                                     className="
-                                        mt-2 w-full px-6 py-3 rounded-2xl
-                                        font-semibold text-sm text-white
+                                        mt-1
+                                        w-full
+                                        px-2 py-1
+                                        sm:px-6 sm:py-3
+                                        rounded-xl sm:rounded-2xl
+                                        font-semibold text-[12px] sm:text-sm text-white
                                         bg-[var(--primary)]
                                         shadow-[0_14px_44px_var(--primary-glow)]
                                         transition
