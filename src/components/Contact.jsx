@@ -97,14 +97,6 @@ export default function Contact() {
                         "
                         style={{ minWidth: '400px' }}
                     >
-                        {/* Halo suave */}
-                        <div
-                            className="absolute inset-0 blur-2xl opacity-30 -z-10"
-                            style={{
-                                backgroundImage:
-                                    "linear-gradient(90deg, var(--primary), var(--accent))",
-                            }}
-                        />
 
                         {/* Imagen iPhone */}
                         <img

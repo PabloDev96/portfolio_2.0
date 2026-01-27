@@ -50,11 +50,10 @@ export default function AboutMe() {
 
     // Velocidad de escritura (ms por caracter)
     const typingSpeed = 18;
-    // Pausa al terminar antes de mostrar el “final”
     const endDelay = 600;
 
     useEffect(() => {
-        // Reinicia si vuelve a entrar en vista (o si quieres solo una vez, cambia lógica)
+        // Reinicia si vuelve a entrar en vista
         if (!isInView) return;
 
         let i = 0;
@@ -112,13 +111,6 @@ export default function AboutMe() {
                             className="relative mx-auto max-w-md scale-100 lg:scale-135"
                             whileHover={{ scale: 1.03 }}
                         >
-                            {/* Halo */}
-                            <div
-                                className="absolute inset-0 blur-2xl opacity-40 -z-10"
-                                style={{
-                                    backgroundImage: "linear-gradient(90deg, var(--primary), var(--accent))",
-                                }}
-                            />
 
                             {/* MacBook */}
                             <img src={macbook} alt="MacBook" className="w-full h-auto" />
@@ -126,14 +118,14 @@ export default function AboutMe() {
                             {/* Pantalla (área donde va el contenido) */}
                             <div
                                 className="
-      absolute
-      top-[12%]
-      left-[14%]
-      w-[72%]
-      h-[68%]
-      rounded-lg
-      overflow-hidden
-    "
+                                absolute
+                                top-[12%]
+                                left-[14%]
+                                w-[72%]
+                                h-[68%]
+                                rounded-lg
+                                overflow-hidden
+                                "
                             >
                                 <AnimatePresence mode="wait">
                                     {!showFinal ? (
