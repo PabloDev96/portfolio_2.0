@@ -566,7 +566,7 @@ export default function Technologies() {
                                             </div>
 
                                             <motion.p
-                                                className="text-gray-200/90 leading-relaxed text-justify"
+                                                className="text-gray-200/90 leading-relaxed text-center"
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 transition={{ duration: 0.25, delay: 0.05 }}

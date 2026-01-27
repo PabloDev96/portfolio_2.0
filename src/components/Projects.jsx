@@ -224,7 +224,7 @@ export default function Projects() {
 
                                             <motion.p
                                                 layoutId={`desc-${p.id}`}
-                                                className="relative z-10 text-gray-300/80 mb-4 leading-relaxed text-justify"
+                                                className="relative z-10 text-gray-300/80 mb-4 leading-relaxed "
                                             >
                                                 {p.summary}
                                             </motion.p>
@@ -364,13 +364,13 @@ export default function Projects() {
 
                                             <motion.h3
                                                 layoutId={`title-${selected.id}`}
-                                                className="text-3xl md:text-4xl font-bold text-white mb-3"
+                                                className="text-3xl md:text-4xl font-bold text-white mb-3 text-center"
                                             >
                                                 {selected.title}
                                             </motion.h3>
 
                                             <motion.p
-                                                className="text-gray-200/90 leading-relaxed mb-6 text-justify"
+                                                className="text-gray-200/90 leading-relaxed mb-6 text-center"
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
                                                 transition={{ duration: 0.25, delay: 0.05 }}
