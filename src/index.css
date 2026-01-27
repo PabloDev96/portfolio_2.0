@@ -92,3 +92,13 @@ section {
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* Ocultar scrollbar globalmente (sin bloquear el scroll) */
+html {
+  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;   /* IE/Edge viejo */
+}
+
+html::-webkit-scrollbar {
+  display: none;              /* Chrome/Safari/Opera */
+}

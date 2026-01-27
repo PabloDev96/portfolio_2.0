@@ -247,6 +247,7 @@ export default function Contact() {
                                             focus:ring-2 focus:ring-white/40
                                             transition
                                             resize-none
+                                            no-scrollbar
                                         "
                                     />
                                 </div>
