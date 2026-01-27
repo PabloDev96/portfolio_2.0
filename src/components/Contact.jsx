@@ -143,7 +143,7 @@ export default function Contact() {
 
                                 {/* Campo Nombre */}
                                 <div className="flex flex-col gap-0.5">
-                                    <label className="text-[10px] sm:text-[11px] text-white/85 font-medium">
+                                    <label className="text-[10px] sm:text-[13px] text-white/85 font-medium">
                                         Nombre
                                     </label>
                                     <input
@@ -168,7 +168,7 @@ export default function Contact() {
 
                                 {/* Campo Email */}
                                 <div className="flex flex-col gap-0.5">
-                                    <label className="text-[10px] sm:text-[11px] text-white/85 font-medium">
+                                    <label className="text-[10px] sm:text-[13px] text-white/85 font-medium">
                                         Email
                                     </label>
                                     <input
@@ -193,7 +193,7 @@ export default function Contact() {
 
                                 {/* Campo Mensaje */}
                                 <div className="flex flex-col gap-0.5 flex-1">
-                                    <label className="text-[10px] sm:text-[11px] text-white/85 font-medium">
+                                    <label className="text-[10px] sm:text-[13px] text-white/85 font-medium">
                                         Mensaje
                                     </label>
                                     <textarea
