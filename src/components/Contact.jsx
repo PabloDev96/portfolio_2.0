@@ -25,12 +25,11 @@ export default function Contact() {
         setStatus('');
 
         try {
-            // Configura estos valores desde tu cuenta de EmailJS
             await emailjs.sendForm(
-                'service_zqvsruu',      // Obtener en emailjs.com
-                'template_ff49274',     // Obtener en emailjs.com
+                'service_zqvsruu',
+                'template_ff49274',
                 formRef.current,
-                'bvTTpmCEjUkBtIc4i'       // Obtener en emailjs.com
+                'bvTTpmCEjUkBtIc4i'
             );
             
             setStatus('success');
@@ -167,13 +166,13 @@ export default function Contact() {
                                     <motion.div
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        className={`text-center text-[10px] sm:text-xs py-1 px-2 rounded-lg ${
+                                        className={`text-center text-[10px] sm:text-xs py-1 px-1 rounded-lg ${
                                             status === 'success' 
                                                 ? 'bg-green-500/20 text-green-200' 
                                                 : 'bg-red-500/20 text-red-200'
                                         }`}
                                     >
-                                        {status === 'success' ? '✓ Mensaje enviado' : '✗ Error al enviar'}
+                                        {status === 'success' ? 'Mensaje enviado' : 'Error al enviar'}
                                     </motion.div>
                                 )}
 
