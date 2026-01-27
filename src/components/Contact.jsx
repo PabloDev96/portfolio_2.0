@@ -1,26 +1,48 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Section from "./Section";
 import iphoneImg from "../assets/iphone.png";
+import emailjs from '@emailjs/browser';
 
 export default function Contact() {
     const ref = useRef(null);
+    const formRef = useRef(null);
     const isInView = useInView(ref, { once: false, margin: "-100px" });
+    
+    const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    /**
-     * Coordenadas del "área de pantalla" dentro del PNG (en %),
-     * para que sea responsive al escalar la imagen.
-     *
-     * Ajustadas para iphone.png (1250x1250 aprox).
-     * Si quieres afinar:
-     *  - x/y mueven la pantalla
-     *  - w/h cambian tamaño del área visible
-     */
     const IPHONE_SCREEN = {
         x: 0.34,
         y: 0.18,
         w: 0.32,
         h: 0.68,
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        setStatus('');
+
+        try {
+            // Configura estos valores desde tu cuenta de EmailJS
+            await emailjs.sendForm(
+                'service_zqvsruu',      // Obtener en emailjs.com
+                'template_ff49274',     // Obtener en emailjs.com
+                formRef.current,
+                'bvTTpmCEjUkBtIc4i'       // Obtener en emailjs.com
+            );
+            
+            setStatus('success');
+            formRef.current.reset();
+            setTimeout(() => setStatus(''), 3000);
+        } catch (error) {
+            console.error('Error:', error);
+            setStatus('error');
+            setTimeout(() => setStatus(''), 3000);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -104,7 +126,8 @@ export default function Contact() {
                             }}
                         >
                             <motion.form
-                                onSubmit={(e) => e.preventDefault()}
+                                ref={formRef}
+                                onSubmit={handleSubmit}
                                 className="
                                     relative
                                     w-full h-full
@@ -114,8 +137,6 @@ export default function Contact() {
                                     md:px-6
                                     flex flex-col gap-2.5 sm:gap-4
                                     overflow-y-auto no-scrollbar
-
-                                    /* Glass */
                                     bg-white/[0.18]
                                     backdrop-blur-2xl
                                     border border-white/30
@@ -141,6 +162,21 @@ export default function Contact() {
                                     </p>
                                 </div>
 
+                                {/* Mensaje de estado */}
+                                {status && (
+                                    <motion.div
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        className={`text-center text-[10px] sm:text-xs py-1 px-2 rounded-lg ${
+                                            status === 'success' 
+                                                ? 'bg-green-500/20 text-green-200' 
+                                                : 'bg-red-500/20 text-red-200'
+                                        }`}
+                                    >
+                                        {status === 'success' ? '✓ Mensaje enviado' : '✗ Error al enviar'}
+                                    </motion.div>
+                                )}
+
                                 {/* Campo Nombre */}
                                 <div className="flex flex-col gap-0.5">
                                     <label className="text-[10px] sm:text-[13px] text-white/85 font-medium">
@@ -148,6 +184,8 @@ export default function Contact() {
                                     </label>
                                     <input
                                         type="text"
+                                        name="user_name"
+                                        required
                                         placeholder="Tu nombre"
                                         className="
                                             px-2 py-1
@@ -173,6 +211,8 @@ export default function Contact() {
                                     </label>
                                     <input
                                         type="email"
+                                        name="user_email"
+                                        required
                                         placeholder="tucorreo@email.com"
                                         className="
                                             px-2 py-1
@@ -197,7 +237,9 @@ export default function Contact() {
                                         Mensaje
                                     </label>
                                     <textarea
+                                        name="message"
                                         rows="3"
+                                        required
                                         placeholder="Cuéntame sobre tu proyecto..."
                                         className="
                                             flex-1
@@ -221,6 +263,7 @@ export default function Contact() {
                                 {/* Botón iOS */}
                                 <motion.button
                                     type="submit"
+                                    disabled={loading}
                                     className="
                                         mt-1
                                         w-full
@@ -231,11 +274,12 @@ export default function Contact() {
                                         bg-[var(--primary)]
                                         shadow-[0_14px_44px_var(--primary-glow)]
                                         transition
+                                        disabled:opacity-50 disabled:cursor-not-allowed
                                     "
-                                    whileHover={{ scale: 1.03 }}
-                                    whileTap={{ scale: 0.96 }}
+                                    whileHover={!loading ? { scale: 1.03 } : {}}
+                                    whileTap={!loading ? { scale: 0.96 } : {}}
                                 >
-                                    Enviar mensaje
+                                    {loading ? 'Enviando...' : 'Enviar mensaje'}
                                 </motion.button>
 
                             </motion.form>
