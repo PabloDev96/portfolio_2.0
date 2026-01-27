@@ -163,8 +163,6 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                         className="absolute bottom-14 left-1/2 -translate-x-1/2 w-52 rounded-xl bg-slate-900 border border-white/10 p-2 z-50"
                         style={{ boxShadow: "0 14px 40px rgba(0,0,0,0.45)" }}
                     >
-                        <div className="text-xs text-gray-400 px-2 pb-2">{label}</div>
-
                         <a
                             href={primaryHref}
                             className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5"
@@ -182,10 +180,6 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                             <span>Copiar</span>
                             <HiOutlineDuplicate className="text-lg" />
                         </button>
-
-                        <div className="mt-2 px-3 py-2 rounded-lg bg-white/5 text-xs text-gray-300 break-all">
-                            {copyValue}
-                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -212,7 +206,7 @@ const ActionButton = ({ label, icon, href }) => (
         initial={{ borderRadius: "9999px" }}
         whileHover={{ scale: 1.08, y: -2, borderRadius: "16px" }}
         whileTap={{ scale: 0.96 }}
-            style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
+        style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
         transition={{
             duration: 0.15,
             ease: "easeInOut",
