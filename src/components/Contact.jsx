@@ -26,10 +26,10 @@ export default function Contact() {
 
         try {
             await emailjs.sendForm(
-                'service_zqvsruu',
-                'template_ff49274',
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
                 formRef.current,
-                'bvTTpmCEjUkBtIc4i'
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
             );
             
             setStatus('success');
