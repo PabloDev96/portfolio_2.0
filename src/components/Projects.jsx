@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup, useInView } from "framer-motion";
 import Section from "./Section";
-import { HiLink, HiInformationCircle, HiX } from "react-icons/hi";
+import { HiLink, HiInformationCircle, HiX, HiKey, HiUser, HiLockClosed, HiClipboardCopy, HiCheck } from "react-icons/hi";
 import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 // Icons tech
@@ -14,6 +14,14 @@ import {
     SiMysql,
     SiWordpress,
 } from "react-icons/si";
+
+// Project icons
+import { PiPlantFill } from "react-icons/pi";
+import { HiWrench } from "react-icons/hi2";
+import { HiNewspaper } from "react-icons/hi";
+import { MdPets } from "react-icons/md";
+import { BsKanbanFill } from "react-icons/bs";
+import { RiUserStarFill } from "react-icons/ri";
 
 const techIcons = {
     React: FaReact,
@@ -46,6 +54,7 @@ export default function Projects() {
     const isInView = useInView(ref, { once: false, margin: "-100px" });
 
     const [selected, setSelected] = useState(null);
+    const [copiedField, setCopiedField] = useState(null);
 
     const projects = useMemo(
         () => [
@@ -58,6 +67,11 @@ export default function Projects() {
                 technologies: ["React", "Firebase"],
                 color: "from-blue-500 to-cyan-500",
                 link: "https://isat-demo.web.app/",
+                icon: HiWrench,
+                credentials: {
+                    user: "demo@isat.com",
+                    password: "demo123"
+                }
             },
             {
                 id: "pawshelt",
@@ -68,6 +82,11 @@ export default function Projects() {
                 technologies: ["React", "Spring", "PostgreSQL"],
                 color: "from-purple-500 to-pink-500",
                 link: "https://paw-shelt-frontend.vercel.app/",
+                icon: MdPets,
+                credentials: {
+                    user: "admin@pawshelt.com",
+                    password: "admin123"
+                }
             },
             {
                 id: "taskly",
@@ -78,6 +97,11 @@ export default function Projects() {
                 technologies: ["php", "JavaScript", "Tailwind", "MySQL"],
                 color: "from-purple-500 to-pink-500",
                 link: "https://coral-mule-348004.hostingersite.com/",
+                icon: BsKanbanFill,
+                credentials: {
+                    user: "demo@taskly.com",
+                    password: "demo123"
+                }
             },
             {
                 id: "bpg",
@@ -88,6 +112,7 @@ export default function Projects() {
                 technologies: ["WordPress"],
                 color: "from-purple-500 to-pink-500",
                 link: "https://buttonpressgaming.es/",
+                icon: HiNewspaper,
             },
             {
                 id: "portfolio-v1",
@@ -98,6 +123,7 @@ export default function Projects() {
                 technologies: ["React", "JavaScript", "CSS"],
                 color: "from-blue-500 to-cyan-500",
                 link: "https://portfolio-oscx.vercel.app/",
+                icon: RiUserStarFill,
             },
             {
                 id: "huerto-app",
@@ -108,10 +134,25 @@ export default function Projects() {
                 technologies: ["React", "JavaScript", "Tailwind"],
                 color: "from-green-500 to-emerald-500",
                 link: "https://example.com",
+                icon: PiPlantFill,
+                credentials: {
+                    user: "usuario@huerto.com",
+                    password: "huerto123"
+                }
             },
         ],
         []
     );
+
+    const copyToClipboard = async (text, field) => {
+        try {
+            await navigator.clipboard.writeText(text);
+            setCopiedField(field);
+            setTimeout(() => setCopiedField(null), 2000);
+        } catch (err) {
+            console.error('Error al copiar:', err);
+        }
+    };
 
     // ===== Partículas: attractor =====
     const attractToTarget = (e, strength = 1.2) => {
@@ -201,35 +242,44 @@ export default function Projects() {
                                     >
                                         <motion.div
                                             layoutId={`card-${p.id}`}
-                                            className="bg-slate-900/70 backdrop-blur-sm rounded-2xl p-6 h-full border border-slate-700 overflow-hidden relative"
+                                            className="bg-slate-900/70 backdrop-blur-sm rounded-2xl p-6 h-full border border-slate-700 overflow-hidden relative transition-shadow duration-300"
+                                            style={{
+                                                boxShadow: "0 0 0 rgba(0,0,0,0)",
+                                            }}
+                                            whileHover={{
+                                                boxShadow: "0 0 30px var(--primary-glow)",
+                                            }}
                                         >
-                                            <div
-                                                className={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-0 hover:opacity-10 transition-opacity`}
-                                            />
 
-                                            <motion.div layoutId={`badge-${p.id}`} className="relative z-10">
+                                            <motion.div layoutId={`badge-${p.id}`} className="relative z-10 flex justify-center">
                                                 <div
                                                     className={`w-16 h-16 mb-4 bg-gradient-to-br ${p.color} rounded-xl flex items-center justify-center text-white text-2xl`}
                                                 >
-                                                    💼
+                                                    {p.icon && <p.icon className="text-3xl" />}
                                                 </div>
                                             </motion.div>
 
                                             <motion.h3
-                                                layoutId={`title-${p.id}`}
-                                                className="relative z-10 text-2xl font-bold text-white mb-3"
+                                                className="relative z-10 text-2xl font-bold mb-3 text-center bg-clip-text text-transparent"
+                                                style={{
+                                                    backgroundImage:
+                                                        "linear-gradient(90deg, var(--primary), var(--accent))",
+                                                    backgroundSize: "200% 200%",
+                                                }}
+                                                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                                                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                                             >
                                                 {p.title}
                                             </motion.h3>
 
                                             <motion.p
                                                 layoutId={`desc-${p.id}`}
-                                                className="relative z-10 text-gray-300/80 mb-4 leading-relaxed "
+                                                className="relative z-10 text-gray-300/80 mb-4 leading-relaxed text-center"
                                             >
                                                 {p.summary}
                                             </motion.p>
 
-                                            <div className="relative z-10 flex flex-wrap gap-3">
+                                            <div className="relative z-10 flex flex-wrap gap-3 justify-center">
                                                 {p.technologies.map((t) => {
                                                     const Icon = techIcons[t];
                                                     const color = techColors[t] || "var(--primary)";
@@ -343,28 +393,33 @@ export default function Projects() {
                                     <motion.div
                                         layoutId={`card-${selected.id}`}
                                         className="w-full max-w-2xl bg-slate-950/90 border border-slate-700 rounded-2xl overflow-hidden relative backdrop-blur-md"
-                                        style={{ boxShadow: "0 18px 70px rgba(0,0,0,0.6)" }}
                                         onClick={(e) => e.stopPropagation()}
                                     >
                                         <div
-                                            className={`absolute inset-0 bg-gradient-to-br ${selected.color} opacity-10`}
+                                            className="absolute inset-0 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] opacity-10"
                                         />
 
                                         <div className="relative z-10 p-6 md:p-8">
                                             <motion.div
                                                 layoutId={`badge-${selected.id}`}
-                                                className="mb-4"
+                                                className="mb-4 flex justify-center"
                                             >
                                                 <div
                                                     className={`w-16 h-16 bg-gradient-to-br ${selected.color} rounded-xl flex items-center justify-center text-white text-2xl`}
                                                 >
-                                                    💼
+                                                    {selected.icon && <selected.icon className="text-3xl" />}
                                                 </div>
                                             </motion.div>
 
                                             <motion.h3
-                                                layoutId={`title-${selected.id}`}
-                                                className="text-3xl md:text-4xl font-bold text-white mb-3 text-center"
+                                                className="text-3xl md:text-4xl font-bold mb-6 text-center bg-clip-text text-transparent"
+                                                style={{
+                                                    backgroundImage:
+                                                        "linear-gradient(90deg, var(--primary), var(--accent))",
+                                                    backgroundSize: "200% 200%",
+                                                }}
+                                                animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+                                                transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
                                             >
                                                 {selected.title}
                                             </motion.h3>
@@ -378,7 +433,7 @@ export default function Projects() {
                                                 {selected.details}
                                             </motion.p>
 
-                                            <div className="flex flex-wrap gap-3 mb-8">
+                                            <div className="flex flex-wrap gap-3 mb-8 justify-center">
                                                 {selected.technologies.map((t) => {
                                                     const Icon = techIcons[t];
                                                     const color = techColors[t] || "var(--primary)";
@@ -393,6 +448,73 @@ export default function Projects() {
                                                     );
                                                 })}
                                             </div>
+
+                                            {/* Credenciales - si existen */}
+                                            {selected.credentials && (
+                                                <motion.div
+                                                    className="mb-6 p-4 bg-slate-800/50 border border-slate-700/50 rounded-xl w-fit mx-auto"
+                                                    initial={{ opacity: 0, y: 10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    transition={{ duration: 0.3, delay: 0.1 }}
+                                                >
+                                                    <h4 className="text-sm font-semibold text-gray-300 mb-3 flex items-center gap-2">
+                                                        <HiKey className="text-lg text-[var(--primary)]" />
+                                                        Credenciales de prueba
+                                                    </h4>
+                                                    
+                                                    <div className="space-y-2">
+                                                        {/* Usuario */}
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="flex-1 bg-slate-900/60 px-3 py-2 rounded-lg border border-slate-600/40 flex items-center gap-2">
+                                                                <HiUser className="text-gray-400" />
+                                                                <div>
+                                                                    <div className="text-xs text-gray-400 mb-0.5">Usuario</div>
+                                                                    <div className="text-sm text-white font-mono">{selected.credentials.user}</div>
+                                                                </div>
+                                                            </div>
+                                                            <motion.button
+                                                                type="button"
+                                                                onClick={() => copyToClipboard(selected.credentials.user, 'user')}
+                                                                className="px-3 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
+                                                                whileHover={{ scale: 1.05 }}
+                                                                whileTap={{ scale: 0.95 }}
+                                                                title="Copiar usuario"
+                                                            >
+                                                                {copiedField === 'user' ? (
+                                                                    <HiCheck className="text-green-400" />
+                                                                ) : (
+                                                                    <HiClipboardCopy className="text-gray-300" />
+                                                                )}
+                                                            </motion.button>
+                                                        </div>
+                                                        
+                                                        {/* Contraseña */}
+                                                        <div className="flex items-center gap-2">
+                                                            <div className="flex-1 bg-slate-900/60 px-3 py-2 rounded-lg border border-slate-600/40 flex items-center gap-2">
+                                                                <HiLockClosed className="text-gray-400" />
+                                                                <div>
+                                                                    <div className="text-xs text-gray-400 mb-0.5">Contraseña</div>
+                                                                    <div className="text-sm text-white font-mono">{selected.credentials.password}</div>
+                                                                </div>
+                                                            </div>
+                                                            <motion.button
+                                                                type="button"
+                                                                onClick={() => copyToClipboard(selected.credentials.password, 'password')}
+                                                                className="px-3 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
+                                                                whileHover={{ scale: 1.05 }}
+                                                                whileTap={{ scale: 0.95 }}
+                                                                title="Copiar contraseña"
+                                                            >
+                                                                {copiedField === 'password' ? (
+                                                                    <HiCheck className="text-green-400" />
+                                                                ) : (
+                                                                    <HiClipboardCopy className="text-gray-300" />
+                                                                )}
+                                                            </motion.button>
+                                                        </div>
+                                                    </div>
+                                                </motion.div>
+                                            )}
 
                                             {/* Link: fixed abajo-dcha del contenedor */}
                                             <motion.button
