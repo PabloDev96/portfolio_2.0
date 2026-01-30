@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence, LayoutGroup, useInView } from "framer-motion";
 import Section from "./Section";
-import { HiLink, HiInformationCircle, HiX, HiKey, HiUser, HiLockClosed, HiClipboardCopy, HiCheck } from "react-icons/hi";
+import { HiLink, HiInformationCircle, HiX, HiKey, HiUser, HiLockClosed, HiDuplicate, HiClipboardCopy, HiCheck } from "react-icons/hi";
 import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 // Icons tech
@@ -18,9 +18,9 @@ import {
 // Project icons
 import { PiPlantFill } from "react-icons/pi";
 import { HiWrench } from "react-icons/hi2";
-import { HiNewspaper } from "react-icons/hi";
+import { IoGameController } from "react-icons/io5";
 import { MdPets } from "react-icons/md";
-import { BsKanbanFill } from "react-icons/bs";
+import { FaTasks } from "react-icons/fa";
 import { RiUserStarFill } from "react-icons/ri";
 
 const techIcons = {
@@ -97,7 +97,7 @@ export default function Projects() {
                 technologies: ["php", "JavaScript", "Tailwind", "MySQL"],
                 color: "from-purple-500 to-pink-500",
                 link: "https://coral-mule-348004.hostingersite.com/",
-                icon: BsKanbanFill,
+                icon: FaTasks,
                 credentials: {
                     user: "demo@taskly.com",
                     password: "demo123"
@@ -112,7 +112,7 @@ export default function Projects() {
                 technologies: ["WordPress"],
                 color: "from-purple-500 to-pink-500",
                 link: "https://buttonpressgaming.es/",
-                icon: HiNewspaper,
+                icon: IoGameController,
             },
             {
                 id: "portfolio-v1",
@@ -475,7 +475,7 @@ export default function Projects() {
                                                             <motion.button
                                                                 type="button"
                                                                 onClick={() => copyToClipboard(selected.credentials.user, 'user')}
-                                                                className="px-3 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
+                                                                className="px-2 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
                                                                 whileHover={{ scale: 1.05 }}
                                                                 whileTap={{ scale: 0.95 }}
                                                                 title="Copiar usuario"
@@ -483,7 +483,7 @@ export default function Projects() {
                                                                 {copiedField === 'user' ? (
                                                                     <HiCheck className="text-green-400" />
                                                                 ) : (
-                                                                    <HiClipboardCopy className="text-gray-300" />
+                                                                    <HiDuplicate className="text-gray-300" />
                                                                 )}
                                                             </motion.button>
                                                         </div>
@@ -500,7 +500,7 @@ export default function Projects() {
                                                             <motion.button
                                                                 type="button"
                                                                 onClick={() => copyToClipboard(selected.credentials.password, 'password')}
-                                                                className="px-3 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
+                                                                className="px-2 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
                                                                 whileHover={{ scale: 1.05 }}
                                                                 whileTap={{ scale: 0.95 }}
                                                                 title="Copiar contraseña"
@@ -508,7 +508,7 @@ export default function Projects() {
                                                                 {copiedField === 'password' ? (
                                                                     <HiCheck className="text-green-400" />
                                                                 ) : (
-                                                                    <HiClipboardCopy className="text-gray-300" />
+                                                                    <HiDuplicate className="text-gray-300" />
                                                                 )}
                                                             </motion.button>
                                                         </div>
