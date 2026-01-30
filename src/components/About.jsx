@@ -199,7 +199,7 @@ export default function AboutMe() {
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.2 }}
                         >
-                            Soy desarrollador web Full Stack, con muchas ganas y motivación de seguir aprendiendo y creciendo profesionalmente. Me gusta crear aplicaciones web modernas centradas en resolver problemas reales y ofrecer una buena experiencia al usuario.
+                            Durante 5 años trabajé como técnico electrónico especializado en micro soldadura, reparando smartphones, ordenadores y demás equipos electrónicos. Decidí hacer una pausa profesional para estudiar desarrollo web, donde quiero enfocar mi carrera.
                         </motion.p>
 
                         <motion.p
@@ -208,7 +208,7 @@ export default function AboutMe() {
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.3 }}
                         >
-                            Actualmente trabajo principalmente en el desarrollo de SPA con React y Firebase, incluyendo un proyecto real para un negocio local. También he creado proyectos utilizando Spring Boot + React, además de trabajar con WordPress y PHP nativo, lo que me ha permitido conocer distintos enfoques y tecnologías.
+                            Actualmente compatibilizo mi trabajo como electrónico con la creación de una SPA para un negocio local, y además, continuo estudiando y aplicando nuevas tecnologías en proyectos personales.
                         </motion.p>
 
                         <motion.p
@@ -217,7 +217,7 @@ export default function AboutMe() {
                             animate={isInView ? { opacity: 1, y: 0 } : {}}
                             transition={{ duration: 0.8, delay: 0.3 }}
                         >
-                            Me considero una persona proactiva, constante y trabajadora. En este momento me encuentro en búsqueda de mi primera oportunidad laboral como desarrollador web, donde pueda seguir formándome, aportar valor y crecer como profesional.
+                            Soy una persona trabajadora y responsable que espera tener una oportunidad en el mundo del desarrollo web para así poder dar el salto y dedicarme a lo que realmente me apasiona.
                         </motion.p>
 
                     </div>
