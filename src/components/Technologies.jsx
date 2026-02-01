@@ -441,59 +441,76 @@ export default function Technologies() {
                                 visible: { opacity: 1, transition: { staggerChildren: 0.07 } },
                             }}
                         >
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
                                 {tabItems.map((tech) => {
                                     const Icon = tech.icon;
 
                                     return (
                                         <motion.div
                                             key={tech.name}
-                                            className="relative"
+                                            className="relative h-full"
                                             variants={{
                                                 hidden: { opacity: 0, y: 18 },
-                                                visible: {
-                                                    opacity: 1,
-                                                    y: 0,
-                                                    transition: { duration: 0.35 },
-                                                },
+                                                visible: { opacity: 1, y: 0, transition: { duration: 0.35 } },
                                             }}
                                         >
-                                            <motion.button
-                                                type="button"
-                                                onClick={() => setSelectedTech(tech)}
-                                                className="w-full"
-                                                whileHover={{ y: -4 }}
-                                                transition={{ duration: 0.18 }}
+                                            {/* Wrapper con hover (igual que Projects) */}
+                                            <motion.div
+                                                className="h-full"
+                                                whileHover={{ y: -8 }}
+                                                transition={{ duration: 0.2 }}
                                             >
-                                                <motion.div
-                                                    layoutId={`tech-card-${tech.name}`}
-                                                    className="rounded-2xl border border-white/10 bg-white/5 p-3 overflow-hidden relative"
+                                                <motion.button
+                                                    type="button"
+                                                    onClick={() => setSelectedTech(tech)}
+                                                    className="text-left w-full h-full block"
                                                 >
-                                                    <div
-                                                        className="absolute inset-0 opacity-0 hover:opacity-20 transition-opacity"
-                                                        style={{
-                                                            background: `radial-gradient(circle at 30% 20%, ${tech.bg}55, transparent 60%)`,
-                                                        }}
-                                                    />
+                                                    <motion.div
+                                                        layoutId={`tech-card-${tech.name}`}
+                                                        className="bg-slate-900/70 backdrop-blur-sm rounded-2xl p-5 h-full border border-slate-700 overflow-hidden relative transition-shadow duration-300"
+                                                        style={{ boxShadow: "0 0 0 rgba(0,0,0,0)" }}
+                                                        whileHover={{ boxShadow: "0 0 30px var(--primary-glow)" }}
+                                                    >
+                                                        {/* Overlay sutil (como Projects) */}
+                                                        <div className="absolute inset-0 bg-gradient-to-br from-[var(--primary)] to-[var(--accent)] opacity-10" />
 
-                                                    <div className="relative z-10 flex flex-col items-center justify-center gap-2">
-                                                        <motion.div
-                                                            layoutId={`tech-icon-${tech.name}`}
-                                                            className="w-12 h-12 rounded-2xl flex items-center justify-center"
-                                                            style={{ background: tech.bg }}
-                                                        >
-                                                            <Icon style={{ fontSize: "26px", color: tech.color }} />
-                                                        </motion.div>
+                                                        {/* Toque del color de la tech (radial suave) */}
+                                                        <div
+                                                            className="absolute inset-0 opacity-20"
+                                                            style={{
+                                                                background: `radial-gradient(circle at 30% 20%, ${tech.bg}55, transparent 55%)`,
+                                                            }}
+                                                        />
 
-                                                        <motion.span
-                                                            layoutId={`tech-title-${tech.name}`}
-                                                            className="block text-xs text-white/90 font-medium text-center leading-tight"
-                                                        >
-                                                            {tech.name}
-                                                        </motion.span>
-                                                    </div>
-                                                </motion.div>
-                                            </motion.button>
+                                                        <div className="relative z-10">
+                                                            {/* Badge centrado (mismo lenguaje que Projects) */}
+                                                            <motion.div
+                                                                layoutId={`tech-icon-${tech.name}`}
+                                                                className="flex justify-center"
+                                                            >
+                                                                <div
+                                                                    className="w-14 h-14 mb-4 rounded-xl flex items-center justify-center"
+                                                                    style={{ background: tech.bg }}
+                                                                >
+                                                                    <tech.icon style={{ fontSize: "28px", color: tech.color }} />
+                                                                </div>
+                                                            </motion.div>
+
+                                                            {/* Título con gradiente animado como Projects */}
+                                                            <motion.h3
+                                                                layoutId={`tech-title-${tech.name}`}
+                                                                className="text-base font-bold text-center bg-clip-text text-transparent"
+                                                                style={{
+                                                                    backgroundImage:
+                                                                        "linear-gradient(90deg, var(--primary), var(--accent))",
+                                                                }}
+                                                            >
+                                                                {tech.name}
+                                                            </motion.h3>
+                                                        </div>
+                                                    </motion.div>
+                                                </motion.button>
+                                            </motion.div>
                                         </motion.div>
                                     );
                                 })}
