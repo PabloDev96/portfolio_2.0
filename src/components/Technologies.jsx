@@ -41,46 +41,42 @@ import {
     SiMui,
     SiGooglegemini,
     SiClaude,
+    SiApachemaven,
 } from "react-icons/si";
 import { BiLogoVisualStudio } from "react-icons/bi";
 
 // Tecnologías con iconos, colores y experiencia (+ type para tabs)
 const technologies = [
-    { name: "HTML5", icon: FaHtml5, color: "#fff", bg: "#E34F26", type: "language", experience: "Más de 5 años creando estructuras web semánticas y accesibles." },
-    { name: "CSS3", icon: FaCss3Alt, color: "#fff", bg: "#1572B6", type: "language", experience: "Experto en diseño responsive, animaciones y Grid/Flexbox." },
-    { name: "Tailwind", icon: SiTailwindcss, color: "#fff", bg: "#06B6D4", type: "language", experience: "Framework CSS favorito para desarrollo rápido y consistente." },
-    { name: "JavaScript", icon: SiJavascript, color: "#000", bg: "#F7DF1E", type: "language", experience: "Lenguaje principal con dominio de ES6+, async/await y APIs modernas." },
-    { name: "TypeScript", icon: SiTypescript, color: "#fff", bg: "#3178C6", type: "language", experience: "Experiencia en proyectos escalables con tipado estático." },
-    { name: "Java", icon: FaJava, color: "#fff", bg: "#007396", type: "language", experience: "Desarrollo backend con Spring Boot y arquitecturas empresariales." },
-    { name: "PHP", icon: FaPhp, color: "#fff", bg: "#777BB4", type: "language", experience: "Desarrollo web dinámico y APIs RESTful." },
-
-    { name: "MySQL", icon: SiMysql, color: "#fff", bg: "#4479A1", type: "language", experience: "Diseño de bases de datos relacionales y optimización de queries." },
-    { name: "PostgreSQL", icon: SiPostgresql, color: "#fff", bg: "#4169E1", type: "language", experience: "Base de datos avanzada con experiencia en funciones y triggers." },
-
-    { name: "Git", icon: FaGitAlt, color: "#fff", bg: "#F05032", type: "tool", experience: "Control de versiones con flujos de trabajo colaborativos." },
-    { name: "GitHub", icon: FaGithub, color: "#000", bg: "#ffffff", type: "tool", experience: "Gestión de repositorios, CI/CD y colaboración en equipo." },
-    { name: "Apache", icon: SiApache, color: "#fff", bg: "#D22128", type: "tool", experience: "Configuración de servidores web y virtual hosts." },
-
-    { name: "Spring", icon: SiSpring, color: "#fff", bg: "#6DB33F", type: "language", experience: "Framework Java para desarrollo de aplicaciones empresariales." },
-    { name: "WordPress", icon: FaWordpress, color: "#fff", bg: "#21759B", type: "language", experience: "Desarrollo de temas personalizados y plugins." },
-    { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", type: "language", experience: "Librería principal para desarrollo frontend con hooks y context." },
-    { name: "Redux", icon: SiRedux, color: "#fff", bg: "#764ABC", type: "tool", experience: "Gestión de estado global en aplicaciones complejas." },
-    { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", type: "language", experience: "Framework PHP para desarrollo backend robusto y elegante." },
-    { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", type: "tool", experience: "Build tool moderno para desarrollo web ultrarápido." },
-    { name: "npm", icon: FaNpm, color: "#fff", bg: "#CB3837", type: "tool", experience: "Gestión de dependencias y scripts en proyectos JavaScript." },
-    { name: "Docker", icon: FaDocker, color: "#fff", bg: "#2496ED", type: "tool", experience: "Containerización de aplicaciones para desarrollo y producción." },
-    { name: "Postman", icon: SiPostman, color: "#fff", bg: "#FF6C37", type: "tool", experience: "Testing y documentación de APIs RESTful." },
-
-    { name: "VS Code", icon: BiLogoVisualStudio, color: "#fff", bg: "#007ACC", type: "tool", experience: "Editor principal con extensiones personalizadas." },
-    { name: "IntelliJ", icon: SiIntellijidea, color: "#fff", bg: "#0071C5", type: "tool", experience: "IDE para desarrollo Java y Spring Boot." },
-    { name: "Framer Motion", icon: SiFramer, color: "#000", bg: "#FF0055", type: "tool", experience: "Animaciones fluidas y interacciones en React." },
-    { name: "Firebase", icon: SiFirebase, color: "#000", bg: "#FFCA28", type: "tool", experience: "Backend as a Service para autenticación y base de datos en tiempo real." },
-
-    { name: "Claude", icon: SiClaude, color: "#cf7336", bg: "#c6b0a2", type: "tool", experience: "Asistente IA para desarrollo, debugging y aprendizaje." },
-    { name: "ChatGPT", icon: SiOpenai, color: "#fff", bg: "#10A37F", type: "tool", experience: "IA conversacional para resolver problemas técnicos." },
-    { name: "Gemini", icon: SiGooglegemini, color: "#fff", bg: "#8E75B2", type: "tool", experience: "IA de Google para análisis y generación de código." },
-
-    { name: "Material UI", icon: SiMui, color: "#fff", bg: "#007FFF", type: "tool", experience: "Componentes React con diseño Material Design." },
+    { name: "HTML5", icon: FaHtml5, color: "#fff", bg: "#E34F26", type: "language", experience: "Maquetación y estructura semántica orientada a SEO en proyectos personales. En React lo utilizo mediante JSX como base del marcado HTML de la aplicación." },
+    { name: "CSS3", icon: FaCss3Alt, color: "#fff", bg: "#1572B6", type: "language", experience: "Utilizado en varios proyectos, con especial foco en diseño responsive y correcta adaptación a distintos tamaños de pantalla." },
+    { name: "Tailwind", icon: SiTailwindcss, color: "#fff", bg: "#06B6D4", type: "language", experience: "Lo utilizo como reemplazo de CSS puro para ganar productividad y agilidad en el desarrollo de mis proyectos, manteniendo estilos consistentes." },
+    { name: "JavaScript", icon: SiJavascript, color: "#000", bg: "#F7DF1E", type: "language", experience: "Lo utilizo como base de React, encargándome de la lógica de frontend y del consumo de APIs." },
+    { name: "TypeScript", icon: SiTypescript, color: "#fff", bg: "#3178C6", type: "language", experience: "Utilizado en la colaboración de un proyecto, con interés en profundizar su uso especialmente en entornos Node.js." },
+    { name: "Java", icon: FaJava, color: "#fff", bg: "#007396", type: "language", experience: "Lo utilizo para el desarrollo de backend con Spring, creando APIs RESTful y gestionando entidades mediante clases." },
+    { name: "PHP", icon: FaPhp, color: "#fff", bg: "#777BB4", type: "language", experience: "Desarrollo backend siguiendo el patrón MVC, creando modelos y endpoints." },
+    { name: "MySQL", icon: SiMysql, color: "#fff", bg: "#4479A1", type: "language", experience: "Utilizada como base de datos relacional en distintos proyectos para almacenar y gestionar la información." },
+    { name: "PostgreSQL", icon: SiPostgresql, color: "#fff", bg: "#4169E1", type: "language", experience: "La he utilizado en proyectos como base de datos relacional, con el objetivo de trabajar y probar distintas tecnologías de bases de datos." },
+    { name: "Git", icon: FaGitAlt, color: "#fff", bg: "#F05032", type: "tool", experience: "Utilizado en todos mis proyectos como sistema de control de versiones." },
+    { name: "GitHub", icon: FaGithub, color: "#000", bg: "#ffffff", type: "tool", experience: "Lo utilizo como repositorio remoto para gestionar proyectos y colaborar en equipo." },
+    { name: "Apache", icon: SiApache, color: "#fff", bg: "#D22128", type: "tool", experience: "Lo he utilizado a través de XAMPP como servidor local para el desarrollo y ejecución de aplicaciones PHP." },
+    { name: "Spring", icon: SiSpring, color: "#fff", bg: "#6DB33F", type: "language", experience: "Utilizado en backend para crear APIs, gestionar entidades y aplicar seguridad con JWT y Spring Security." },
+    { name: "WordPress", icon: FaWordpress, color: "#fff", bg: "#21759B", type: "language", experience: "Utilizado para el desarrollo de webs sencillas, agilizando los tiempos de creación." },
+    { name: "React", icon: FaReact, color: "#000", bg: "#61DAFB", type: "language", experience: "Es la librería que más utilizo para desarrollar aplicaciones SPA y frontends que consumen APIs de backends, como servicios creados con Spring." },
+    { name: "Redux", icon: SiRedux, color: "#fff", bg: "#764ABC", type: "tool", experience: "Utilizado en una SPA para gestionar el estado global cuando la aplicación manejaba muchos datos simultáneamente." },
+    { name: "Laravel", icon: FaLaravel, color: "#fff", bg: "#FF2D20", type: "language", experience: "Lo he utilizado en un curso de fundamentos para aprender la base del framework, aunque todavía no lo he aplicado en un proyecto real." },
+    { name: "Vite", icon: SiVite, color: "#000", bg: "#646CFF", type: "tool", experience: "Lo utilizo como herramienta de desarrollo al crear proyectos React, encargándose del servidor de desarrollo y del proceso de build." },
+    { name: "npm", icon: FaNpm, color: "#fff", bg: "#CB3837", type: "tool", experience: "Lo utilizo en todos mis proyectos JavaScript para la gestión de dependencias y ejecución de scripts." },
+    { name: "Maven", icon: SiApachemaven, color: "#fff", bg: "#C71A36", type: "tool", experience: "Gestión de dependencias, build y ciclo de vida de proyectos Java con Maven." },
+    { name: "Docker", icon: FaDocker, color: "#fff", bg: "#2496ED", type: "tool", experience: "Lo utilicé en una aplicación Spring para contenerizar el backend y poder desplegarlo en Render." },
+    { name: "Postman", icon: SiPostman, color: "#fff", bg: "#FF6C37", type: "tool", experience: "Herramienta para probar APIs RESTful durante el desarrollo backend." },
+    { name: "VS Code", icon: BiLogoVisualStudio, color: "#fff", bg: "#007ACC", type: "tool", experience: "Lo utilizo como editor principal para todos mis proyectos, excepto para desarrollo en Java." },
+    { name: "IntelliJ", icon: SiIntellijidea, color: "#fff", bg: "#0071C5", type: "tool", experience: "Lo utilizo como IDE principal para el desarrollo en Java y Spring." },
+    { name: "Framer Motion", icon: SiFramer, color: "#000", bg: "#FF0055", type: "tool", experience: "Lo utilizo en proyectos React para crear animaciones y transiciones en la interfaz de usuario." },
+    { name: "Firebase", icon: SiFirebase, color: "#000", bg: "#FFCA28", type: "tool", experience: "Utilizado en SPAs para autenticación, Firestore, storage, functions y hosting." },
+    { name: "Claude", icon: SiClaude, color: "#cf7336", bg: "#c6b0a2", type: "tool", experience: "Utilizado para generar código y resolver dudas durante el desarrollo." },
+    { name: "ChatGPT", icon: SiOpenai, color: "#fff", bg: "#10A37F", type: "tool", experience: "Lo utilizo de forma general como asistente para resolver dudas, aprender conceptos y apoyar el desarrollo, no solo en programación." },
+    { name: "Gemini", icon: SiGooglegemini, color: "#fff", bg: "#8E75B2", type: "tool", experience: "IA utilizada puntualmente para generar código e imágenes, resolver dudas y consultas sobre Firebase." },
+    { name: "Material UI", icon: SiMui, color: "#fff", bg: "#007FFF", type: "tool", experience: "Utilizado en una SPA para la implementación de tablas y componentes de interfaz." },
 ];
 
 const icon = { margin: 12, size: 60 };
