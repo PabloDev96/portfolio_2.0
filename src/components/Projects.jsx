@@ -5,7 +5,7 @@ import { HiLink, HiInformationCircle, HiX, HiKey, HiUser, HiLockClosed, HiDuplic
 import { setParticlesAttractor } from "../utils/particlesAttractor";
 
 // Icons tech
-import { FaReact, FaPhp, FaJs, FaCss3Alt } from "react-icons/fa";
+import { FaReact, FaPhp, FaJs, FaCss3Alt, FaUserTie } from "react-icons/fa";
 import {
     SiFirebase,
     SiSpring,
@@ -21,7 +21,6 @@ import { HiWrench } from "react-icons/hi2";
 import { IoGameController } from "react-icons/io5";
 import { MdPets } from "react-icons/md";
 import { FaTasks } from "react-icons/fa";
-import { RiUserStarFill } from "react-icons/ri";
 
 const techIcons = {
     React: FaReact,
@@ -123,22 +122,18 @@ export default function Projects() {
                 technologies: ["React", "JavaScript", "CSS"],
                 color: "from-blue-500 to-cyan-500",
                 link: "https://portfolio-oscx.vercel.app/",
-                icon: RiUserStarFill,
+                icon: FaUserTie,
             },
             {
                 id: "huerto-app",
-                title: "Huerto Manager",
-                summary: "App para gestionar un huerto: cultivos, riegos y tareas.",
+                title: "Garden Manager",
+                summary: "ACTUALMENTE EN DESARROLLO. App para gestionar un huerto: cultivos, riegos, consejos, alertas.",
                 details:
-                    "Aplicación para la gestión de un huerto. Permite organizar parcelas, registrar cultivos, programar riegos, llevar un calendario de tareas y anotar observaciones/producción para mejorar el seguimiento del huerto.",
-                technologies: ["React", "JavaScript", "Tailwind"],
+                    "ACTUALMENTE EN DESARROLLO. Aplicación para la gestión de un huerto. Permite organizar parcelas y registrar cultivos. Proximamentes añadiré gestión de riegos, calendario con registro de plantaciones y avisos, gestión producción cultivos y consejos.",
+                technologies: ["React", "Firebase", "Tailwind"],
                 color: "from-green-500 to-emerald-500",
-                link: "https://example.com",
+                link: "https://garden-manager-app.web.app/",
                 icon: PiPlantFill,
-                credentials: {
-                    user: "usuario@huerto.com",
-                    password: "huerto123"
-                }
             },
         ],
         []
