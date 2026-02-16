@@ -175,7 +175,7 @@ const PopoverButton = ({ label, icon, primaryHref, copyValue }) => {
                         <button
                             type="button"
                             onClick={copy}
-                            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5"
+                            className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-lg text-sm text-white hover:bg-white/5 cursor-pointer"
                         >
                             <span>Copiar</span>
                             <HiOutlineDuplicate className="text-lg" />

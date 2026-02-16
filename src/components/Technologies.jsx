@@ -293,7 +293,7 @@ export default function Technologies() {
                         <div className="inline-flex rounded-full bg-slate-950/80 backdrop-blur-md p-1">
                             <button
                                 onClick={() => setViewMode("watch")}
-                                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
+                                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer
           ${viewMode === "watch"
                                         ? "bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-[0_0_18px_var(--primary-glow)]"
                                         : "text-gray-300 hover:text-white"
@@ -304,7 +304,7 @@ export default function Technologies() {
 
                             <button
                                 onClick={() => setViewMode("cards")}
-                                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300
+                                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 cursor-pointer
           ${viewMode === "cards"
                                         ? "bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-[0_0_18px_var(--primary-glow)]"
                                         : "text-gray-300 hover:text-white"
@@ -320,7 +320,7 @@ export default function Technologies() {
                             <div className="relative inline-flex rounded-xl bg-slate-950/90 backdrop-blur-md p-1">
                                 <button
                                     onClick={() => setActiveTab("language")}
-                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer
           ${activeTab === "language"
                                             ? "bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-[0_0_18px_var(--primary-glow)]"
                                             : "text-gray-300 hover:text-white"
@@ -331,7 +331,7 @@ export default function Technologies() {
 
                                 <button
                                     onClick={() => setActiveTab("tool")}
-                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 cursor-pointer
           ${activeTab === "tool"
                                             ? "bg-gradient-to-r from-[var(--primary)] to-[var(--accent)] text-white shadow-[0_0_18px_var(--primary-glow)]"
                                             : "text-gray-300 hover:text-white"
@@ -463,7 +463,7 @@ export default function Technologies() {
                                                 <motion.button
                                                     type="button"
                                                     onClick={() => setSelectedTech(tech)}
-                                                    className="text-left w-full h-full block"
+                                                    className="text-left w-full h-full block cursor-pointer"
                                                 >
                                                     <motion.div
                                                         layoutId={`tech-card-${tech.name}`}
@@ -590,7 +590,7 @@ export default function Technologies() {
                                             <motion.button
                                                 type="button"
                                                 onClick={closeModal}
-                                                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+                                                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer"
                                                 initial={{ rotate: 0, scale: 0 }}
                                                 animate={{ rotate: 90, scale: 1 }}
                                                 exit={{ scale: 0, opacity: 0 }}

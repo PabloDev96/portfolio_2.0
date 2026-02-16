@@ -267,6 +267,7 @@ export default function Contact() {
                                         shadow-[0_14px_44px_var(--primary-glow)]
                                         transition
                                         disabled:opacity-50 disabled:cursor-not-allowed
+                                        cursor-pointer
                                     "
                                     whileHover={!loading ? { scale: 1.03 } : {}}
                                     whileTap={!loading ? { scale: 0.96 } : {}}

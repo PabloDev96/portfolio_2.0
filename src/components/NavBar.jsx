@@ -134,7 +134,7 @@ const NavBar = () => {
                         <div className="relative">
                             <button
                                 onClick={() => setOpenTheme(!openTheme)}
-                                className="w-10 h-10 rounded-full border-2 border-[var(--primary)] bg-transparent text-white flex items-center justify-center hover:bg-[var(--primary-soft)] transition-colors backdrop-blur-md"
+                                className="w-10 h-10 rounded-full border-2 border-[var(--primary)] bg-transparent text-white flex items-center justify-center hover:bg-[var(--primary-soft)] transition-colors backdrop-blur-md cursor-pointer"
                                 aria-label="Cambiar paleta"
                                 onMouseEnter={(e) => attractToTarget(e, 1.2)}
                                 onMouseLeave={stopAttractor}
@@ -322,9 +322,9 @@ const NavBar = () => {
                 type="button"
                 onClick={goHome}
                 aria-label="Subir arriba"
-                className="fixed bottom-6 right-6 z-[100] w-12 h-12 rounded-full bg-transparent border border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:bg-[var(--primary-soft)]"
+                className="fixed bottom-6 right-6 z-[100] w-12 h-12 rounded-full bg-transparent border border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:bg-[var(--primary-soft)] cursor-pointer"
                 style={{
-                    pointerEvents: scrolled ? "auto" : "none",
+                    pointerEvents: scrolled ? "auto" : "none", boxShadow: `0 14px 40px var(--primary-glow)`
                 }}
                 initial={{ opacity: 0, y: 12, scale: 0.95 }}
                 animate={
@@ -339,7 +339,6 @@ const NavBar = () => {
                     boxShadow: "0 14px 40px var(--primary-glow)",
                 }}
                 whileTap={{ scale: 0.96 }}
-                style={{ boxShadow: `0 14px 40px var(--primary-glow)` }}
                 onMouseEnter={(e) => attractToTarget(e, 1.5)}
                 onMouseLeave={stopAttractor}
             >

@@ -233,7 +233,7 @@ export default function Projects() {
                                     <motion.button
                                         type="button"
                                         onClick={() => setSelected(p)}
-                                        className="text-left w-full h-full block"
+                                        className="text-left w-full h-full block cursor-pointer"
                                     >
                                         <motion.div
                                             layoutId={`card-${p.id}`}
@@ -311,7 +311,7 @@ export default function Projects() {
                                                     e.stopPropagation();
                                                     setSelected(p);
                                                 }}
-                                                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-transparent border border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md hover:bg-[var(--primary-soft)] transition-colors z-20 pointer-events-auto"
+                                                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-transparent border border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md hover:bg-[var(--primary-soft)] transition-colors z-20 pointer-events-auto cursor-pointer"
                                                 whileHover={{
                                                     scale: 1.08,
                                                     y: -1,
@@ -341,7 +341,7 @@ export default function Projects() {
                                                     e.stopPropagation();
                                                     openLink(p.link);
                                                 }}
-                                                className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-transparent border border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md hover:bg-[var(--primary-soft)] transition-colors z-20 pointer-events-auto"
+                                                className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-transparent border border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md hover:bg-[var(--primary-soft)] transition-colors z-20 pointer-events-auto cursor-pointer"
                                                 whileHover={{
                                                     scale: 1.08,
                                                     y: -2,
@@ -470,7 +470,7 @@ export default function Projects() {
                                                             <motion.button
                                                                 type="button"
                                                                 onClick={() => copyToClipboard(selected.credentials.user, 'user')}
-                                                                className="px-2 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
+                                                                className="px-2 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors cursor-pointer"
                                                                 whileHover={{ scale: 1.05 }}
                                                                 whileTap={{ scale: 0.95 }}
                                                                 title="Copiar usuario"
@@ -495,7 +495,7 @@ export default function Projects() {
                                                             <motion.button
                                                                 type="button"
                                                                 onClick={() => copyToClipboard(selected.credentials.password, 'password')}
-                                                                className="px-2 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors"
+                                                                className="px-2 py-2 bg-slate-700/50 hover:bg-slate-700 border border-slate-600/40 rounded-lg transition-colors cursor-pointer"
                                                                 whileHover={{ scale: 1.05 }}
                                                                 whileTap={{ scale: 0.95 }}
                                                                 title="Copiar contraseña"
@@ -515,7 +515,7 @@ export default function Projects() {
                                             <motion.button
                                                 type="button"
                                                 onClick={() => openLink(selected.link)}
-                                                className="absolute bottom-5 right-5 w-12 h-12 rounded-full bg-transparent border-2 border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md hover:bg-[var(--primary-soft)] transition-colors"
+                                                className="absolute bottom-5 right-5 w-12 h-12 rounded-full bg-transparent border-2 border-[var(--primary)] text-white flex items-center justify-center backdrop-blur-md hover:bg-[var(--primary-soft)] transition-colors cursor-pointer"
                                                 whileHover={{
                                                     scale: 1.08,
                                                     y: -2,
@@ -535,7 +535,7 @@ export default function Projects() {
                                             <motion.button
                                                 type="button"
                                                 onClick={() => setSelected(null)}
-                                                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors"
+                                                className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/15 text-white/90 bg-white/5 hover:bg-white/10 flex items-center justify-center transition-colors cursor-pointer"
                                                 initial={{ rotate: 0, scale: 0 }}
                                                 animate={{ rotate: 90, scale: 1 }}
                                                 transition={{ duration: 0.6, ease: "easeOut" }}
