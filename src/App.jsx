@@ -4,18 +4,28 @@ import { useDynamicFavicon } from "./utils/useDynamicFavicon";
 import { useTheme } from "./context/ThemeContext";
 
 function App() {
-  const { theme } = useTheme(); // Asumiendo que tienes este contexto
-  
-  // Actualiza el favicon cuando cambia el tema
+  const { theme } = useTheme();
   useDynamicFavicon(theme);
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white w-full overflow-x-hidden relative">
-      {/* Fondo de partículas */}
+    <div className="min-h-screen w-full overflow-x-hidden relative">
+      {/* gradiente */}
+      <div
+        className="fixed inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: `
+            radial-gradient(900px circle at 20% 15%, var(--primary-soft), transparent 60%),
+            radial-gradient(800px circle at 80% 70%, var(--accent-soft), transparent 65%),
+            linear-gradient(180deg, var(--bg), #000)
+          `,
+        }}
+      />
+
+      {/* partículas */}
       <ParticlesBackground density={30} maxParticles={1000} linkLines={false} />
 
-      {/* Contenido por encima */}
-      <div className="relative z-10">
+      {/* contenido */}
+      <div className="relative z-10 text-white">
         <Home />
       </div>
     </div>

@@ -61,6 +61,8 @@ section {
 
   --accent: #ec4899;
   --accent-soft: rgba(236, 72, 153, 0.18);
+
+  --bg: #111827;
 }
 
 [data-theme="green"] {
@@ -71,6 +73,8 @@ section {
 
   --accent: #18dbce;
   --accent-soft: rgba(236, 72, 153, 0.18);
+
+  --bg: #0b1a12;
 }
 
 [data-theme="blue"] {
@@ -81,6 +85,8 @@ section {
 
   --accent: #38bdf8;
   --accent-soft: rgba(56, 189, 248, 0.18);
+
+  --bg: #0b1324;
 }
 
 /* Ocultar scrollbar pero permitir scroll */
