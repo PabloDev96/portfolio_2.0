@@ -32,7 +32,7 @@ const About = () => {
     const [typed, setTyped] = useState("");
     const [showFinal, setShowFinal] = useState(false);
 
-    const codeText = `import pablo from "/assets/pablo.png";
+    const codeText = `import Pablo from "/assets/pablo.png";
 
 export default function AboutMe() {
   return (
@@ -152,7 +152,13 @@ export default function AboutMe() {
                                                 className="h-[calc(100%-28px)] overflow-y-auto no-scrollbar"
                                             >
 
-                                                <pre className="p-3 text-[10px] leading-relaxed text-slate-200 font-mono whitespace-pre-wrap">
+                                                <pre
+                                                    className="p-3 text-[10px] leading-relaxed text-slate-200 whitespace-pre-wrap"
+                                                    style={{
+                                                        fontFamily: "var(--font-code)",
+                                                        letterSpacing: "0.02em"
+                                                    }}
+                                                >
                                                     {typed}
                                                     <span className="inline-block w-[7px] translate-y-[1px] bg-slate-200 ml-1 animate-pulse">
                                                         &nbsp;
