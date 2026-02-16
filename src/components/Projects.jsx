@@ -73,6 +73,17 @@ export default function Projects() {
                 }
             },
             {
+                id: "huerto-app",
+                title: "Garden Manager",
+                summary: "ACTUALMENTE EN DESARROLLO. App para gestionar un huerto: cultivos, riegos, consejos, alertas.",
+                details:
+                    "ACTUALMENTE EN DESARROLLO. Aplicación para la gestión de un huerto. Permite organizar parcelas y registrar cultivos. Proximamentes añadiré gestión de riegos, calendario con registro de plantaciones y avisos, gestión producción cultivos y consejos.",
+                technologies: ["React", "Firebase", "Tailwind"],
+                color: "from-green-500 to-emerald-500",
+                link: "https://garden-manager-app.web.app/",
+                icon: PiPlantFill,
+            },
+            {
                 id: "pawshelt",
                 title: "PawShelt",
                 summary: "Aplicación para la gestión de un refugio de animales.",
@@ -123,17 +134,6 @@ export default function Projects() {
                 color: "from-blue-500 to-cyan-500",
                 link: "https://portfolio-oscx.vercel.app/",
                 icon: FaUserTie,
-            },
-            {
-                id: "huerto-app",
-                title: "Garden Manager",
-                summary: "ACTUALMENTE EN DESARROLLO. App para gestionar un huerto: cultivos, riegos, consejos, alertas.",
-                details:
-                    "ACTUALMENTE EN DESARROLLO. Aplicación para la gestión de un huerto. Permite organizar parcelas y registrar cultivos. Proximamentes añadiré gestión de riegos, calendario con registro de plantaciones y avisos, gestión producción cultivos y consejos.",
-                technologies: ["React", "Firebase", "Tailwind"],
-                color: "from-green-500 to-emerald-500",
-                link: "https://garden-manager-app.web.app/",
-                icon: PiPlantFill,
             },
         ],
         []
